@@ -1,0 +1,19 @@
+{
+  "name": "bee_mart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/bee-mart-application/bee-mart-web-app.git"
+  },
+  "author": "Fauzi Al Aziz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/bee-mart-application/bee-mart-web-app/issues"
+  },
+  "homepage": "https://gitlab.com/bee-mart-application/bee-mart-web-app#README"
+}
