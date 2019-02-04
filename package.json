@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://gitlab.com/bee-mart-application/bee-mart-web-app/issues"
   },
-  "homepage": "https://gitlab.com/bee-mart-application/bee-mart-web-app#README"
+  "homepage": "https://gitlab.com/bee-mart-application/bee-mart-web-app#README",
+  "dependencies": {
+    "create-react-app": "^2.1.3"
+  }
 }
