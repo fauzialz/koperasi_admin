@@ -1,6 +1,6 @@
 import React from 'react' 
 import TextField from '@material-ui/core/TextField'
-import './Login.css'
+import './Login.scss'
 
 class Login extends React.Component {
     constructor() {
@@ -18,7 +18,7 @@ class Login extends React.Component {
     render() {
         return (
             <div className="Login-base">
-                <div className="Login-container">
+                <div className="Login-container shadow">
                     <div className="Login-title">
                         Sign In 
                     </div>
