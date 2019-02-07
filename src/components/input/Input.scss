@@ -1,0 +1,28 @@
+input {
+    width: 238px;
+    padding-top: 4px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c2c2c2;
+    transition: all 0.5s ease;
+    line-height: unset;
+    display: flex;
+    position: sticky;
+    box-shadow: none;
+    outline: none;
+    text-overflow: ellipsis;
+    text-shadow: none;
+    min-height: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+input::placeholder {
+    font-style: italic;
+}
+
+input:active, input:focus {
+    border-color: #F6AF33;
+    
+}

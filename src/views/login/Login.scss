@@ -9,33 +9,85 @@
 }
 
 .Login-container {
-    /* background-color: #F5F5F5; */
+    background-color: #ffffff;
     border-radius: 10px;
     max-width: 250px;
-    max-height: 350px;
+    /* max-height: 350px; */
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
     padding-right: 30px;
     padding-left: 30px;
     padding-top: 20px;
-    height: 100%;
-    border: 2px solid #E9EBED;
+    padding-bottom: 20px;
+    /* height: 100%; */
+    /* border: 2px solid #F5F5F5; */
     transition: background-color 10s ease;
     transition: border 0.5s ease;
 }
 
-.Login-container:hover {
-    /* background-color: #F9CC7C; */
-    border: 2px solid #F6AF33;
+// .Login-container:hover {
+//     /* background-color: #F9CC7C; */
+//     border: 2px solid #E9EBED;
     
-}
+// }
 
 .Login-title {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 400;
     /* text-align: center; */
     color: #F6AF33; 
 }
 
+.Login-content {
+    padding-top: 0px;
+}
+
+input {
+    width: 238px;
+    padding-top: 4px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c2c2c2;
+    transition: all 0.5s ease;
+    line-height: unset;
+    display: flex;
+    position: sticky;
+    box-shadow: none;
+    outline: none;
+    text-overflow: ellipsis;
+    text-shadow: none;
+    min-height: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+input::placeholder {
+    /* color: #4B4B4B */
+    font-style: italic;
+}
+
+/* input:hover {
+    border-color: rgb(251, 219, 164);
+} */
+
+input:active, input:focus {
+    border-color: #F6AF33;
+    
+}
+
+.InputContainer {
+    border: 2px #E9EAEC solid;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.InputContainer:hover {
+    border-color: #c2c2c2;
+}
+
+.InputContainer:active, .InputContainer:focus {
+    border-color: #F6AF33;
+}
