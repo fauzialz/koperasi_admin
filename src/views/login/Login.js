@@ -1,8 +1,8 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
 import './Login.scss'
 import Logo from '../../logo.svg'
 import Input from '../../components/input'
+import Button from '../../components/button'
 
 class Login extends React.Component {
     constructor() {
@@ -30,7 +30,6 @@ class Login extends React.Component {
                     </div>
                     <div className="Login-content">
                         <form>
-                            
                             <Input
                                 name="username"
                                 value={this.state.username}
@@ -39,17 +38,18 @@ class Login extends React.Component {
                             {
                                 this.state.username.length > 4 ?
                                     <Input
-                                    password
-                                    name="password"
-                                    value={this.state.password}
-                                    pipeline={this.textChange}
+                                        password
+                                        name="password"
+                                        value={this.state.password}
+                                        pipeline={this.textChange}
                                     />:''
                             }
                             {
                                 this.state.password.length > 4 && this.state.username.length > 4 ?
-                                    <Button variant="contained" color="default" fullWidth>
-                                        Sign In
-                                    </Button>: ''
+                                    <Button 
+                                        fluid
+                                        label="Sign In"
+                                    />: ''
                             }
                         </form>
                     </div>
