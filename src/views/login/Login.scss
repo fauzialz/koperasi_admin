@@ -1,93 +1,49 @@
 @import '../../styles/shadow';
+@import '../../styles/pallet';
 
 .Login-base {
-    background-color: #F5F5F5;
+    background-color: $background;
     width: 100%;
     height: 100%;
     overflow: hidden;
     position: fixed;
 }
 
+.Login-title {
+    margin-top: 100px;
+    text-align: center;
+    font-family: Lato, "Helvetica Neue", sans-serif;
+    font-size: 2.13333rem;
+    font-weight: bold;
+    color: $main2;
+
+    img {
+        margin-bottom: -20px
+    }
+}
+
 .Login-container {
-    background-color: #ffffff;
+    background-color: $basemodal;
     border-radius: 10px;
     max-width: 250px;
-    /* max-height: 350px; */
-    margin-top: 100px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     padding-right: 30px;
     padding-left: 30px;
     padding-top: 20px;
     padding-bottom: 20px;
-    /* height: 100%; */
-    /* border: 2px solid #F5F5F5; */
     transition: background-color 10s ease;
     transition: border 0.5s ease;
 }
 
-// .Login-container:hover {
-//     /* background-color: #F9CC7C; */
-//     border: 2px solid #E9EBED;
-    
-// }
-
-.Login-title {
+.Login-container-title {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     font-weight: 400;
-    /* text-align: center; */
-    color: #F6AF33; 
+    color: $main1; 
 }
 
 .Login-content {
     padding-top: 0px;
-}
-
-input {
-    width: 238px;
-    padding-top: 4px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    border-radius: 5px;
-    border: 1px solid #c2c2c2;
-    transition: all 0.5s ease;
-    line-height: unset;
-    display: flex;
-    position: sticky;
-    box-shadow: none;
-    outline: none;
-    text-overflow: ellipsis;
-    text-shadow: none;
-    min-height: 20px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-input::placeholder {
-    /* color: #4B4B4B */
-    font-style: italic;
-}
-
-/* input:hover {
-    border-color: rgb(251, 219, 164);
-} */
-
-input:active, input:focus {
-    border-color: #F6AF33;
-    
-}
-
-.InputContainer {
-    border: 2px #E9EAEC solid;
-    border-radius: 5px;
-    padding-left: 10px;
-}
-
-.InputContainer:hover {
-    border-color: #c2c2c2;
-}
-
-.InputContainer:active, .InputContainer:focus {
-    border-color: #F6AF33;
 }

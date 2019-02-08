@@ -1,10 +1,7 @@
-import React from 'react' 
-/* import TextField from '@material-ui/core/TextField'
-import InputBase from '@material-ui/core/InputBase'
-import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
- */
+import React from 'react'
 import Button from '@material-ui/core/Button'
 import './Login.scss'
+import Logo from '../../logo.svg'
 import Input from '../../components/input'
 
 class Login extends React.Component {
@@ -23,8 +20,12 @@ class Login extends React.Component {
     render() {
         return (
             <div className="Login-base">
+                <div className="Login-title">
+                    <div><img src={Logo} className="App-logo" alt="logo" /></div>
+                    Bee-mart
+                </div>
                 <div className="Login-container shadow">
-                    <div className="Login-title">
+                    <div className="Login-container-title">
                         Sign In to continue
                     </div>
                     <div className="Login-content">
@@ -36,15 +37,16 @@ class Login extends React.Component {
                                 pipeline={this.textChange}
                             />
                             {
-                                this.state.username.length > 5 ?
+                                this.state.username.length > 4 ?
                                     <Input
+                                    password
                                     name="password"
                                     value={this.state.password}
                                     pipeline={this.textChange}
                                     />:''
                             }
                             {
-                                this.state.password.length > 5 && this.state.username.length > 5 ?
+                                this.state.password.length > 4 && this.state.username.length > 4 ?
                                     <Button variant="contained" color="default" fullWidth>
                                         Sign In
                                     </Button>: ''
