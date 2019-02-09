@@ -1,5 +1,6 @@
-@import '../../styles/shadow';
+@import '../../styles/shadows';
 @import '../../styles/pallet';
+@import '../../styles/potitions';
 
 button {
     cursor: pointer;
@@ -7,7 +8,7 @@ button {
     outline: none;
     background-color: $main1;
     transition: all 0.3s ease;
-    min-height: 20px;
+    min-height: 32px;
     min-width: 100px;
     padding: {
         top: 5px;
@@ -40,15 +41,4 @@ button:hover {
 button:active {
     @extend %shadow-long;
     transform: translateY(-1px);
-}
-
-.fluid {
-    width: 100%;
-}
-
-.center {
-    margin: {
-        left: auto;
-        right: auto;
-    }
 }

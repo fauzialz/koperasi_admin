@@ -34,11 +34,13 @@ class Login extends React.Component {
                                 name="username"
                                 value={this.state.username}
                                 pipeline={this.textChange}
+                                fluid
                             />
                             {
                                 this.state.username.length > 4 ?
                                     <Input
-                                        password
+                                        passVisibility
+                                        fluid
                                         name="password"
                                         value={this.state.password}
                                         pipeline={this.textChange}
