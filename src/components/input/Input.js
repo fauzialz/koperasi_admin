@@ -24,9 +24,10 @@ class Input extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="input-container">
-                    <input 
-                        className={this.props.fluid ? "fluid-input" : ""}
+                <div 
+                    className={this.props.fluid ? "input-fluid" : "input-container"}
+                >
+                    <input
                         type={this.props.password || this.props.passVisibility ? this.state.type : "text"}
                         name={this.props.name}
                         placeholder={this.props.placeholder ?

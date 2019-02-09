@@ -3,7 +3,7 @@
 @import '../../styles/text';
 
 input {     
-    min-width: 225px;
+    width: 91.5%;
     padding: {
         top: 5px;
         bottom: 5px;
@@ -24,7 +24,6 @@ input {
     margin-bottom: 20px;
     margin-top: 20px;
     position: relative;
-    @extend %auto-margin;
 }
 
 input::placeholder {
@@ -37,7 +36,13 @@ input:active, input:focus {
 }
 
 .input-container {
-    
+    max-width: 225px;
+    @extend %auto-margin;
+    position: relative;
+}
+
+.input-fluid {
+    width: 100%;
     position: relative;
 }
 
