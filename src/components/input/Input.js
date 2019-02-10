@@ -2,6 +2,19 @@ import React from 'react'
 import './Input.scss'
 
 class Input extends React.Component {
+    /* ACCESS:
+        <Input
+            --*mandatory--------------------------
+            name= "{name for onChange}"
+            value= "{variable to store the value}"
+            pipeline= "{your onChange function (use for change value)}"
+            --*optional---------------------------
+            placeholder= "{costumize placeholder text. Empty case: this place will filled by capitalized name props}"
+            fluid {input width all over the place}
+            password {input type password}
+            passVisibility {input type password with show/hide password button}
+        />
+    */
     state = {
         type: "password",
         icon: 'visibility_off'
