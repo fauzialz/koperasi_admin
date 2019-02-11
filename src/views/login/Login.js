@@ -44,7 +44,7 @@ class Login extends React.Component {
                             <Input
                                 name="username"
                                 value={this.state.username}
-                                pipeline={this.textChange}
+                                onChange={this.textChange}
                                 fluid
                             />
                             {
@@ -54,7 +54,7 @@ class Login extends React.Component {
                                         fluid
                                         name="password"
                                         value={this.state.password}
-                                        pipeline={this.textChange}
+                                        onChange={this.textChange}
                                     />:''
                             }
                             {
@@ -62,7 +62,7 @@ class Login extends React.Component {
                                     <Button 
                                         fluid
                                         label="Sign In"
-                                        pipeline={this.onSubmit}
+                                        onClick={this.onSubmit}
                                     />: ''
                             }
                         </form>
