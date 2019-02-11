@@ -10,6 +10,9 @@ class Button extends React.Component {
                         this.props.fluid ? "fluid" : 
                         this.props.center ? "center" : ""
                     }
+                    onClick={this.props.pipeline}
+                    type={this.props.type || "button"}
+                    disabled={this.props.disabled}
                 >
                     {this.props.label || 'Button'}
                 </button>

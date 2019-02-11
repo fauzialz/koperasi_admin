@@ -54,7 +54,7 @@ class Input extends React.Component {
                         autoComplete="off"
                     />
                     {this.props.passVisibility ? 
-                        <span class="material-icons MuiIcon-root-1 MuiIcon-colorAction-4 visibility"
+                        <span className="material-icons MuiIcon-root-1 MuiIcon-colorAction-4 visibility"
                             aria-hidden="true"
                             onClick={this.visibility}
                         >
