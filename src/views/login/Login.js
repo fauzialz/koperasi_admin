@@ -3,8 +3,7 @@ import './Login.scss'
 import Logo from '../../logo.svg'
 import Input from '../../components/input'
 import Button from '../../components/button'
-import config from '../../config/api.config'
-import axios from 'axios'
+import HelperHTTP from '../../helper/HelperHTTP';
 
 class Login extends React.Component {
     constructor() {
@@ -20,27 +19,13 @@ class Login extends React.Component {
     }
 
     onSubmit = () => {
-        let option = {
-            url: config.API_URL + config.ROUT.sign_in,
-            method: "post",
-            headers: {
-                "Content-Type": config.HEADER.conten_type,
-                "ApplicationCode": config.HEADER.application_code
-            },
-            data: {
-                Username: this.state.username,
-                Password: this.state.password
+        HelperHTTP.request('SIGN_IN', 'post', this.state, (succes, response) => {
+            if(succes){
+                console.log(response)
+                debugger
+            }else{
+                console.log(response) //response will be filled with error massage
             }
-        }
-        debugger
-        axios(option)
-        .then(res => {
-            console.log(res)
-            debugger
-        })
-        .catch(err => {
-            console.log(err)
-            debugger
         })
     }
 
