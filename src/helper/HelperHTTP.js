@@ -24,10 +24,10 @@ export default {
 
         axios(option)
         .then(res => {
-            cb(true, res.data.Result)
+            cb(true, res.data)
         })
         .catch(err => {
-            if(err.resonse === undefined){
+            if(err.response === undefined){
                 cb(false, 'Lost connection with server.')
             }else{
                 cb(false, err.response.data.Message)

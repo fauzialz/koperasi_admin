@@ -3,7 +3,7 @@ import './Login.scss'
 import Logo from '../../logo.svg'
 import Input from '../../components/input'
 import Button from '../../components/button'
-import HelperHTTP from '../../helper/HelperHTTP';
+import HelperHttp from '../../helper/HelperHttp';
 
 class Login extends React.Component {
     constructor() {
@@ -19,12 +19,11 @@ class Login extends React.Component {
     }
 
     onSubmit = () => {
-        HelperHTTP.request('SIGN_IN', 'post', this.state, (succes, response) => {
+        HelperHttp.request('SIGN_IN', 'post', this.state, (succes, response) => {
             if(succes){
-                console.log(response)
-                debugger
+                alert(response.Message)
             }else{
-                console.log(response) //response will be filled with error massage
+                alert(response) //response will be filled with error massage
             }
         })
     }
@@ -68,7 +67,6 @@ class Login extends React.Component {
                             }
                         </form>
                     </div>
-                    
                 </div>
             </div>
         )
