@@ -41,6 +41,7 @@ class Input extends React.Component {
                     className={this.props.fluid ? "input-fluid" : "input-container"}
                 >
                     <input
+                        className={this.props.passVisibility? "input-visibility": ''}
                         type={this.props.password || this.props.passVisibility ? this.state.type : "text"}
                         name={this.props.name}
                         placeholder={this.props.placeholder ?
@@ -52,6 +53,7 @@ class Input extends React.Component {
                         value={this.props.value}
                         onChange={this.props.pipeline}
                         autoComplete="off"
+                        required={this.props.required}
                     />
                     {this.props.passVisibility ? 
                         <span className="material-icons MuiIcon-root-1 MuiIcon-colorAction-4 visibility"

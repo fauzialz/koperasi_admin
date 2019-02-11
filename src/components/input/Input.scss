@@ -57,3 +57,8 @@ input:active, input:focus {
     @extend %noselect;
 }
 
+.input-visibility {
+    padding-right: 40px;
+    width: 82%;
+}
+
