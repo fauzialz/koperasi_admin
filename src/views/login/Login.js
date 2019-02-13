@@ -30,15 +30,15 @@ class Login extends React.Component {
 
     onSubmit = () => {
         this.setState({loading : true})
-        HelperHttp.request('SIGN_IN', 'post', this.state.formdata, (succes, response) => {
+        HelperHttp.request('SIGN_IN', 'post', this.state.formdata,
+        (succes, response) => {
             if(succes){
                 this.setState({loading : false})
-                HelperCookie.setItem(
-                    ConfigLocal.STORAGE.TOKEN,
+                HelperCookie.set(
+                    ConfigLocal.TOKEN,
                     response.Result.Token,
                     response.Result.Expires
                 )
-                debugger
                 alert(response.Message)
             }else{
                 this.setState({loading : false})
@@ -80,7 +80,8 @@ class Login extends React.Component {
                                     />:''
                             }
                             {
-                                this.state.formdata.password.length > 4 && this.state.formdata.username.length > 4 ?
+                                this.state.formdata.password.length > 4 &&
+                                this.state.formdata.username.length > 4 ?
                                     <Button 
                                         fluid
                                         label="Sign In"

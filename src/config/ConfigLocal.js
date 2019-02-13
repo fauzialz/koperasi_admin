@@ -1,5 +1,3 @@
 export default {
-    STORAGE: {
-        TOKEN: 'HIDDEN_TOKEN_KEY_FA0810'
-    }
+    TOKEN: 'remember_the_TOKEN_FA0810'
 }
