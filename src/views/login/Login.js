@@ -19,7 +19,6 @@ class Login extends React.Component {
     }
 
     textChange = e => {
-        /* this.setState({[e.target.name]: e.target.value}) */
         let tmp=this.state.formdata
         tmp[e.target.name]=e.target.value
         this.setState({
@@ -31,12 +30,12 @@ class Login extends React.Component {
         this.setState({loading : true})
         HelperHttp.request('SIGN_IN', 'post', this.state.formdata, (succes, response) => {
             if(succes){
+                this.setState({loading : false})
                 alert(response.Message)
             }else{
+                this.setState({loading : false})
                 alert(response) //response will be filled with error massage
             }
-            debugger
-            this.setState({loading : false})
         })
     }
 
@@ -44,7 +43,7 @@ class Login extends React.Component {
         return (
             <div className="Login-base">
                 
-                {this.state.loading ? <Loading /> : ''}
+                {this.state.loading && <Loading />}
                 
                 <div className="Login-title">
                     <div><img src={Logo} className="App-logo" alt="logo" /></div>
