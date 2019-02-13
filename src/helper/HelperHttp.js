@@ -1,5 +1,5 @@
 import axios from 'axios'
-import config from '../config/api.config'
+import config from '../config/ConfigApi'
 
 
 export default {
@@ -27,6 +27,7 @@ export default {
             cb(true, res.data)
         })
         .catch(err => {
+            debugger
             if(err.response === undefined){
                 cb(false, 'Lost connection with server.')
             }else{

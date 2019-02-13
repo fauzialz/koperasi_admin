@@ -7,7 +7,9 @@
     z-index: 9998;
     top: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, 0.6);
+    /* background-color: rgba(255, 255, 255, 0.6); */
+    background-color: white;
+    opacity: 0.5;
     display: table;
     transition: opacity .8s ease-in-out;
 }

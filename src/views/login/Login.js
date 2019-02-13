@@ -3,8 +3,10 @@ import './Login.scss'
 import Logo from '../../logo.svg'
 import Input from '../../components/input'
 import Button from '../../components/button'
+import Loading from '../../components/loading'
 import HelperHttp from '../../helper/HelperHttp'
-import Loading from '../../components/loading';
+import HelperCookie from '../../helper/HelperCookie'
+import ConfigLocal from '../../config/ConfigLocal';
 
 class Login extends React.Component {
     constructor() {
@@ -31,6 +33,12 @@ class Login extends React.Component {
         HelperHttp.request('SIGN_IN', 'post', this.state.formdata, (succes, response) => {
             if(succes){
                 this.setState({loading : false})
+                HelperCookie.setItem(
+                    ConfigLocal.STORAGE.TOKEN,
+                    response.Result.Token,
+                    response.Result.Expires
+                )
+                debugger
                 alert(response.Message)
             }else{
                 this.setState({loading : false})

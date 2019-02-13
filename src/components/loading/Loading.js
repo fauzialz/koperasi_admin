@@ -6,6 +6,7 @@ class Loading extends React.Component {
         { this.state.youerState && <Loading />} <= this is common syntax
         yourState (you can change the name) will provide boolean value.
         Change the state for on/off the loading screen.
+        ref: https://loading.io/css/
     */
     render() {
         return (
@@ -13,7 +14,10 @@ class Loading extends React.Component {
                 <div className="Loading-wrapper">
                     <div className="Loading" >
                         {/* this is he spinner */}
-                        <div class="lds-ripple"><div></div><div></div></div>
+                        <div className="lds-ripple">
+                            <div></div>
+                            <div></div>
+                        </div>
                     </div>
                 </div>
             </div>
