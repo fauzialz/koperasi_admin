@@ -27,7 +27,6 @@ export default {
             cb(true, res.data)
         })
         .catch(err => {
-            debugger
             if(err.response === undefined){
                 cb(false, 'Lost connection with server.')
             }else{

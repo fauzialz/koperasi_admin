@@ -16,7 +16,9 @@ class Login extends React.Component {
                 username : '',
                 password : ''
             },
-            loading: false
+            loading: false,
+            msg: '',
+            errStyle: 'error'
         }
     }
 
@@ -34,15 +36,17 @@ class Login extends React.Component {
         (succes, response) => {
             if(succes){
                 this.setState({loading : false})
-                HelperCookie.set(
-                    ConfigLocal.TOKEN,
-                    response.Result.Token,
-                    response.Result.Expires
-                )
+                HelperCookie.set(ConfigLocal.TOKEN, response.Result.Token, response.Result.Expires)
                 alert(response.Message)
             }else{
-                this.setState({loading : false})
-                alert(response) //response will be filled with error massage
+                this.setState({
+                    loading : false,
+                    msg : response,
+                    errStyle : 'error'
+                })
+                setTimeout(() => {
+                    this.setState({errStyle: "afterError"})
+                }, 2000);
             }
         })
     }
@@ -57,9 +61,10 @@ class Login extends React.Component {
                     <div><img src={Logo} className="App-logo" alt="logo" /></div>
                     Bee-mart
                 </div>
+
                 <div className="Login-container shadow">
-                    <div className="Login-container-title">
-                        Sign In to continue
+                    <div className={this.state.msg? this.state.errStyle : "neutral"}>
+                        {this.state.msg || "Sign In to continue"}
                     </div>
                     <div className="Login-content">
                         <form>
