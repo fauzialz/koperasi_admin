@@ -1,0 +1,18 @@
+.fluid {
+    width: 100%;
+}
+
+.fluid-input {
+    width: 91.5%;
+}
+
+%auto-margin {
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
+.center {
+    @extend %auto-margin;
+}
+

@@ -1,41 +1,49 @@
-@import '../../styles/shadow';
+@import '../../styles/shadows';
+@import '../../styles/pallet';
 
 .Login-base {
-    background-color: #F5F5F5;
+    background-color: $background;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
     position: fixed;
 }
 
-.Login-container {
-    /* background-color: #F5F5F5; */
-    border-radius: 10px;
-    max-width: 250px;
-    max-height: 350px;
+.Login-title {
     margin-top: 100px;
+    text-align: center;
+    font-family: Lato, "Helvetica Neue", sans-serif;
+    font-size: 2.13333rem;
+    font-weight: bold;
+    color: $main2;
+
+    img {
+        margin-bottom: -15px
+    }
+}
+
+.Login-container {
+    background-color: $basemodal;
+    border-radius: 10px;
+    max-width: 300px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     padding-right: 30px;
     padding-left: 30px;
     padding-top: 20px;
-    height: 100%;
-    border: 2px solid #E9EBED;
+    padding-bottom: 20px;
     transition: background-color 10s ease;
     transition: border 0.5s ease;
 }
 
-.Login-container:hover {
-    /* background-color: #F9CC7C; */
-    border: 2px solid #F6AF33;
-    
-}
-
-.Login-title {
+.Login-container-title {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
-    font-weight: 700;
-    /* text-align: center; */
-    color: #F6AF33; 
+    font-size: 14px;
+    font-weight: 400;
+    color: $main1; 
 }
 
+.Login-content {
+    padding-top: 0px;
+}

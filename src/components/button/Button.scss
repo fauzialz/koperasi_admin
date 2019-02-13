@@ -1,0 +1,49 @@
+@import '../../styles/shadows';
+@import '../../styles/pallet';
+@import '../../styles/potitions';
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: $main1;
+    transition: all 0.3s ease;
+    min-height: 32px;
+    min-width: 100px;
+    padding: {
+        top: 5px;
+        bottom: 5px;
+        left: 10px;
+        right: 10px;
+    }
+    margin: {
+        top: 22px;
+        bottom: 20px;
+    }
+    border: {
+        radius: 5px;
+    }
+    font: {
+        size: 14px;
+        weight: bold;
+    }
+    text-align: center;
+    position: sticky;
+    line-height: unset;
+    display: inherit;
+    @extend %shadow-short;
+}
+
+button:hover {
+    background-color: $mainshade1;
+} 
+
+button:active {
+    @extend %shadow-long;
+    transform: translateY(-3px);
+    background-color: $main1;
+}
+/* 
+button:focus {
+    outline: 0.5px solid $main2;
+} */
