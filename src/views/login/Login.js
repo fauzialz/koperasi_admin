@@ -39,7 +39,6 @@ class Login extends React.Component {
                     loading : false,
                     msg: response.Message
                 })
-                debugger
                 HelperCookie.set(ConfigLocal.TOKEN, response.Result.token, response.Result.expires)
                 this.props.history.push('/dashboard')
             }else{
@@ -53,6 +52,12 @@ class Login extends React.Component {
                 }, 2000);
             }
         })
+    }
+
+    componentDidMount(){
+        if(HelperCookie.get(ConfigLocal.TOKEN)){
+            this.props.history.push('/dashboard')
+        }
     }
 
     render() {
