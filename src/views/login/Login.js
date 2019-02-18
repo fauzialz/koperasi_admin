@@ -18,7 +18,7 @@ class Login extends React.Component {
             },
             loading: false,
             msg: '',
-            errStyle: 'error'
+            errStyle: 'afterError'
         }
     }
 
@@ -35,9 +35,13 @@ class Login extends React.Component {
         HelperHttp.request('SIGN_IN', 'post', this.state.formdata,
         (succes, response) => {
             if(succes){
-                this.setState({loading : false})
-                HelperCookie.set(ConfigLocal.TOKEN, response.Result.Token, response.Result.Expires)
-                alert(response.Message)
+                this.setState({
+                    loading : false,
+                    msg: response.Message
+                })
+                debugger
+                HelperCookie.set(ConfigLocal.TOKEN, response.Result.token, response.Result.expires)
+                this.props.history.push('/dashboard')
             }else{
                 this.setState({
                     loading : false,
@@ -63,9 +67,11 @@ class Login extends React.Component {
                 </div>
 
                 <div className="Login-container shadow">
+
                     <div className={this.state.msg? this.state.errStyle : "neutral"}>
                         {this.state.msg || "Sign In to continue"}
                     </div>
+                    
                     <div className="Login-content">
                         <form>
                             <Input
