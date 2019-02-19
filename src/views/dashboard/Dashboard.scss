@@ -1,9 +1,9 @@
-@import '../../styles/pallet';
+@import '../../styles/palette';
 
 .grid-base {
     display: grid;
-    grid-template-columns: [ver1] 50px [ver2] 20px [ver3] auto [ver4] auto [ver5] 100px [ver6] 20px [ver7];
-    grid-template-rows: [hor1] 50px [hor2] auto [hor3] 20px [hor4];
+    grid-template-columns: [ver1] 40px [ver2] 20px [ver3] auto [ver4] auto [ver5] 100px [ver6] 20px [ver7];
+    grid-template-rows: [hor1] 40px [hor2] auto [hor3] 20px [hor4];
     width: 100vw;
     height: 100vh;
 }
@@ -13,13 +13,13 @@
     grid-column-end: ver7;
     grid-row-start: hor1;
     grid-row-end: hor2;
-    background-color: $main1;
+    background-color: $primary;
 }
 .header-right-component {
     grid-column: ver5 / ver6;
     grid-row: hor1 / hor2;
     padding: {
-        top: 8.5px;
+        top: 3px;
     }
 }
 
@@ -33,18 +33,18 @@
 
 .navbar {
     position: absolute;
-    background-color: $main2;
-    width: 50px;
+    background-color: $secondary-darken;
+    width: 40px;
     height: 100vh;
     transition: all 0.5s ease;
 }
 
 .navbar:hover {
-    width: 200px;
+    width: 60px;
 }
 
 .grid-content {
     grid-column: ver3 / ver6;
     grid-row: hor2 / hor4;
-    background-color: $background;
+    background-color: $pure;
 }

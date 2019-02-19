@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom'
-import Login from './login/Login';
-import Dashboard from './dashboard/Dashboard';
+import Login from './login';
+import Dashboard from './dashboard';
 import HelperCookie from '../helper/HelperCookie';
 import ConfigLocal from '../config/ConfigLocal';
 

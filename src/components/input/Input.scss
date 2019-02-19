@@ -1,4 +1,4 @@
-@import '../../styles/pallet';
+@import '../../styles/palette';
 @import '../../styles/potitions';
 @import '../../styles/text';
 
@@ -11,7 +11,7 @@ input {
         right: 12px;
     }
     border-radius: 5px;
-    border: 1px solid $border;
+    border: 1px solid $pure-darken;
     transition: all 0.5s ease;
     line-height: unset;
     display: flex;
@@ -31,7 +31,7 @@ input::placeholder {
 }
 
 input:active, input:focus {
-    border-color: $main1;
+    border-color: $primary;
     
 }
 
@@ -53,7 +53,7 @@ input:active, input:focus {
     position: absolute;
     top: 10%;
     left: 89%;
-    color: $main2;
+    color: $secondary;
     @extend %noselect;
 }
 

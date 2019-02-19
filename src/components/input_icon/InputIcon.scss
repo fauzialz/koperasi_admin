@@ -1,5 +1,5 @@
 @import '../../styles/text';
-@import '../../styles/pallet';
+@import '../../styles/palette';
 
 .contras, .vivid {
     cursor: pointer;
@@ -12,9 +12,9 @@
 }
 
 .contras {
-    color: $main1;
+    color: $primary;
 }
 
 .vivid {
-    color: $main2;
+    color: $secondary;
 }

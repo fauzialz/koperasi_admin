@@ -2,6 +2,21 @@ import React from 'react'
 import './Button.scss'
 
 class Button extends React.Component {
+    /* ACCESS:
+        <Button
+            --*mandatory--------------------------
+            onClick= "{your onClick function (do somethings)}"
+            --*optional---------------------------
+            onSubmit= "{your onSubmit function (for me, its onClick more superior)}"
+            fluid {button width all over the place}
+            flat {no button shadow}
+            center {button center align}
+            type {button type (button|submit|reset). default: button}
+            disabled {to make button diseabled}
+            label= "{your button name. default: Button}"
+        />
+    */
+
     state = {
         style: ''
     }
@@ -22,19 +37,7 @@ class Button extends React.Component {
             style: styleString
         })
     }
-    /* ACCESS:
-        <Button
-            --*mandatory--------------------------
-            onClick= "{your onClick function (do somethings)}"
-            --*optional---------------------------
-            onSubmit= "{your onSubmit function (for me, its onClick more superior)}"
-            fluid {button width all over the place}
-            center {button center align}
-            type {button type (button|submit|reset). default: button}
-            disabled {to make button diseabled}
-            label= "{your button name. default: Button}"
-        />
-    */
+
     render() {
         return (
             <React.Fragment>

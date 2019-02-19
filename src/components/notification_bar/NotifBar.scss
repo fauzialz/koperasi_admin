@@ -1,4 +1,4 @@
-@import '../../styles/pallet';
+@import '../../styles/palette';
 
 .neutral, .error, .afterError {
     font: {
@@ -23,18 +23,18 @@
 
 .neutral {
     font-size: 14px;
-    color: $main1;
+    color: $primary;
 }
 
 .error {
-    color: $basemodal;
-    background-color: $error1;
+    color: $pure-lighten;
+    background-color: $error;
     transition: all 0.5s ease;
-    box-shadow: 0px 0px 10px 10px $error0;
+    box-shadow: 0px 0px 10px 10px $error-lighten;
 }
 
 .afterError {
-    color: $error2; 
-    background-color: $error0;
+    color: $error-darken; 
+    background-color: $error-lighten;
     transition: all 1.5s ease;
 }
