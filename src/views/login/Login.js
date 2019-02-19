@@ -100,7 +100,6 @@ class Login extends React.Component {
                                 this.state.formdata.username.length > 4 ?
                                     <div className="button-gap">
                                         <Button 
-                                            gap
                                             fluid
                                             label="Sign In"
                                             onClick={this.onSubmit}

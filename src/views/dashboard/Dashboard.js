@@ -15,7 +15,7 @@ class Dashboard extends React.Component {
             <div className="grid-base">
                 {/* HEADER */}
                 <div className="header-right-component">
-                    <Button onClick={this.signOut} label="Sign Out" flat/>
+                    <Button onClick={this.signOut} label="Sign Out" depressed/>
                 </div>
                 <div className="grid-header" />
 
@@ -28,7 +28,7 @@ class Dashboard extends React.Component {
 
                 {/* CONTENT */}
                 <div className="grid-content">
-                
+
                 </div>
             </div>
         )

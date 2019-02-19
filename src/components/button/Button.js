@@ -8,12 +8,16 @@ class Button extends React.Component {
             onClick= "{your onClick function (do somethings)}"
             --*optional---------------------------
             onSubmit= "{your onSubmit function (for me, its onClick more superior)}"
-            fluid {button width all over the place}
-            flat {no button shadow}
-            center {button center align}
             type {button type (button|submit|reset). default: button}
             disabled {to make button diseabled}
             label= "{your button name. default: Button}"
+            fluid {button width all over the place}
+            flat {no button shadow}
+            center {button center align}
+            depressed {flat and no color}
+            blue {blue colored button}
+            red {red colored button}
+            rounded {round button}
         />
     */
 
@@ -29,8 +33,27 @@ class Button extends React.Component {
         if(this.props.center){
             styleString +=' center'
         }
-        if(!this.props.flat){
+        if(!(this.props.flat || this.props.depressed)){
             styleString +=' float'
+        }
+        if(!(this.props.depressed || this.props.blue || this.props.red)){
+            styleString +=' primary-color'
+        }
+        if(this.props.depressed){
+            if(this.props.blue){
+                styleString +=' depressed-blue'
+            }else if(this.props.red){
+                styleString +=' depressed-red'
+            }else styleString +=' depressed'
+        }
+        if(this.props.blue && !this.props.depressed){
+            styleString +=' blue'
+        }
+        if(this.props.red && !this.props.depressed){
+            styleString +=' red'
+        }
+        if(this.props.rounded){
+            styleString +=' raund'
         }
         debugger
         this.setState({

@@ -6,7 +6,6 @@ button {
     cursor: pointer;
     border: none;
     outline: none;
-    background-color: $primary;
     transition: all 0.3s ease;
     min-height: 32px;
     min-width: 100px;
@@ -23,16 +22,92 @@ button {
     display: inherit;
 }
 
-button:hover {
-    background-color: $primary-darken;
-} 
-
-button:active {
-    @extend %shadow-long;
-    transform: translateY(-3px);
+//PROPS involvement------
+//DEFAULT
+.primary-color {
     background-color: $primary;
 }
-
+.primary-color:hover {
+    background-color: $primary-darken;
+}
+.primary-color:active {
+    background-color: $primary;
+}
 .float {
     @extend %shadow-short;
+}
+.primary-color:active,
+.float:Active,
+.blue:active,
+.red:active {
+    @extend %shadow-long;
+    transform: translateY(-3px);
+}
+.depressed:active,
+.depressed-blue:active,
+.depressed-red:active {
+    transform: translateY(-1px);
+}
+
+//DEPRESSED
+.depressed {
+    background-color: transparent;
+}
+.depressed:hover {
+    background:rgba(0,0,0,0.1);
+}
+.depressed:active {
+    color: $primary;
+    background:rgba(255, 255, 255, 0.4);
+}
+
+//BLUE
+.blue {
+    background-color: $submit;
+    color: $pure-lighten;
+}
+.blue:hover {
+    background-color: $submit-darken;
+}
+.blue:active {
+    background-color: $submit;
+}
+.depressed-blue {
+    background-color: transparent;
+    color: $submit;
+}
+.depressed-blue:hover {
+    background-color: $submit-lightest;
+    color: $submit-darken;
+}
+.depressed-blue:active {
+    background-color: $submit-lighten;
+}
+
+//RED
+.red {
+    background-color: $error;
+    color: $pure-lighten;
+}
+.red:hover {
+    background-color: $error-darken;
+}
+.red:active {
+    background-color: $error;
+}
+.depressed-red {
+    background-color: transparent;
+    color: $error;
+}
+.depressed-red:hover {
+    background-color: $error-lightest;
+    color: $error-darken;
+}
+.depressed-red:active {
+    background-color: $error-lighten;
+}
+
+//ROUNDED
+.raund {
+    border-radius: 25px;
 }
