@@ -49,7 +49,7 @@ class Login extends React.Component {
                 })
                 setTimeout(() => {
                     this.setState({errStyle: "afterError"})
-                }, 2000);
+                }, 1000);
             }
         })
     }
@@ -57,7 +57,7 @@ class Login extends React.Component {
     componentDidMount(){
         if(HelperCookie.get(ConfigLocal.TOKEN)){
             this.props.history.push('/dashboard')
-        }
+        } 
     }
 
     render() {
@@ -98,11 +98,14 @@ class Login extends React.Component {
                             {
                                 this.state.formdata.password.length > 4 &&
                                 this.state.formdata.username.length > 4 ?
-                                    <Button 
-                                        fluid
-                                        label="Sign In"
-                                        onClick={this.onSubmit}
-                                    />: ''
+                                    <div className="button-gap">
+                                        <Button 
+                                            gap
+                                            fluid
+                                            label="Sign In"
+                                            onClick={this.onSubmit}
+                                        />
+                                    </div>: ''
                             }
                         </form>
                     </div>

@@ -10,16 +10,6 @@ button {
     transition: all 0.3s ease;
     min-height: 32px;
     min-width: 100px;
-    padding: {
-        top: 5px;
-        bottom: 5px;
-        left: 10px;
-        right: 10px;
-    }
-    margin: {
-        top: 22px;
-        bottom: 20px;
-    }
     border: {
         radius: 5px;
     }
@@ -31,7 +21,6 @@ button {
     position: sticky;
     line-height: unset;
     display: inherit;
-    @extend %shadow-short;
 }
 
 button:hover {
@@ -43,7 +32,7 @@ button:active {
     transform: translateY(-3px);
     background-color: $main1;
 }
-/* 
-button:focus {
-    outline: 0.5px solid $main2;
-} */
+
+.float {
+    @extend %shadow-short;
+}

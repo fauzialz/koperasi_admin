@@ -2,6 +2,26 @@ import React from 'react'
 import './Button.scss'
 
 class Button extends React.Component {
+    state = {
+        style: ''
+    }
+
+    componentDidMount() {
+        var styleString = ''
+        if(this.props.fluid){
+            styleString += ' fluid'
+        }
+        if(this.props.center){
+            styleString +=' center'
+        }
+        if(!this.props.flat){
+            styleString +=' float'
+        }
+        debugger
+        this.setState({
+            style: styleString
+        })
+    }
     /* ACCESS:
         <Button
             --*mandatory--------------------------
@@ -19,10 +39,7 @@ class Button extends React.Component {
         return (
             <React.Fragment>
                 <button
-                    className={
-                        this.props.fluid ? "fluid" : 
-                        this.props.center ? "center" : ""
-                    }
+                    className={this.state.style}
                     onClick={this.props.onClick}
                     onSubmit={this.props.onSubmit}
                     type={this.props.type || "button"}

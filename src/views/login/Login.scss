@@ -71,11 +71,22 @@
     color: $basemodal;
     background-color: $error1;
     transition: all 0.5s ease;
-    box-shadow: 0px 0px 10px 10px $error0;
+    box-shadow: 0px 0px 5px 7px $error0;
 }
 
 .afterError {
     color: $error2; 
     background-color: $error0;
     transition: all 1.5s ease;
+}
+
+.button-gap {
+    padding: {
+        top: 0px;
+        bottom: 5px;
+    }
+    margin: {
+        top: 0px;
+        bottom: 10px;
+    }
 }

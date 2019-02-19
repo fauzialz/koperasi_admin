@@ -1,0 +1,50 @@
+@import '../../styles/pallet';
+
+.grid-base {
+    display: grid;
+    grid-template-columns: [ver1] 50px [ver2] 20px [ver3] auto [ver4] auto [ver5] 100px [ver6] 20px [ver7];
+    grid-template-rows: [hor1] 50px [hor2] auto [hor3] 20px [hor4];
+    width: 100vw;
+    height: 100vh;
+}
+
+.grid-header {
+    grid-column-start: ver2;
+    grid-column-end: ver7;
+    grid-row-start: hor1;
+    grid-row-end: hor2;
+    background-color: $main1;
+}
+.header-right-component {
+    grid-column: ver5 / ver6;
+    grid-row: hor1 / hor2;
+    padding: {
+        top: 8.5px;
+    }
+}
+
+.grid-navbar {
+    grid-column-start: ver1;
+    grid-column-end: ver2;
+    grid-row-start: hor1;
+    grid-row-end: hor4;
+    position: fixed;
+}
+
+.navbar {
+    position: absolute;
+    background-color: $main2;
+    width: 50px;
+    height: 100vh;
+    transition: all 0.5s ease;
+}
+
+.navbar:hover {
+    width: 200px;
+}
+
+.grid-content {
+    grid-column: ver3 / ver6;
+    grid-row: hor2 / hor4;
+    background-color: $background;
+}
