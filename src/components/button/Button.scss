@@ -1,25 +1,14 @@
 @import '../../styles/shadows';
-@import '../../styles/pallet';
+@import '../../styles/palette';
 @import '../../styles/potitions';
 
 button {
     cursor: pointer;
     border: none;
     outline: none;
-    background-color: $main1;
     transition: all 0.3s ease;
     min-height: 32px;
     min-width: 100px;
-    padding: {
-        top: 5px;
-        bottom: 5px;
-        left: 10px;
-        right: 10px;
-    }
-    margin: {
-        top: 22px;
-        bottom: 20px;
-    }
     border: {
         radius: 5px;
     }
@@ -31,19 +20,94 @@ button {
     position: sticky;
     line-height: unset;
     display: inherit;
+}
+
+//PROPS involvement------
+//DEFAULT
+.primary-color {
+    background-color: $primary;
+}
+.primary-color:hover {
+    background-color: $primary-darken;
+}
+.primary-color:active {
+    background-color: $primary;
+}
+.float {
     @extend %shadow-short;
 }
-
-button:hover {
-    background-color: $mainshade1;
-} 
-
-button:active {
+.primary-color:active,
+.float:Active,
+.blue:active,
+.red:active {
     @extend %shadow-long;
     transform: translateY(-3px);
-    background-color: $main1;
 }
-/* 
-button:focus {
-    outline: 0.5px solid $main2;
-} */
+.depressed:active,
+.depressed-blue:active,
+.depressed-red:active {
+    transform: translateY(-1px);
+}
+
+//DEPRESSED
+.depressed {
+    background-color: transparent;
+}
+.depressed:hover {
+    background:rgba(0,0,0,0.1);
+}
+.depressed:active {
+    color: $primary;
+    background:rgba(255, 255, 255, 0.4);
+}
+
+//BLUE
+.blue {
+    background-color: $submit;
+    color: $pure-lighten;
+}
+.blue:hover {
+    background-color: $submit-darken;
+}
+.blue:active {
+    background-color: $submit;
+}
+.depressed-blue {
+    background-color: transparent;
+    color: $submit;
+}
+.depressed-blue:hover {
+    background-color: $submit-lightest;
+    color: $submit-darken;
+}
+.depressed-blue:active {
+    background-color: $submit-lighten;
+}
+
+//RED
+.red {
+    background-color: $error;
+    color: $pure-lighten;
+}
+.red:hover {
+    background-color: $error-darken;
+}
+.red:active {
+    background-color: $error;
+}
+.depressed-red {
+    background-color: transparent;
+    color: $error;
+}
+.depressed-red:hover {
+    background-color: $error-lightest;
+    color: $error-darken;
+}
+.depressed-red:active {
+    background-color: $error-lighten;
+}
+
+//ROUNDED
+.raund {
+    border-radius: 25px;
+}

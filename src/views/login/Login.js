@@ -16,7 +16,9 @@ class Login extends React.Component {
                 username : '',
                 password : ''
             },
-            loading: false
+            loading: false,
+            msg: '',
+            errStyle: 'afterError'
         }
     }
 
@@ -30,21 +32,32 @@ class Login extends React.Component {
 
     onSubmit = () => {
         this.setState({loading : true})
-        HelperHttp.request('SIGN_IN', 'post', this.state.formdata, (succes, response) => {
+        HelperHttp.request('SIGN_IN', 'post', this.state.formdata,
+        (succes, response) => {
             if(succes){
-                this.setState({loading : false})
-                HelperCookie.setItem(
-                    ConfigLocal.STORAGE.TOKEN,
-                    response.Result.Token,
-                    response.Result.Expires
-                )
-                debugger
-                alert(response.Message)
+                this.setState({
+                    loading : false,
+                    msg: response.Message
+                })
+                HelperCookie.set(ConfigLocal.TOKEN, response.Result.token, response.Result.expires)
+                this.props.history.push('/dashboard')
             }else{
-                this.setState({loading : false})
-                alert(response) //response will be filled with error massage
+                this.setState({
+                    loading : false,
+                    msg : response,
+                    errStyle : 'error'
+                })
+                setTimeout(() => {
+                    this.setState({errStyle: "afterError"})
+                }, 1000);
             }
         })
+    }
+
+    componentDidMount(){
+        if(HelperCookie.get(ConfigLocal.TOKEN)){
+            this.props.history.push('/dashboard')
+        } 
     }
 
     render() {
@@ -57,10 +70,13 @@ class Login extends React.Component {
                     <div><img src={Logo} className="App-logo" alt="logo" /></div>
                     Bee-mart
                 </div>
+
                 <div className="Login-container shadow">
-                    <div className="Login-container-title">
-                        Sign In to continue
+
+                    <div className={this.state.msg? this.state.errStyle : "neutral"}>
+                        {this.state.msg || "Sign In to continue"}
                     </div>
+                    
                     <div className="Login-content">
                         <form>
                             <Input
@@ -80,12 +96,15 @@ class Login extends React.Component {
                                     />:''
                             }
                             {
-                                this.state.formdata.password.length > 4 && this.state.formdata.username.length > 4 ?
-                                    <Button 
-                                        fluid
-                                        label="Sign In"
-                                        onClick={this.onSubmit}
-                                    />: ''
+                                this.state.formdata.password.length > 4 &&
+                                this.state.formdata.username.length > 4 ?
+                                    <div className="button-gap">
+                                        <Button 
+                                            fluid
+                                            label="Sign In"
+                                            onClick={this.onSubmit}
+                                        />
+                                    </div>: ''
                             }
                         </form>
                     </div>

@@ -1,0 +1,40 @@
+@import '../../styles/palette';
+
+.neutral, .error, .afterError {
+    font: {
+        family: Arial, Helvetica, sans-serif;
+        weight: 400; 
+    }
+}
+
+.error, .afterError {
+    font-size: 13px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: {
+        left: 5px;
+        right: 5px;
+        top: 7px;
+        bottom: 7px;
+    }
+    
+}
+
+.neutral {
+    font-size: 14px;
+    color: $primary;
+}
+
+.error {
+    color: $pure-lighten;
+    background-color: $error;
+    transition: all 0.5s ease;
+    box-shadow: 0px 0px 10px 10px $error-lighten;
+}
+
+.afterError {
+    color: $error-darken; 
+    background-color: $error-lighten;
+    transition: all 1.5s ease;
+}
