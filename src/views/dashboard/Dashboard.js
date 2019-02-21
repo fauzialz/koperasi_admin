@@ -12,10 +12,12 @@ class Dashboard extends React.Component {
 
     render() {
         return (
-            <div className="grid-base">
+            <div className="grid-base scrollbar">
                 {/* HEADER */}
-                <div className="header-right-component">
-                    <Button onClick={this.signOut} label="Sign Out" depressed/>
+                <div className="header-menu">
+                    <div className="header-menu-wrapper">
+                        <Button onClick={this.signOut} label="Sign Out" depressed/>
+                    </div>
                 </div>
                 <div className="grid-header" />
 
@@ -28,7 +30,13 @@ class Dashboard extends React.Component {
 
                 {/* CONTENT */}
                 <div className="grid-content">
-
+                    <div className="content-dummy-base">
+                        <div className="content-dummy-wrapper">
+                            <div className="content-dummy-title"></div>
+                            <div className="content-dummy-table-header"></div>
+                            <div className="content-dummy-table-data"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

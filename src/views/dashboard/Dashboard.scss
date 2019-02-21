@@ -2,49 +2,86 @@
 
 .grid-base {
     display: grid;
-    grid-template-columns: [ver1] 40px [ver2] 20px [ver3] auto [ver4] auto [ver5] 100px [ver6] 20px [ver7];
-    grid-template-rows: [hor1] 40px [hor2] auto [hor3] 20px [hor4];
+    grid-template-columns: [v1] 60px [v2] 20px [v3] auto [v4] auto [v5] 100px [v6] 20px [v7];
+    grid-template-rows: [h1] 60px [h2] auto [h3] 20px [h4];
     width: 100vw;
     height: 100vh;
 }
 
 .grid-header {
-    grid-column-start: ver2;
-    grid-column-end: ver7;
-    grid-row-start: hor1;
-    grid-row-end: hor2;
-    background-color: $primary;
+    grid-column: v1 / v7;
+    grid-row: h1 / h2;
+    background-color: $pure-lighten;
+    border-bottom: 1px solid $pure
 }
-.header-right-component {
-    grid-column: ver5 / ver6;
-    grid-row: hor1 / hor2;
-    padding: {
-        top: 3px;
-    }
+.header-menu {
+    grid-column: v5 / v6;
+    grid-row: h1 / h2;
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+.header-menu-wrapper {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .grid-navbar {
-    grid-column-start: ver1;
-    grid-column-end: ver2;
-    grid-row-start: hor1;
-    grid-row-end: hor4;
+    grid-column: v1 / v2;
+    grid-row: h1 / h4;
     position: fixed;
 }
 
 .navbar {
     position: absolute;
-    background-color: $secondary-darken;
-    width: 40px;
+    background-color: $primary;
+    width: 60px;
     height: 100vh;
     transition: all 0.5s ease;
 }
-
 .navbar:hover {
-    width: 60px;
+    width: 70px;
 }
 
 .grid-content {
-    grid-column: ver3 / ver6;
-    grid-row: hor2 / hor4;
+    grid-column: v3 / v6;
+    grid-row: h2 / h4;/* 
+    background-color: $pure; */
+}
+
+//DUMMY CONTENT FOR LOADING
+.content-dummy-base {
+    margin: {
+        top: 20px;
+        bottom: 20px;
+        right: auto;
+        left: auto;
+    }
+    max-width: 1265px;
+    height: 93%;
     background-color: $pure;
+    border-radius: 15px;
+}
+.content-dummy-wrapper {
+    padding: 20px;
+}
+.content-dummy-title {
+    height: 40px;
+    width: 400px;
+    background-color: $pure-darken;
+    border-radius: 10px;
+}
+.content-dummy-table-header {
+    margin-top: 20px;
+    width: 100%;
+    height: 40px;
+    background-color: $pure-darken;
+    border-radius: 10px;
+}
+.content-dummy-table-data {
+    margin-top: 20px;
+    width: 100%;
+    height: 375px;
+    background-color: $pure-darken;
+    border-radius: 10px;
 }
