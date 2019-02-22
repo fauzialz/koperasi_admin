@@ -67,7 +67,7 @@
 }
 .content-dummy-title {
     height: 40px;
-    width: 400px;
+    max-width: 400px;
     background-color: $pure-darken;
     border-radius: 10px;
 }
@@ -81,7 +81,7 @@
 .content-dummy-table-data {
     margin-top: 20px;
     width: 100%;
-    height: 375px;
+    min-height: 375px;
     background-color: $pure-darken;
     border-radius: 10px;
 }

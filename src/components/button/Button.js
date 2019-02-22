@@ -55,7 +55,6 @@ class Button extends React.Component {
         if(this.props.rounded){
             styleString +=' raund'
         }
-        debugger
         this.setState({
             style: styleString
         })

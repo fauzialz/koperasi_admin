@@ -34,6 +34,26 @@
     padding-top: 20px;
     padding-bottom: 20px;
     transition: all 0.5s ease;
+    @extend %shadow;
+}
+@media (max-width: 485px) {
+    .Login-base {
+        background-color: $pure-lighten;
+    }
+    .Login-title {
+        margin-top: 50%;
+    }
+    .Login-container {
+        background-color: transparent;
+        box-shadow: none !important;
+        padding-right: 50px;
+        padding-left: 50px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+    .neutral {
+        text-align: center;
+    }
 }
 
 .Login-content {

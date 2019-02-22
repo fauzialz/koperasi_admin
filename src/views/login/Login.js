@@ -39,7 +39,7 @@ class Login extends React.Component {
                     loading : false,
                     msg: response.Message
                 })
-                HelperCookie.set(ConfigLocal.TOKEN, response.Result.token, response.Result.expires)
+                HelperCookie.set(ConfigLocal.TOKEN, response.Result.Token, response.Result.Expires)
                 this.props.history.push('/dashboard')
             }else{
                 this.setState({
@@ -71,7 +71,7 @@ class Login extends React.Component {
                     Bee-mart
                 </div>
 
-                <div className="Login-container shadow">
+                <div className="Login-container">
 
                     <div className={this.state.msg? this.state.errStyle : "neutral"}>
                         {this.state.msg || "Sign In to continue"}
