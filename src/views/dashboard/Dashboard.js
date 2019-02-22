@@ -1,8 +1,11 @@
 import React from 'react'
 import './Dashboard.scss'
-import Button from '../../components/button';
+/* import Button from '../../components/button'; */
 import HelperCookie from '../../helper/HelperCookie'
 import ConfigLocal from '../../config/ConfigLocal'
+import Header from './header';
+import Navbar from './navbar';
+import ContentSlider from './contents';
 
 class Dashboard extends React.Component {
     signOut = () => {
@@ -14,22 +17,14 @@ class Dashboard extends React.Component {
         return (
             <div className="grid-base scrollbar">
                 {/* HEADER */}
-                <div className="header-menu">
-                    <div className="header-menu-wrapper">
-                        <Button onClick={this.signOut} label="Sign Out" depressed/>
-                    </div>
-                </div>
-                <div className="grid-header" />
+                <Header />
 
                 {/* NAVBAR */}
-                <div className="grid-navbar">
-                    <div className="navbar">
-                        
-                    </div>
-                </div>
+                <Navbar />
 
                 {/* CONTENT */}
-                <div className="grid-content">
+                <ContentSlider />
+                {/* <div className="grid-content">
                     <div className="content-dummy-base">
                         <div className="content-dummy-wrapper">
                             <div className="content-dummy-title"></div>
@@ -37,7 +32,7 @@ class Dashboard extends React.Component {
                             <div className="content-dummy-table-data"></div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }

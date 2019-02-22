@@ -1,0 +1,42 @@
+@import '../../../styles/potitions';
+@import '../../../styles/palette';
+
+.grid-content {
+    @extend %grid-content;
+}
+
+.content-dummy-base {
+    margin: {
+        top: 20px;
+        bottom: 20px;
+        right: auto;
+        left: auto;
+    }
+    max-width: 1265px;
+    height: 93%;
+    background-color: $pure;
+    border-radius: 15px;
+}
+.content-dummy-wrapper {
+    padding: 20px;
+}
+.content-dummy-title {
+    height: 40px;
+    max-width: 400px;
+    background-color: $pure-darken;
+    border-radius: 10px;
+}
+.content-dummy-table-header {
+    margin-top: 20px;
+    width: 100%;
+    height: 40px;
+    background-color: $pure-darken;
+    border-radius: 10px;
+}
+.content-dummy-table-data {
+    margin-top: 20px;
+    width: 100%;
+    min-height: 375px;
+    background-color: $pure-darken;
+    border-radius: 10px;
+}
