@@ -1,16 +1,17 @@
 import axios from 'axios'
 import config from '../config/ConfigApi'
-
+import local from '../config/ConfigLocal'
+import HelperCookie from './HelperCookie';
 
 export default {
     request: (route, method, json, cb) => {
         let option = {
-            url: config.API_URL + config.ROUTE[route],
+            url: config.API_URL + route,
             method: method,
             headers: {},
             data: json
         }
-        if (route === 'SIGN_IN'){
+        if (route === config.ROUTE.SIGN_IN){
             option.headers = {
                 "Content-Type": config.HEADERS.conten_type,
                 "ApplicationCode": config.HEADERS.application_code
@@ -18,7 +19,7 @@ export default {
         }else{
             // if not Sign in, do this
             option.headers = {
-                'Authorization': 'TOKEN'//soon change this
+                'Authorization': 'Bearer ' + HelperCookie.get(local.TOKEN)
             }
         }
 

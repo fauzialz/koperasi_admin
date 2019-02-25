@@ -7,6 +7,7 @@ import Loading from '../../components/loading'
 import HelperHttp from '../../helper/HelperHttp'
 import HelperCookie from '../../helper/HelperCookie'
 import ConfigLocal from '../../config/ConfigLocal';
+import ConfigApi from '../../config/ConfigApi';
 
 class Login extends React.Component {
     constructor() {
@@ -32,7 +33,7 @@ class Login extends React.Component {
 
     onSubmit = () => {
         this.setState({loading : true})
-        HelperHttp.request('SIGN_IN', 'post', this.state.formdata,
+        HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, this.state.formdata,
         (succes, response) => {
             if(succes){
                 this.setState({
