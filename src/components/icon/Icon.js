@@ -1,7 +1,7 @@
 import React from 'react'
-import './InputIcon.scss'
+import './Icon.scss'
 
-class InputIcon extends React.Component {
+class Icon extends React.Component {
     /* ACCESS:
         <InputIcon
             --*mandatory--------------------------
@@ -13,12 +13,13 @@ class InputIcon extends React.Component {
     */
     state = {
         contrast: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 contras",
-        vivid: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 vivid"
+        vivid: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 vivid",
+        basic: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 basic",
     }
 
     render() {
         return (
-            <span className={this.props.seen? this.state.contrast : this.state.vivid }
+            <span className={!this.props.form? this.state.basic : this.props.seen? this.state.contrast : this.state.vivid }
                 aria-hidden="true"
                 onClick={this.props.onClick}
                 title={this.props.seen? "click to hide": "click to see"}
@@ -29,4 +30,4 @@ class InputIcon extends React.Component {
     }
 }
 
-export default InputIcon
+export default Icon

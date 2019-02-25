@@ -1,6 +1,6 @@
 import React from 'react'
 import './Input.scss'
-import InputIcon from '../input_icon'
+import Icon from '../icon'
 
 class Input extends React.Component {
     /* ACCESS:
@@ -61,10 +61,11 @@ class Input extends React.Component {
                         required={this.props.required}
                     />
                     {this.props.passVisibility ? 
-                        <InputIcon 
+                        <Icon 
                             iconName={this.state.icon}
                             seen={this.state.seen}
-                            onClick={this.visibility} 
+                            onClick={this.visibility}
+                            form
                         />
                         : ''
                     }
