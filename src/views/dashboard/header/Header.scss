@@ -2,9 +2,13 @@
 @import '../../../styles/palette';
 
 .grid-header {
-    @extend %grid-header;
+    @extend %grid-header-base;
     background-color: $pure-lighten;
-    border-bottom: 1px solid $pure
+    border-bottom: 1px solid $pure;
+    position: fixed;
+    width: 100%;
+    height: 60px;
+
 }
 
 .header-menu {

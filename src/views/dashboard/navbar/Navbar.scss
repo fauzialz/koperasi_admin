@@ -1,20 +1,66 @@
 @import '../../../styles/palette';
 @import '../../../styles/potitions';
 
-.grid-navbar {
-    @extend %grid-navbar;
+.grid-drawer {
     position: fixed;
 }
+.drawer-tile {
+    height: 60px;
+    width: 60px;
+    transition: all 0.5s ease;
+}
+.drawer-tile:hover {
+    @extend %auto-margin;
+    background-color: $pure;
+    height: 40px;
+    width: 40px;
+    margin: 10px;
+    border-radius: 50%;
+}
+.drawer-tile-active {
+    height: 60px;
+    width: 60px;
+    background-color: $primary;
+    border-radius: 0;
+    margin: 0px;
+    transition: all 0.3s ease;
+}
+/* .drawer-tile-active:hover {
+    @extend %auto-margin;
+    background-color: $primary;
+    height: 40px;
+    width: 40px;
+    margin: 10px;
+    border-radius: 50%;
+} */
 
-.navbar {
+.drawer-icon {
+    position: fixed;
+    top: 18px;
+    left: 16px;
+}
+
+.grid-navbar {
+    position: fixed;
+    top: 60px;
+}
+
+.navbar-hide {
     position: absolute;
     background-color: $primary;
-    width: 60px;
+    width: 3px;
     height: 100vh;
     transition: all 0.5s ease;
 }
-.navbar:hover {
-    width: 70px;
+.navbar-hide:hover {
+    width: 7px;
+}
+
+.navbar-show {
+    background-color: $primary;
+    width: 60px;
+    height: 100vh;
+    transition: all 0.3s ease;
 }
 
 .navbar-tile {
@@ -31,7 +77,7 @@
 }
 
 .navbar-icon {
-    width: 30px;
+    width: 28px;
     margin: {
         left: auto;
         right: auto;

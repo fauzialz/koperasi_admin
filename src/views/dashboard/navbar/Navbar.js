@@ -20,7 +20,7 @@ class Navbar extends React.Component {
                 }
             }
         )
-    }    
+    }   
 
     componentDidMount() {
         this.getNavigationList()
@@ -29,9 +29,25 @@ class Navbar extends React.Component {
     render() {
         return (
             <React.Fragment>
+                <div className="grid-drawer">
+                    <div className={ this.props.open ?
+                        "drawer-tile-active" :
+                        "drawer-tile"
+                    }>
+                        <div className="drawer-icon">
+                            <Icon 
+                                iconName="menu"
+                                onClick={this.props.onClick}
+                            />
+                        </div>
+                    </div>
+                </div>
+                
                 <div className="grid-navbar">
-                    <div className="navbar">
-                        <div className="navbar-tile">
+                    <div className={ this.props.open ?
+                        "navbar-show": "navbar-hide"
+                    }>
+                        {/* <div className="navbar-tile">
                             <div className="navbar-icon">
                                 <Icon 
                                     iconName="home"
@@ -51,7 +67,7 @@ class Navbar extends React.Component {
                                     iconName="settings"
                                 />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </React.Fragment>

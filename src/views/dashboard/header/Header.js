@@ -14,12 +14,13 @@ class Header extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="header-menu">
-                    <div className="header-menu-wrapper">
-                        <Button onClick={this.signOut} label="Sign Out" depressed/>
+                <div className="grid-header">
+                    <div className="header-menu">
+                        <div className="header-menu-wrapper">
+                            <Button onClick={this.signOut} label="Sign Out" depressed/>
+                        </div>
                     </div>
                 </div>
-                <div className="grid-header" />
             </React.Fragment>
         )
     }

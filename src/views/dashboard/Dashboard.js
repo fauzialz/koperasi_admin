@@ -8,32 +8,40 @@ import Navbar from './navbar';
 import ContentSlider from './contents';
 
 class Dashboard extends React.Component {
+    state = {
+        drawer : false
+    }
+
     signOut = () => {
         HelperCookie.delete(ConfigLocal.TOKEN)
         this.props.history.push('/')
     }
 
+    drawerHandler = () => {
+        this.setState({
+            drawer : !this.state.drawer
+        })
+    }
+
     render() {
         return (
-            <div className="grid-base scrollbar">
-                {/* HEADER */}
-                <Header />
+            <React.Fragment>
 
-                {/* NAVBAR */}
-                <Navbar />
+            {/* HEADER */}
+            <Header />
 
-                {/* CONTENT */}
-                <ContentSlider />
-                {/* <div className="grid-content">
-                    <div className="content-dummy-base">
-                        <div className="content-dummy-wrapper">
-                            <div className="content-dummy-title"></div>
-                            <div className="content-dummy-table-header"></div>
-                            <div className="content-dummy-table-data"></div>
-                        </div>
-                    </div>
-                </div> */}
-            </div>
+            {/* NAVBAR */}
+            <Navbar
+                open= {this.state.drawer}
+                onClick= {this.drawerHandler}    
+            />
+
+            {/* CONTENT */}
+            <ContentSlider 
+                open= {this.state.drawer}
+            />     
+            
+            </React.Fragment>
         )
     }
 }

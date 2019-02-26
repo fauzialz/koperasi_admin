@@ -17,26 +17,13 @@
 }
 
 // GRID SETTING
-%grid-base {
+
+%grid-header-base {
     display: grid;
-    grid-template-columns: [v1] 60px [v2] 20px [v3] auto [v4] auto [v5] 100px [v6] 20px [v7];
-    grid-template-rows: [h1] 60px [h2] auto [h3] 20px [h4];
-    width: 100vw;
-    height: 100vh;
-}
-%grid-header {
-    grid-column: v1 / v7;
-    grid-row: h1 / h2;
+    grid-template-columns: [hb1] 60px [hb2] auto [hb3] 100px [hb4] 20px [hb5];
+    grid-template-rows: [hhb1] 60px [hhb2];
 }
 %grid-header-menu {
-    grid-column: v5 / v6;
-    grid-row: h1 / h2;
-}
-%grid-navbar {
-    grid-column: v1 / v2;
-    grid-row: h1 / h4;
-}
-%grid-content {
-    grid-column: v3 / v6;
-    grid-row: h2 / h4;
+    grid-column: hb3 / hb4;
+    grid-row: hhb1 / hhb2;
 }
