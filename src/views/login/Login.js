@@ -35,17 +35,15 @@ class Login extends React.Component {
         this.setState({loading : true})
         HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, this.state.formdata,
         (succes, response) => {
+            this.setState({
+                loading : false,
+                msg: response.Message
+            })
             if(succes){
-                this.setState({
-                    loading : false,
-                    msg: response.Message
-                })
                 HelperCookie.set(ConfigLocal.TOKEN, response.Result.Token, response.Result.Expires)
                 this.props.history.push('/dashboard')
             }else{
                 this.setState({
-                    loading : false,
-                    msg : response,
                     errStyle : 'error'
                 })
                 setTimeout(() => {

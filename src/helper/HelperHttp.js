@@ -25,13 +25,14 @@ export default {
 
         axios(option)
         .then(res => {
-            cb(true, res.data)
+            debugger
+            cb(res.data.IsSuccess, res.data)
         })
         .catch(err => {
-            if(err.response === undefined){
-                cb(false, 'Lost connection with server.')
+            if(err.response === undefined){  
+                cb(false, { Message: 'Lost connection with server.' })
             }else{
-                cb(false, err.response.data.Message)
+                cb(false, err.response.data)
             }
         })
     }
