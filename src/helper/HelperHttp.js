@@ -22,10 +22,8 @@ export default {
                 'Authorization': 'Bearer ' + HelperCookie.get(local.TOKEN)
             }
         }
-
         axios(option)
         .then(res => {
-            debugger
             cb(res.data.IsSuccess, res.data)
         })
         .catch(err => {

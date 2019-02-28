@@ -9,7 +9,7 @@ import ContentSlider from './contents';
 
 class Dashboard extends React.Component {
     state = {
-        drawer : false
+        drawer : true
     }
 
     signOut = () => {
