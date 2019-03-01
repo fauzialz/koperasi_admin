@@ -22,7 +22,8 @@ class Icon extends React.Component {
             <span className={!this.props.form? this.state.basic : this.props.seen? this.state.contrast : this.state.vivid }
                 aria-hidden="true"
                 onClick={this.props.onClick}
-                title={this.props.seen? "click to hide": this.props.title || "click to see"}
+                title={this.props.seen? this.props.title2 || "click to hide": this.props.title1 || "click to see"}
+                /* style={{ color : this.props.color }} */
             >
                 {this.props.iconName}
             </span>

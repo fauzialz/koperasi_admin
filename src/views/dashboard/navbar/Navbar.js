@@ -3,13 +3,15 @@ import './Navbar.scss'
 import HelperHttp from '../../../helper/HelperHttp'
 import ConfigApi from '../../../config/ConfigApi';
 import Icon from '../../../components/icon';
+import Loading from '../../../components/loading';
 
 class Navbar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             navList : [],
-            editSession : false
+            editSession : false,
+            loading : false
         }
     } 
 
@@ -22,7 +24,7 @@ class Navbar extends React.Component {
     buttonHendler = (index) => {
         if(this.state.editSession){
             //edit menu
-            alert(this.state.navList[index].Code)
+            alert(this.state.navList[index].Codegit)
             //ready to deliver the value to crud
         }else{
             //run menu
@@ -30,12 +32,14 @@ class Navbar extends React.Component {
     }
 
     getNavigationList = () => {
+        this.setState({loading : true})
         HelperHttp.request(ConfigApi.ROUTE.GET_MENU, ConfigApi.METHODS.GET, {},
             (success, response) => {
                 if(success){
                     let list = response.Result
                     this.setState({
-                        navList : list
+                        navList : list,
+                        loading : false
                     })
                    /*  debugger */
                 }
@@ -52,27 +56,12 @@ class Navbar extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="grid-drawer">
-                    <div 
-                        className={ this.props.open ?
-                        "drawer-tile-active" :
-                        "drawer-tile"
-                    }>
-                        <div className="drawer-icon">
-                            <Icon 
-                                iconName="menu"
-                                onClick={this.props.onClick}
-                            />
-                        </div>
-                    </div>
-                </div>
+
+                {this.state.loading && <Loading />}
                 
                 <div className="grid-navbar">
                     {this.props.open ? 
                         <div className="navbar-show">
-
-                            
-
                            <div className= "navbar-edit">
                                 {navList.map( (e,n) => {
                                         return (

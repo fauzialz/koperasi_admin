@@ -1,98 +1,26 @@
 @import '../../../styles/palette';
 @import '../../../styles/potitions';
-
-.grid-drawer {
-    position: fixed;
-    display: grid;
-    grid-template-columns: [v1] 60px [v2] 140px [v3];
-    grid-template-rows: [h1] 60px [h2]
-}
-.drawer-tile:hover {
-    @extend %auto-margin;
-    transition: all 0.5s ease;/* 
-    transition-delay: 0.3s; */
-    height: 40px;
-    width: 40px;
-    margin: 10px;
-    border-radius: 50%;
-    background-color: $pure;
-}
-.drawer-tile {
-    height: 60px;
-    width: 60px;/* 
-    background-color: $pure; */
-    border-radius: 0;
-    margin: 0;
-    transition: all 0.5s ease;
-}
-.drawer-tile-active {
-    height: 60px;
-    width: 60px;
-    background-color: $primary;
-    border-radius: 0;
-    margin: 0px;
-    transition: all 0.3s ease;
-}
-/* .drawer-tile-active:hover {
-    @extend %auto-margin;
-    background-color: $primary;
-    height: 40px;
-    width: 40px;
-    margin: 10px;
-    border-radius: 50%;
-} */
-
-.drawer-icon {
-    position: fixed;
-    top: 18px;
-    left: 16px;
-}
-/* .drawer-tile-extend {
-    grid-column: v2 / v3;
-    grid-row: h1 / h3;
-    width: 0px;
-    height: 60px;
-    background-color: $primary;
-    transition: all 0.5s ease;
-}
-.drawer-tile-extend-active {
-    grid-column: v2 / v3;
-    grid-row: h1 / h3;
-    width: 140px;
-    height: 60px;
-    background-color: $primary;
-    transition: all 0.5s ease;
-    transition-delay: 0.35s;
-} */
+@import '../../../styles/sizes';
 
 .grid-navbar {
     position: fixed;
-    top: 60px;
+    top: $header;
+}
+
+.navbar-hide, .navbar-show {
+    background-color: $pure-menu;
+    border-right: 1px solid $pure-line;
+    height: 100vh;
 }
 
 .navbar-hide {
-    background-color: $primary;
-    width: 2px;
-    height: 100vh;
-    transition: all 0.5s ease;/* 
-    transition-delay: 0.3s; */
-}/* 
-.navbar-hide-hover {
-    position: absolute;
-    background-color: $primary;
-    width: 60px;
+    width: 0px;
     height: 100vh;
     transition: all 0.5s ease;
-    
-} */
+}
 .navbar-show {
-    /* display: grid;
-    grid-template-columns: [vv1] 60px [vv2];
-    grid-template-rows: [hh1] 10px [hh2] 60px [hh3]; */
     display: table;
-    background-color: $primary;
-    width: 60px;
-    height: 100vh;
+    width: $navbar;
     transition: all 0.3s ease;
     position: relative;
 }

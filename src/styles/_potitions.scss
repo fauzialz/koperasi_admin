@@ -15,15 +15,3 @@
 .center {
     @extend %auto-margin;
 }
-
-// GRID SETTING
-
-%grid-header-base {
-    display: grid;
-    grid-template-columns: [hb1] 60px [hb2] auto [hb3] 100px [hb4] 20px [hb5];
-    grid-template-rows: [hhb1] 60px [hhb2];
-}
-%grid-header-menu {
-    grid-column: hb3 / hb4;
-    grid-row: hhb1 / hhb2;
-}

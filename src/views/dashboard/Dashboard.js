@@ -28,12 +28,14 @@ class Dashboard extends React.Component {
             <React.Fragment>
 
             {/* HEADER */}
-            <Header />
+            <Header 
+                open= {this.state.drawer}
+                onClick= {this.drawerHandler}   
+            />
 
             {/* NAVBAR */}
             <Navbar
                 open= {this.state.drawer}
-                onClick= {this.drawerHandler}    
             />
 
             {/* CONTENT */}

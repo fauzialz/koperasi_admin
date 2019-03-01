@@ -1,7 +1,9 @@
 //COLOR THEME
+$primary-lighthover:#FFCA4E;
 $primary-lighten:   #ffeb3b;
 $primary:           #ffb300;
 $primary-darken:    #ff8f00;
+$primary-darkhover: #E5A100;
 
 $secondary-lighten: #aaaaaa; //temporary
 $secondary:         #22606C;
@@ -9,8 +11,11 @@ $secondary-darken:  rgb(54, 56, 58);
 
 //WHITE
 $pure-lighten:      #ffffff;
+$pure-menu:         #FCFCFC;
 $pure:              #ECECEC;
+$pure-line:         #DDDDDD;
 $pure-darken:       #c2c2c2;
+
 
 //BUTTON
 $submit-lightest:   #E4EDF8;
