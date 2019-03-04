@@ -4,6 +4,7 @@ import HelperHttp from '../../../helper/HelperHttp'
 import ConfigApi from '../../../config/ConfigApi';
 import Icon from '../../../components/icon';
 import Loading from '../../../components/loading';
+import ButtonStatus from '../../../components/button_status';
 
 class Navbar extends React.Component {
     constructor(props) {
@@ -23,8 +24,8 @@ class Navbar extends React.Component {
 
     buttonHendler = (index) => {
         if(this.state.editSession){
-            //edit menu
-            alert(this.state.navList[index].Codegit)
+            //edit menu show modal
+            alert(this.state.navList[index].Icon + "\n" + this.state.navList[index].Description)
             //ready to deliver the value to crud
         }else{
             //run menu
@@ -37,6 +38,7 @@ class Navbar extends React.Component {
             (success, response) => {
                 if(success){
                     let list = response.Result
+                    debugger
                     this.setState({
                         navList : list,
                         loading : false
@@ -58,7 +60,7 @@ class Navbar extends React.Component {
             <React.Fragment>
 
                 {this.state.loading && <Loading />}
-                
+
                 <div className="grid-navbar">
                     {this.props.open ? 
                         <div className="navbar-show">
@@ -78,13 +80,10 @@ class Navbar extends React.Component {
                                     })
                                 }
                                 <div className= "edit-tile">
-                                    <div className= "navbar-icon">
-                                        <Icon 
-                                            iconName="settings"
-                                            onClick={this.editSessionHendler}
-                                            title= "Navbar Settings"
-                                        />
-                                    </div>
+                                    <ButtonStatus
+                                        onClick={this.editSessionHendler}
+                                        active={this.state.editSession}
+                                    />
                                 </div>
                             </div>
                         </div>

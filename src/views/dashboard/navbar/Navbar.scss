@@ -23,6 +23,7 @@
     width: $navbar;
     transition: all 0.3s ease;
     position: relative;
+   /*  overflow: auto; */
 }
 
 .navbar-tile {
@@ -31,10 +32,11 @@
     height: 60px;
     cursor: pointer;
     transition: all 0.3s ease;
+    /* overflow: auto; */
 }
 
 .navbar-tile:hover {
-    background-color: $primary-darken;
+    background-color: $pure;
 
 }
 
@@ -54,13 +56,16 @@
     grid-row: hh2 / hh3; */
     position: relative;
     height: 100vh;
-    width: 60px;
+    /* width: 60px; */
     /* background-color: $pure; */
-    transition: all 0.7s ease;
+    /* transition: all 0.0s ease; */
 }
 .edit-tile {
     position: absolute;
-    bottom: 70px;
-    height: 60px;
-    width: 60px;
+    bottom: 28px;
+    padding-top: 20px;
+    height: 80px;
+    background-color: $pure;
+    /* border-top: 1px solid $pure-line; */
+    width: 100%;
 }
