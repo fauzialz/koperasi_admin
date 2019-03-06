@@ -10,6 +10,7 @@ import { withRouter } from 'react-router-dom'
 class Header extends React.Component {
     signOut = () => {
         HelperCookie.delete(ConfigLocal.TOKEN)
+        HelperCookie.delete(ConfigLocal.USERNAME)
         this.props.history.push('/')
     }
 

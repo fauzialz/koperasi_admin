@@ -7,6 +7,8 @@ import Loading from '../../../components/loading';
 import ButtonStatus from '../../../components/button_status';
 import ModalFrame from '../../../components/modal_frame';
 import Input from '../../../components/input';
+import HelperCookie from '../../../helper/HelperCookie';
+import ConfigLocal from '../../../config/ConfigLocal';
 
 class Navbar extends React.Component {
     constructor(props) {
@@ -20,11 +22,18 @@ class Navbar extends React.Component {
         }
     } 
 
-    editSessionHendler = () => {
-        this.setState({openModal:true})
-        /* this.setState({
+    editSessionSwitch = () => {
+        this.setState({
             editSession: !this.state.editSession
-        }) */
+        })
+    }
+
+    editSessionHendler = () => {
+        if(this.state.editSession === false){
+            this.setState({openModal:true})
+        }else{
+            this.editSessionSwitch()
+        }
     }
 
     buttonHendler = (index) => {
@@ -49,19 +58,35 @@ class Navbar extends React.Component {
                         navList : list,
                         loading : false
                     })
-                   /*  debugger */
                 }
             }
         )
     }
 
-    //METHOD FOR MODAL
+    //METHOD FOR MODAL====================
+    onSubmit = () => {
+        this.setState({loading : true})
+        let formdata = {
+            username : HelperCookie.get(ConfigLocal.USERNAME),
+            password : this.state.password
+        }
+        debugger
+        HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, formdata,
+        (success, response) => {
+            this.setState({loading : false})
+            if(success){
+                this.editSessionSwitch()
+            }
+            this.onClose()
+        })
+    }
     onClose = () => {
-        this.setState({openModal:false})
+        this.setState({openModal:false, password:''})
     }
     textChange= e => {
         this.setState({password:e.target.value})
     }
+    //==================================
 
     componentDidMount() {
         this.getNavigationList()
@@ -73,8 +98,7 @@ class Navbar extends React.Component {
         return (
             <React.Fragment>
 
-                {loading && <Loading />}
-                <ModalFrame title="Authentication" open={openModal} onBtnR={this.onClose}>
+                <ModalFrame title="Authentication" open={openModal} onBtnR={this.onClose} onBtnL={this.onSubmit}>
                     Enter your password to edit the navigation menu.
                     <Input
                         passVisibility
@@ -84,6 +108,8 @@ class Navbar extends React.Component {
                         onChange={this.textChange}
                     />
                 </ModalFrame>
+
+                {loading && <Loading />}
 
                 <div className="grid-navbar">
                     {this.props.open ? 
