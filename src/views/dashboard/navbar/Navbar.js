@@ -5,6 +5,8 @@ import ConfigApi from '../../../config/ConfigApi';
 import Icon from '../../../components/icon';
 import Loading from '../../../components/loading';
 import ButtonStatus from '../../../components/button_status';
+import ModalFrame from '../../../components/modal_frame';
+import Input from '../../../components/input';
 
 class Navbar extends React.Component {
     constructor(props) {
@@ -12,20 +14,24 @@ class Navbar extends React.Component {
         this.state = {
             navList : [],
             editSession : false,
-            loading : false
+            loading : false,
+            openModal: false,
+            password: ''
         }
     } 
 
     editSessionHendler = () => {
-        this.setState({
+        this.setState({openModal:true})
+        /* this.setState({
             editSession: !this.state.editSession
-        })
+        }) */
     }
 
     buttonHendler = (index) => {
         if(this.state.editSession){
             //edit menu show modal
             alert(this.state.navList[index].Icon + "\n" + this.state.navList[index].Description)
+        
             //ready to deliver the value to crud
         }else{
             //run menu
@@ -49,17 +55,35 @@ class Navbar extends React.Component {
         )
     }
 
+    //METHOD FOR MODAL
+    onClose = () => {
+        this.setState({openModal:false})
+    }
+    textChange= e => {
+        this.setState({password:e.target.value})
+    }
+
     componentDidMount() {
         this.getNavigationList()
     }
 
     render() {
-        const { navList } = this.state
+        const { navList, openModal, loading, password } = this.state
 
         return (
             <React.Fragment>
 
-                {this.state.loading && <Loading />}
+                {loading && <Loading />}
+                <ModalFrame title="Authentication" open={openModal} onBtnR={this.onClose}>
+                    Enter your password to edit the navigation menu.
+                    <Input
+                        passVisibility
+                        fluid
+                        name="password"
+                        value={password}
+                        onChange={this.textChange}
+                    />
+                </ModalFrame>
 
                 <div className="grid-navbar">
                     {this.props.open ? 
