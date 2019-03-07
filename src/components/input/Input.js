@@ -59,6 +59,7 @@ class Input extends React.Component {
                         onChange={this.props.onChange}
                         autoComplete="off"
                         required={this.props.required}
+                        autoFocus={this.props.autoFocus}
                     />
                     {this.props.passVisibility ? 
                         <Icon 

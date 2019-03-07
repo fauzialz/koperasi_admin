@@ -5,20 +5,18 @@ import ConfigApi from '../../../config/ConfigApi';
 import Icon from '../../../components/icon';
 import Loading from '../../../components/loading';
 import ButtonStatus from '../../../components/button_status';
-import ModalFrame from '../../../components/modal_frame';
-import Input from '../../../components/input';
-import HelperCookie from '../../../helper/HelperCookie';
-import ConfigLocal from '../../../config/ConfigLocal';
+import NavbarEditAuth from './NavbarEditAuth';
 
 class Navbar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             navList : [],
+            navObj  : {},
             editSession : false,
             loading : false,
-            openModal: false,
-            password: ''
+            openAuthModal: false,
+            openEditModal: false,
         }
     } 
 
@@ -28,9 +26,13 @@ class Navbar extends React.Component {
         })
     }
 
+    loadingSwitch = () => {
+        this.setState({loading : !this.state.loading})
+    }
+
     editSessionHendler = () => {
         if(this.state.editSession === false){
-            this.setState({openModal:true})
+            this.setState({openAuthModal:true})
         }else{
             this.editSessionSwitch()
         }
@@ -39,75 +41,51 @@ class Navbar extends React.Component {
     buttonHendler = (index) => {
         if(this.state.editSession){
             //edit menu show modal
-            alert(this.state.navList[index].Icon + "\n" + this.state.navList[index].Description)
-        
-            //ready to deliver the value to crud
+            this.setState({
+                navObj: this.state.navList[index],
+                openEditModal: true
+            })
         }else{
             //run menu
         }
     }
 
     getNavigationList = () => {
-        this.setState({loading : true})
+        this.loadingSwitch()
         HelperHttp.request(ConfigApi.ROUTE.GET_MENU, ConfigApi.METHODS.GET, {},
             (success, response) => {
                 if(success){
+                    this.loadingSwitch()
                     let list = response.Result
-                    debugger
                     this.setState({
                         navList : list,
-                        loading : false
                     })
                 }
             }
         )
     }
 
-    //METHOD FOR MODAL====================
-    onSubmit = () => {
-        this.setState({loading : true})
-        let formdata = {
-            username : HelperCookie.get(ConfigLocal.USERNAME),
-            password : this.state.password
-        }
-        debugger
-        HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, formdata,
-        (success, response) => {
-            this.setState({loading : false})
-            if(success){
-                this.editSessionSwitch()
-            }
-            this.onClose()
+    onClose = () => {
+        this.setState({
+            openAuthModal: false,
+            openEditModal: false,
         })
     }
-    onClose = () => {
-        this.setState({openModal:false, password:''})
-    }
-    textChange= e => {
-        this.setState({password:e.target.value})
-    }
-    //==================================
 
     componentDidMount() {
         this.getNavigationList()
     }
 
     render() {
-        const { navList, openModal, loading, password } = this.state
+        const { navList, openAuthModal, loading } = this.state
 
         return (
             <React.Fragment>
 
-                <ModalFrame title="Authentication" open={openModal} onBtnR={this.onClose} onBtnL={this.onSubmit}>
-                    Enter your password to edit the navigation menu.
-                    <Input
-                        passVisibility
-                        fluid
-                        name="password"
-                        value={password}
-                        onChange={this.textChange}
-                    />
-                </ModalFrame>
+                <NavbarEditAuth
+                    open={openAuthModal}    editSession={this.editSessionSwitch}
+                    onClose={this.onClose}  loading={this.loadingSwitch}
+                />
 
                 {loading && <Loading />}
 
