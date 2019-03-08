@@ -20,7 +20,8 @@ class Input extends React.Component {
     state = {
         type: "password",
         icon: 'visibility_off',
-        seen: false
+        seen: false,
+        label: 'input-label'
     } 
 
     visibility = () => {
@@ -39,22 +40,42 @@ class Input extends React.Component {
         }
     }
 
+    onFocusHandler = () => {
+        this.setState({label: 'input-label-focus'})
+    }
+    onBlurHandler = () => {
+        this.setState({label: 'input-label'})
+    }
+
     render() {
         return (
             <React.Fragment>
                 <div 
                     className={this.props.fluid ? "input-fluid" : "input-container"}
-                >
+                >   
+                    { this.props.label ? 
+                        <div className={this.state.label}>
+                            {this.props.label}
+                        </div> : null
+                    }
                     <input
+                        onFocus={this.onFocusHandler}
+                        onBlur={this.onBlurHandler}
+                        disabled={
+                            this.props.name === 'Id' || 
+                            this.props.name === 'Code' ?
+                                true : false
+                        }
                         className={this.props.passVisibility? "input-visibility": ''}
                         type={this.props.password || this.props.passVisibility ? this.state.type : "text"}
                         name={this.props.name}
-                        placeholder={this.props.placeholder ?
-                            this.props.placeholder :
-                            this.props.name.replace(
-                                    this.props.name.charAt(0),
-                                    this.props.name.charAt(0).toUpperCase()
-                                )}
+                        placeholder={this.props.label ? '':
+                            this.props.placeholder ?
+                                this.props.placeholder :
+                                this.props.name.replace(
+                                        this.props.name.charAt(0),
+                                        this.props.name.charAt(0).toUpperCase()
+                        )}
                         value={this.props.value}
                         onChange={this.props.onChange}
                         autoComplete="off"
