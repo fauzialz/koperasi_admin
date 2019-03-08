@@ -10,6 +10,7 @@ class Input extends React.Component {
             value= "{variable to store the value}"
             onChange= "{your onChange function (use for change value)}"
             --*optional---------------------------
+            label= "{texfield with label on the top of it. if this not null, placeholder will disappear."
             placeholder= "{costumize placeholder text. Empty case: this place will filled by capitalized name props}"
             fluid {input width all over the place}
             password {input type password}

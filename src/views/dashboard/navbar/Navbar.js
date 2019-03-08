@@ -6,6 +6,7 @@ import Icon from '../../../components/icon';
 import Loading from '../../../components/loading';
 import ButtonStatus from '../../../components/button_status';
 import NavbarEditAuth from './NavbarEditAuth';
+import NavbarEdit from './NavbarEdit';
 
 class Navbar extends React.Component {
     constructor(props) {
@@ -39,12 +40,14 @@ class Navbar extends React.Component {
     }
 
     buttonHendler = (index) => {
+        console.log(index)
         if(this.state.editSession){
             //edit menu show modal
             this.setState({
                 navObj: this.state.navList[index],
                 openEditModal: true
             })
+            console.log(this.state.navList[index])
         }else{
             //run menu
         }
@@ -77,7 +80,7 @@ class Navbar extends React.Component {
     }
 
     render() {
-        const { navList, openAuthModal, loading } = this.state
+        const { navList, openAuthModal, openEditModal, loading } = this.state
 
         return (
             <React.Fragment>
@@ -85,6 +88,11 @@ class Navbar extends React.Component {
                 <NavbarEditAuth
                     open={openAuthModal}    editSession={this.editSessionSwitch}
                     onClose={this.onClose}  loading={this.loadingSwitch}
+                />
+                <NavbarEdit 
+                    open={openEditModal}
+                    dataNow={this.state.navObj}
+                    onClose={this.onClose}
                 />
 
                 {loading && <Loading />}
