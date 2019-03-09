@@ -1,0 +1,59 @@
+@import '../../../styles/sizes';
+@import '../../../styles/palette';
+
+.grid-header {
+    display: grid;
+    grid-template-columns: [hb1] $header [hb2] auto [hb3] 100px [hb4] 20px [hb5];
+    grid-template-rows: [hhb1] $header [hhb2];
+    background-color: $primary;
+    position: fixed;
+    width: 100%;
+    height: $header;
+}
+
+.header-drawer, .header-menu {
+    grid-row: hhb1 / hhb2;
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+.header-drawer {
+    grid-column: hb1 / hb2;
+}
+.header-menu {
+    grid-column: hb3 / hb4;
+}
+
+.header-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+//DRAWER BUTTON
+.drawer, .drawer-active {
+    height: $header;
+    width: $header;
+    border-radius: 0;
+    margin: 0;
+}
+.drawer-active {
+    background-color: $primary-darkhover;
+    transition: all 0.5s ease;
+}
+.drawer {
+    transition: all 0.5s ease;
+}
+.drawer:hover {
+    height: $header - $minus;
+    width: $header - $minus;
+    border-radius: 50%;
+    background-color: $primary-darkhover;
+    /* opacity: 0.3; */
+    transition: all 0.5s ease;
+    margin: $minus/2;
+}
+.drawer-icon {
+    position: fixed;
+    top: 12px;
+    left: 11px;
+}

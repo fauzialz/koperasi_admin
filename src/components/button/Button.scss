@@ -7,19 +7,20 @@ button {
     border: none;
     outline: none;
     transition: all 0.3s ease;
-    min-height: 32px;
+    min-height: 30px;
     min-width: 100px;
     border: {
-        radius: 5px;
+        radius: 6px;
     }
     font: {
-        size: 14px;
-        weight: bold;
+        size: 11pt;
+        weight: 550;
     }
     text-align: center;
     position: sticky;
     line-height: unset;
     display: inherit;
+    color: $dark;
 }
 
 //PROPS involvement------
@@ -52,12 +53,12 @@ button {
 //DEPRESSED
 .depressed {
     background-color: transparent;
+    font-size: 10.5pt;
 }
 .depressed:hover {
     background:rgba(0,0,0,0.1);
 }
 .depressed:active {
-    color: $primary;
     background:rgba(255, 255, 255, 0.4);
 }
 

@@ -1,11 +1,11 @@
 %shadow-short {
-    box-shadow: 0 2.5px 1px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2.5px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 %shadow-long {
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 15px 0 rgba(0, 0, 0, 0.19);
 }
 
-.shadow {
+%shadow {
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
 }

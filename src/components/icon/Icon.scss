@@ -11,6 +11,18 @@
     @extend %noselect;
 }
 
+.basic {
+    cursor: pointer;
+    position: fixed;
+    @extend %noselect;
+    color: $secondary-darken;
+    font-size: 20pt;
+}
+
+.basic:hover {
+    color: black;
+}
+
 .contras {
     color: $primary;
 }

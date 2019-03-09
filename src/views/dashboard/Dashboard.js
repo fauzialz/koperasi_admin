@@ -1,36 +1,49 @@
 import React from 'react'
 import './Dashboard.scss'
-import Button from '../../components/button';
+/* import Button from '../../components/button'; */
 import HelperCookie from '../../helper/HelperCookie'
 import ConfigLocal from '../../config/ConfigLocal'
+import Header from './header';
+import Navbar from './navbar';
+import ContentSlider from './contents';
 
 class Dashboard extends React.Component {
+    state = {
+        drawer : true
+    }
+
     signOut = () => {
         HelperCookie.delete(ConfigLocal.TOKEN)
         this.props.history.push('/')
     }
 
+    drawerHandler = () => {
+        this.setState({
+            drawer : !this.state.drawer
+        })
+    }
+
     render() {
         return (
-            <div className="grid-base">
-                {/* HEADER */}
-                <div className="header-right-component">
-                    <Button onClick={this.signOut} label="Sign Out" depressed/>
-                </div>
-                <div className="grid-header" />
+            <React.Fragment>
 
-                {/* NAVBAR */}
-                <div className="grid-navbar">
-                    <div className="navbar">
-                        
-                    </div>
-                </div>
+            {/* HEADER */}
+            <Header 
+                open= {this.state.drawer}
+                onClick= {this.drawerHandler}   
+            />
 
-                {/* CONTENT */}
-                <div className="grid-content">
+            {/* NAVBAR */}
+            <Navbar
+                open= {this.state.drawer}
+            />
 
-                </div>
-            </div>
+            {/* CONTENT */}
+            <ContentSlider 
+                open= {this.state.drawer}
+            />     
+            
+            </React.Fragment>
         )
     }
 }

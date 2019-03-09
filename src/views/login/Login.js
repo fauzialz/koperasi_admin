@@ -7,6 +7,7 @@ import Loading from '../../components/loading'
 import HelperHttp from '../../helper/HelperHttp'
 import HelperCookie from '../../helper/HelperCookie'
 import ConfigLocal from '../../config/ConfigLocal';
+import ConfigApi from '../../config/ConfigApi';
 
 class Login extends React.Component {
     constructor() {
@@ -32,19 +33,18 @@ class Login extends React.Component {
 
     onSubmit = () => {
         this.setState({loading : true})
-        HelperHttp.request('SIGN_IN', 'post', this.state.formdata,
+        HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, this.state.formdata,
         (succes, response) => {
+            this.setState({
+                loading : false,
+                msg: response.Message
+            })
             if(succes){
-                this.setState({
-                    loading : false,
-                    msg: response.Message
-                })
-                HelperCookie.set(ConfigLocal.TOKEN, response.Result.token, response.Result.expires)
+                HelperCookie.set(ConfigLocal.TOKEN, response.Result.Token, response.Result.Expires)
+                HelperCookie.set(ConfigLocal.USERNAME, response.Result.Username,  response.Result.Expires)
                 this.props.history.push('/dashboard')
             }else{
                 this.setState({
-                    loading : false,
-                    msg : response,
                     errStyle : 'error'
                 })
                 setTimeout(() => {
@@ -71,7 +71,7 @@ class Login extends React.Component {
                     Bee-mart
                 </div>
 
-                <div className="Login-container shadow">
+                <div className="Login-container">
 
                     <div className={this.state.msg? this.state.errStyle : "neutral"}>
                         {this.state.msg || "Sign In to continue"}
