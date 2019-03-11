@@ -43,11 +43,7 @@ class Navbar extends React.Component {
         console.log(index)
         if(this.state.editSession){
             //edit menu show modal
-            this.setState({
-                navObj: this.state.navList[index],
-                openEditModal: true
-            })
-            console.log(this.state.navList[index])
+            this.getNavbarById(this.state.navList[index].Id)
         }else{
             //run menu
         }
@@ -55,13 +51,29 @@ class Navbar extends React.Component {
 
     getNavigationList = () => {
         this.loadingSwitch()
-        HelperHttp.request(ConfigApi.ROUTE.GET_MENU, ConfigApi.METHODS.GET, {},
+        HelperHttp.request(ConfigApi.ROUTE.MENU, ConfigApi.METHODS.GET, {},
             (success, response) => {
+                this.loadingSwitch()
                 if(success){
-                    this.loadingSwitch()
                     let list = response.Result
                     this.setState({
-                        navList : list,
+                        navList : list
+                    })
+                }
+            }
+        )
+    }
+
+    getNavbarById = (id) => {
+        this.loadingSwitch()
+        let route = ConfigApi.ROUTE.MENU + '/' +id
+        HelperHttp.request(route, ConfigApi.METHODS.GET, {}, 
+            (success, response) => {
+                this.loadingSwitch()
+                if(success) {
+                    this.setState({
+                        navObj: response.Result,
+                        openEditModal: true
                     })
                 }
             }
@@ -93,6 +105,7 @@ class Navbar extends React.Component {
                     open={openEditModal}
                     dataNow={this.state.navObj}
                     onClose={this.onClose}
+                    loading={this.loadingSwitch}
                 />
 
                 {loading && <Loading />}
@@ -103,11 +116,12 @@ class Navbar extends React.Component {
                            <div className= "navbar-edit">
                                 {navList.map( (e,n) => {
                                         return (
-                                            <div key= {e.Code} className="navbar-tile">
+                                            <div key= {e.Code} className="navbar-tile"
+                                                onClick={ () => this.buttonHendler(n)}
+                                            >
                                                 <div className= "navbar-icon">
                                                     <Icon 
                                                         iconName="face"
-                                                        onClick={ () => this.buttonHendler(n)}
                                                         title= "Navbar Settings"
                                                     />
                                                 </div>

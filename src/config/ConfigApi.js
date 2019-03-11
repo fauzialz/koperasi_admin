@@ -2,7 +2,7 @@ export default {
     API_URL: 'https://beemart-development.azurewebsites.net/api',
     ROUTE: {
         SIGN_IN: '/authentication',
-        GET_MENU: '/menu'
+        MENU: '/menu'
     },
     HEADERS : {
         conten_type: 'application/json',

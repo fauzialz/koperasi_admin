@@ -31,7 +31,7 @@ class ModalForm extends React.Component {
     buttonHandler = (submit) => {
         this.clearInput()
         if(submit) {
-            this.props.onSubmit()
+            this.props.onSubmit(this.state.data)
         }else{
             this.props.onClose()
         }
@@ -42,22 +42,27 @@ class ModalForm extends React.Component {
     }
 
     render() {
-        const { title, open, names } = this.props
+        const { title, open, names, btnL, btnR } = this.props
         return (
-            <ModalFrame title={title} open={open} onBtnL={() => this.buttonHandler(true)} onBtnR={this.buttonHandler}>
+            <ModalFrame 
+                title={title} 
+                open={open} 
+                btnL={btnL}
+                btnR={btnR}
+                onBtnL={() => this.buttonHandler(true)} 
+                onBtnR={() => this.buttonHandler(false)}
+            >
                 <form>
                     {names.map( name => {
                         return (
-                            <React.Fragment>
-                                <Input
-                                    label={name}
-                                    key={name}
-                                    fluid
-                                    name={name}
-                                    value={this.state.data[name]}
-                                    onChange={this.textChange}
-                                />
-                            </React.Fragment>
+                            <Input
+                                label={name}
+                                key={name}
+                                fluid
+                                name={name}
+                                value={this.state.data[name]}
+                                onChange={this.textChange}
+                            />
                         )
                     })}
                 </form>
