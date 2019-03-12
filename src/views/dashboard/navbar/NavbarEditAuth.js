@@ -53,6 +53,8 @@ class NavbarEditAuth extends React.Component {
                     name="password"
                     value={this.state.password}
                     onChange={this.textChange}
+                    autoFocus
+                    focusEvery={open}
                 />
             </ModalFrame>
         )

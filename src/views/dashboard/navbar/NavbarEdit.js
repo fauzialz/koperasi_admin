@@ -23,7 +23,7 @@ class NavbarEdit extends React.Component {
                 if(success){
                     alert('DATA EDITED')
                 }else(
-                    alert('DATA NOT EDITED')
+                    alert(data.Etag)
                 )
                 this.props.onClose()
             }    
@@ -43,6 +43,7 @@ class NavbarEdit extends React.Component {
                     onSubmit={this.onSubmit}
                     onClose={onClose}
                     btnL="Edit"
+                    focusIf="Name"
                 />
             </React.Fragment>
         )
