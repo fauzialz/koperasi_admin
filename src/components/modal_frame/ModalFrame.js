@@ -4,7 +4,7 @@ import Button from '../button';
 
 class ModalFrame extends React.Component {
     render() {
-        const { open, title, children, onBtnL, onBtnR } = this.props
+        const { open, title, children, onBtnL, onBtnR, btnL, btnR } = this.props
         return (
             <React.Fragment>
                 <div className={open? "modal-open": "modal-close"}>
@@ -23,13 +23,13 @@ class ModalFrame extends React.Component {
                             <div className="modal-footer">
                                 <div className="modal-footer-left">
                                     <Button rounded flat blue 
-                                    label="Submit"
+                                    label={btnL || "Submit"}
                                     onClick={onBtnL}
                                     />
                                 </div>
                                 <div className="modal-footer-right">
                                     <Button rounded depressed 
-                                    label="Cancel"
+                                    label={btnR || "Cancel"}
                                     onClick={onBtnR}/>
                                 </div>
                             </div>

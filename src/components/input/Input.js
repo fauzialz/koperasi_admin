@@ -16,14 +16,25 @@ class Input extends React.Component {
             password {input type password}
             passVisibility {input type password with show/hide password button}
             required {to make input required in form}
+            autoFocus {to make input focus at a time}
+            focusEvery= {
+                Boolean variable (Usually for Modal. this props make input will
+                focus everytime user open modal or everytime whatever variable
+                thrown on this props = true)
+            }
         />
     */
-    state = {
-        type: "password",
-        icon: 'visibility_off',
-        seen: false,
-        label: 'input-label'
-    } 
+   constructor(props) {
+        super(props)
+        this.state = {
+            type: "password",
+            icon: 'visibility_off',
+            seen: false,
+            label: 'input-label',
+            focus: true
+        } 
+        this.textInput = React.createRef()
+   }
 
     visibility = () => {
         if(this.state.icon === 'visibility'){
@@ -42,10 +53,22 @@ class Input extends React.Component {
     }
 
     onFocusHandler = () => {
-        this.setState({label: 'input-label-focus'})
+        this.setState({label: 'input-label-focus', focus: true})
+        this.textInput.current.focus();
     }
     onBlurHandler = () => {
-        this.setState({label: 'input-label'})
+        this.setState({label: 'input-label', focus: false})
+        this.textInput.current.blur();
+    }
+    
+    //lifecycle to detect props update
+    componentDidUpdate(oldProps) {
+        if(this.props.focusEvery !== oldProps.focusEvery) {
+            this.setState({focus: true})
+        }
+        if(this.props.autoFocus && this.state.focus){
+            this.textInput.current.focus();
+        }
     }
 
     render() {
@@ -60,13 +83,14 @@ class Input extends React.Component {
                         </div> : null
                     }
                     <input
+                        ref={this.textInput}
                         onFocus={this.onFocusHandler}
                         onBlur={this.onBlurHandler}
                         disabled={
-                            this.props.name === 'Id' || 
-                            this.props.name === 'Code' ?
-                                true : false
-                        }
+                                this.props.name === 'Id' || 
+                                this.props.name === 'Code' ?
+                                    true : false
+                            }
                         className={this.props.passVisibility? "input-visibility": ''}
                         type={this.props.password || this.props.passVisibility ? this.state.type : "text"}
                         name={this.props.name}
@@ -90,7 +114,7 @@ class Input extends React.Component {
                             onClick={this.visibility}
                             form
                         />
-                        : ''
+                        : null
                     }
                 </div>
             </React.Fragment>

@@ -19,11 +19,23 @@ export default {
         }else{
             // if not Sign in, do this
             option.headers = {
-                'Authorization': 'Bearer ' + HelperCookie.get(local.TOKEN)
+                'Authorization': 'Bearer ' + HelperCookie.get(local.TOKEN),
+                "Content-Type": config.HEADERS.conten_type
+            }
+            if (method === config.METHODS.PUT) {
+                option.url += '/' + json.Id
+                option.headers['If-Match'] = json.Etag
+                delete option.data.Id
+                delete option.data.Etag
             }
         }
+        debugger
         axios(option)
         .then(res => {
+            if (res.headers.etag) {
+                res.data.Result['Etag'] = res.headers.etag
+            }
+            debugger
             cb(res.data.IsSuccess, res.data)
         })
         .catch(err => {

@@ -15,11 +15,19 @@ class Icon extends React.Component {
         contrast: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 contras",
         vivid: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 vivid",
         basic: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 basic",
+        small: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 basic small",
     }
 
     render() {
         return (
-            <span className={!this.props.form? this.state.basic : this.props.seen? this.state.contrast : this.state.vivid }
+            <span className={
+                    !this.props.form && !this.props.small? 
+                        this.state.basic :  
+                        this.props.small?
+                            this.state.small :
+                            this.props.seen? 
+                                this.state.contrast : 
+                                this.state.vivid }
                 aria-hidden="true"
                 onClick={this.props.onClick}
                 title={this.props.seen? this.props.title2 || "click to hide": this.props.title1 || "click to see"}
