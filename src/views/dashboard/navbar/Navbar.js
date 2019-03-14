@@ -2,11 +2,11 @@ import React from 'react'
 import './Navbar.scss'
 import HelperHttp from '../../../helper/HelperHttp'
 import ConfigApi from '../../../config/ConfigApi';
-import Icon from '../../../components/icon';
 import Loading from '../../../components/loading';
 import ButtonStatus from '../../../components/button_status';
 import NavbarEditAuth from './NavbarEditAuth';
 import NavbarEdit from './NavbarEdit';
+import NavbarTiles from './NavbarTiles';
 
 class Navbar extends React.Component {
     constructor(props) {
@@ -51,11 +51,12 @@ class Navbar extends React.Component {
 
     getNavigationList = () => {
         this.loadingSwitch()
-        HelperHttp.request(ConfigApi.ROUTE.MENU, ConfigApi.METHODS.GET, {},
+        HelperHttp.request(ConfigApi.ROUTE.GET_MENU, ConfigApi.METHODS.GET, {},
             (success, response) => {
                 this.loadingSwitch()
                 if(success){
                     let list = response.Result
+                    debugger
                     this.setState({
                         navList : list
                     })
@@ -106,6 +107,7 @@ class Navbar extends React.Component {
                     dataNow={this.state.navObj}
                     onClose={this.onClose}
                     loading={this.loadingSwitch}
+                    hotReload={this.getNavigationList}
                 />
 
                 {loading && <Loading />}
@@ -113,22 +115,8 @@ class Navbar extends React.Component {
                 <div className="grid-navbar">
                     {this.props.open ? 
                         <div className="navbar-show">
-                           <div className= "navbar-edit">
-                                {navList.map( (e,n) => {
-                                        return (
-                                            <div key= {e.Code} className="navbar-tile"
-                                                onClick={ () => this.buttonHendler(n)}
-                                            >
-                                                <div className= "navbar-icon">
-                                                    <Icon 
-                                                        iconName="face"
-                                                        title= "Navbar Settings"
-                                                    />
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
+                           <div className= "navbar-wrapper">
+                                <NavbarTiles navList={navList} onClick={this.buttonHendler} />
                                 <div className= "edit-tile">
                                     <ButtonStatus
                                         onClick={this.editSessionHendler}

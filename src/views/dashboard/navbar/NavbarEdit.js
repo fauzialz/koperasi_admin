@@ -19,9 +19,11 @@ class NavbarEdit extends React.Component {
         this.props.loading()
         HelperHttp.request(ConfigApi.ROUTE.MENU, ConfigApi.METHODS.PUT, input,
             (success, response) => {
+                debugger
                 this.props.loading()
                 if(success){
                     alert('DATA EDITED')
+                    this.props.hotReload()
                 }else(
                     alert(data.Etag)
                 )

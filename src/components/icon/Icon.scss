@@ -30,3 +30,11 @@
 .vivid {
     color: $secondary;
 }
+
+.small {
+    cursor: pointer;
+    position: fixed;
+    @extend %noselect;
+    color: $secondary-darken;
+    font-size: 18pt;
+}
