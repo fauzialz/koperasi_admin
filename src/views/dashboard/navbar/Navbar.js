@@ -7,8 +7,11 @@ import ButtonStatus from '../../../components/button_status';
 import NavbarEditAuth from './NavbarEditAuth';
 import NavbarEdit from './NavbarEdit';
 import NavbarTiles from './NavbarTiles';
+import { AppContext } from '../../../context_provider';
 
 class Navbar extends React.Component {
+    static contextType = AppContext
+
     constructor(props) {
         super(props)
         this.state = {
@@ -59,7 +62,7 @@ class Navbar extends React.Component {
                     debugger
                     this.setState({
                         navList : list
-                    })
+                    });
                 }
             }
         )

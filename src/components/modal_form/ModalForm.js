@@ -1,6 +1,6 @@
 import React from 'react';
-import ModalFrame from '../modal_frame';
 import Input from '../input';
+import Modal from '../modal';
 
 class ModalForm extends React.Component {
     /* ACCESS:
@@ -62,7 +62,7 @@ class ModalForm extends React.Component {
     render() {
         const { title, open, names, btnL, btnR, focusIf } = this.props
         return (
-            <ModalFrame 
+            <Modal
                 title={title} 
                 open={open} 
                 btnL={btnL}
@@ -86,7 +86,7 @@ class ModalForm extends React.Component {
                         )
                     })}
                 </form>
-            </ModalFrame>
+            </Modal>
         )
     }
 }

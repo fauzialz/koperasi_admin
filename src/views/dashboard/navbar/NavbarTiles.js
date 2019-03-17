@@ -8,7 +8,7 @@ class NavbarTiles extends React.Component {
             <React.Fragment>
                 {navList.map( (e,n) => {
                         return (
-                            <div key= {e.Code} className="navbar-tile"
+                            <div key= {n} className="navbar-tile"
                                 onClick={ () => onClick(n)}
                             >
                                 <div className= "navbar-icon">

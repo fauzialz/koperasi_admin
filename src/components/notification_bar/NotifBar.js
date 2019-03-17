@@ -1,62 +1,38 @@
 import React from 'react'
 import './NotifBar.scss'
+import { AppContext } from '../../context_provider';
+import Icon from '../icon';
 
 class NotifBar extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            errStyle: 'error',
-            status: false
-        }
-    }
-
-    // static getDerivedStateFromProps(props, state){
-    //     if(props.status !== state.status){
-    //         /* setTimeout(() => {
-    //             this.setState({errStyle: "afterError"})
-    //         }, 2000); */
-    //         return {
-    //             status: true
-    //         }
-    //     }
-    // }
-
-    componentDidMount(){
-        if(this.props.status === 1){
-            this.changeStyle()
-        }
-    }
-
-    /* componentDidUpdate= (props) => {
-        if(props.msg !== ''){
-            debugger
-            if(this.state.status){
-                debugger
-                this.changeStyle()
-            }
-        }
-    } */
-
-    changeStyle = () => {
-        this.setState({
-            errStyle: "error"
-        })
-        setTimeout(() => {
-            this.setState({
-                errStyle: "afterError",
-                status: false
-            })
-        }, 2000);
-    }
     
     render() {  
         return (
-            <div
-                className={this.props.msg ? this.state.errStyle : "neutral"}
-            >
-                {this.props.emptyStart ? '' 
-                : this.props.msg || "Fill the form"}
-            </div>
+            <AppContext.Consumer>
+                {(context) => (
+                    <React.Fragment>
+                        <div className="notifbar-base">
+                            <div className={context.notif.msg? 
+                                "notifbar "+context.notif.status :
+                                "notifbar-off"
+                            }>
+                                <div className="notifbar-text">
+                                    {context.notif.msg}
+                                </div>
+                                {context.notif.msg?
+                                    <div className="notifbar-button">
+                                        <Icon 
+                                            iconName= "close"
+                                            title1= "Close Notification"
+                                            verysmall
+                                            onClick={ () => context.closeNotif()}
+                                        />
+                                    </div>: null
+                                }
+                            </div>
+                        </div>
+                    </React.Fragment>
+                )}
+            </AppContext.Consumer>
         )
     }
 }
