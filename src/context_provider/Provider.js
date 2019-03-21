@@ -21,7 +21,7 @@ class ProviderScope extends React.Component {
     }
 
     setNotif = (msg, status) => {
-        let statusChange = ''
+        /* let statusChange = '' */
         const temp = {
             msg : msg,
             status : status
@@ -30,7 +30,7 @@ class ProviderScope extends React.Component {
             notif: temp
         })
     
-        switch(status) {
+        /* switch(status) {
             case 'success':
                 statusChange = 'afterSuccess'
                 break
@@ -42,15 +42,15 @@ class ProviderScope extends React.Component {
                 break
             default:
                 statusChange = status
-        }
+        } */
         
-        temp.status = statusChange
+        /* temp.status = statusChange
         setTimeout(() => {
             this.setState({notif : temp})
-        }, 2000)
+        }, 2000) */
         setTimeout(() => {
             this.deleteNotif()
-        }, 6000);
+        }, 7000);
     }
 
     render() {

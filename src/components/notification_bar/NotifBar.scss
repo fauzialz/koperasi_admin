@@ -13,7 +13,8 @@
     margin: ($header + 20px) auto 0px auto;
     height: 30px;
     @extend %shadow;
-    transition: all .9s ease
+    transition: all .1s ease;
+    cursor: pointer;
 }
 
 .notifbar-off {
@@ -31,20 +32,22 @@
     font-size: 10pt;
 }
 
-.notifbar-button {
-    position: relative;
-    top: -15px;
-    padding-left: 875px;
+.successnotif {
+    background-color: $submit;
+    color: $pure-lighten;
+    transition: all 1s ease;
 }
-
-.success {
-    background-color: $success-darken;
+.successnotif:hover, .errornotif:hover {
+    background-color: $dark;
+}
+.errornotif {
+    background-color: $error;
     color: $pure-lighten;
     transition: all 1s ease;
 }
 .afterSuccess {
     background-color: $dark;
-    color: $success;
+    color: $pure-lighten;
     transition: all 1s ease;
 }
 

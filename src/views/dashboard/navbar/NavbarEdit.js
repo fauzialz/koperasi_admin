@@ -3,6 +3,7 @@ import ModalForm from '../../../components/modal_form';
 import HelperHttp from '../../../helper/HelperHttp';
 import ConfigApi from '../../../config/ConfigApi';
 import { AppContext } from '../../../context_provider';
+import ConfigLocal from '../../../config/ConfigLocal';
 
 class NavbarEdit extends React.Component {
     static contextType = AppContext
@@ -27,7 +28,7 @@ class NavbarEdit extends React.Component {
                 if(success){
                     this.props.hotReload()
                     setTimeout(() => {
-                        this.context.setNotif('Data edited.','success')
+                        this.context.setNotif('Data edited.',ConfigLocal.NOTIF.Success)
                     }, 800);
                 }else(
                     alert(data.Etag)
