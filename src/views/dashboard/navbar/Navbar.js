@@ -42,11 +42,10 @@ class Navbar extends React.Component {
         }
     }
 
-    buttonHendler = (index) => {
-        console.log(index)
+    buttonHendler = (id) => {
         if(this.state.editSession){
             //edit menu show modal
-            this.getNavbarById(this.state.navList[index].Id)
+            this.getNavbarById(id)
         }else{
             //run menu
         }
@@ -59,7 +58,6 @@ class Navbar extends React.Component {
                 this.loadingSwitch()
                 if(success){
                     let list = response.Result
-                    debugger
                     this.setState({
                         navList : list
                     });
@@ -115,22 +113,19 @@ class Navbar extends React.Component {
 
                 {loading && <Loading />}
 
-                <div className="grid-navbar">
-                    {this.props.open ? 
-                        <div className="navbar-show">
-                           <div className= "navbar-wrapper">
+                <div className={this.props.open ? "open-navbar": "close-navbar"}> 
+                        <div className="navbar-base">
+                            <div className= "navbar-overflow-superadmin">
                                 <NavbarTiles navList={navList} onClick={this.buttonHendler} />
-                                <div className= "edit-tile">
-                                    <ButtonStatus
-                                        onClick={this.editSessionHendler}
-                                        active={this.state.editSession}
-                                    />
-                                </div>
+                                
+                            </div>
+                            <div className= "edit-tile">
+                                <ButtonStatus
+                                    onClick={this.editSessionHendler}
+                                    active={this.state.editSession}
+                                />
                             </div>
                         </div>
-                        :
-                        <div className="navbar-hide" />
-                    }
                 </div>
             </React.Fragment>
         )

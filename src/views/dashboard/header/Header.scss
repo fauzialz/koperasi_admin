@@ -1,6 +1,7 @@
 @import '../../../styles/sizes';
 @import '../../../styles/palette';
 
+
 .grid-header {
     display: grid;
     grid-template-columns: [hb1] $header [hb2] auto [hb3] 100px [hb4] 20px [hb5];
@@ -54,6 +55,6 @@
 }
 .drawer-icon {
     position: fixed;
-    top: 12px;
-    left: 11px;
+    top: 12.5px;
+    left: 11.5px;
 }

@@ -30,7 +30,9 @@ class NavbarEditAuth extends React.Component {
             this.props.loading()
             if(success){
                 this.props.editSession()
-                this.context.setNotif('Password correct. You can edit navigation menu.','success')
+                this.context.setNotif('Password correct. You can edit navigation menu.',ConfigLocal.NOTIF.Success)
+            }else{
+                this.context.setNotif('Password incorrect. Access denied!',ConfigLocal.NOTIF.Error)
             }
             this.onClose()
         })
