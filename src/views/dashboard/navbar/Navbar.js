@@ -9,6 +9,7 @@ import NavbarEdit from './NavbarEdit';
 import NavbarTiles from './NavbarTiles';
 import { AppContext } from '../../../context_provider';
 import Button from '../../../components/button';
+import ConfigLocal from '../../../config/ConfigLocal';
 
 class Navbar extends React.Component {
     static contextType = AppContext
@@ -22,14 +23,28 @@ class Navbar extends React.Component {
             loading : false,
             openAuthModal: false,
             openEditModal: false,
-            icon: 'material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-add-button'
+            icon: 'material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-add-button',
+            title: 'Setting Mode'
         }
     } 
 
     editSessionSwitch = () => {
         this.setState({
-            editSession: !this.state.editSession
+            editSession: !this.state.editSession,
         })
+        if(this.state.title === "Setting Mode") {
+            setTimeout(() => {
+                this.setState({
+                    title: "Setti..."
+                })
+            }, 100);
+        }else{
+            setTimeout(() => {
+                this.setState({
+                    title: "Setting Mode"
+                })
+            }, 400);
+        }
     }
 
     loadingSwitch = () => {
@@ -62,7 +77,9 @@ class Navbar extends React.Component {
                     let list = response.Result
                     this.setState({
                         navList : list
-                    });
+                    })
+                    localStorage.setItem(ConfigLocal.LOCSTORE.Navbar,JSON.stringify(list))
+                    debugger
                 }
             }
         )
@@ -92,7 +109,14 @@ class Navbar extends React.Component {
     }
 
     componentDidMount() {
-        this.getNavigationList()
+        let list = JSON.parse(localStorage.getItem(ConfigLocal.LOCSTORE.Navbar))
+        if(list != null){
+            this.setState({
+                navList : list
+            })
+        }else{
+            this.getNavigationList()
+        }
     }
 
     render() {
@@ -121,11 +145,6 @@ class Navbar extends React.Component {
                                 <NavbarTiles navList={navList} onClick={this.buttonHendler} />
                             </div>
                             <div className= "edit-tile">
-                                <ButtonStatus
-                                    onClick={this.editSessionHendler}
-                                    active={this.state.editSession}
-                                />
-                            </div>
                             <div className={this.state.editSession? "navbar-add-on": "navbar-add-off"}>
                                 <Button
                                     blue
@@ -138,6 +157,13 @@ class Navbar extends React.Component {
                                     </span>
                                 }/>
                             </div>
+                                <ButtonStatus
+                                    title={this.state.title}
+                                    onClick={this.editSessionHendler}
+                                    active={this.state.editSession}
+                                />
+                            </div>
+                            
                         </div>
                 </div>
             </React.Fragment>

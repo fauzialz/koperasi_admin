@@ -135,12 +135,12 @@
     left: $navbar - 50px;
 }
 .navbar-add-on {
-    bottom: 69px;
-    transition: all 0.6s ease;
+    bottom: 34px;
+    transition: all 0.7s ease;
 }
 .navbar-add-off {
-    bottom: 20px;
-    transition: all 0s ease;
+    bottom: -20px;
+    transition: all 0.4s ease;
 }
 .navbar-add-button {
     padding-top: 2px;

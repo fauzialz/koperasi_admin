@@ -15,7 +15,7 @@ const ButtonStatus = (props) => {
                             />
                         </div>
                         <div className="btnStat-title">
-                            { props.active? "Setting..." : (props.title || "Setting Mode")}
+                            { /* props.active? "Setti..." :  */(props.title || "Setting Mode")}
                         </div>
                     </div>
                     <div className={ props.active ? "btnStat-right-on" : "btnStat-right-off"}>

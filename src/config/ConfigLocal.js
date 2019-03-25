@@ -4,5 +4,8 @@ export default {
     NOTIF: {
         Success : 'successnotif',
         Error   : 'errornotif'
+    },
+    LOCSTORE: {
+        Navbar : 'NavigationMenu'
     }
 }
