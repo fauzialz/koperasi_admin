@@ -6,27 +6,40 @@
     width: 100%;
     height: 32px;
     transition: all 0.5s ease;
-    transition-delay: 0.5s;
+    transition-delay: 0.1s;
 }
-.btnStat-grid {
+.btnStat-grid-off, .btnStat-grid-on {
     transition: all 0.5s ease;
     border-radius: 7px;
     @extend %noselect;
     cursor: pointer;
     display: grid;
-    grid-template-columns: [btnv1] 120px [btnv2] 1fr [btnv3];
     grid-template-rows: [btnh1] 1fr [btnh2];
-    width: 160px;
     height: 100%;
+}
+.btnStat-grid-off {
+    width: 160px;
+    grid-template-columns: [btnv1] 120px [btnv2] 1fr [btnv3];
     margin: {
-        left: auto;
+        left: 20px;
         right: auto;
     }
 }
-.btnStat-grid:hover, .btnStat-grid:focus {
+.btnStat-grid-on {
+    width: 135px;
+    grid-template-columns: [btnv1] 97px [btnv2] 1fr [btnv3];
+    margin: {
+        left: 20px;
+        right: auto;
+    }
+}
+
+.btnStat-grid-on:hover, .btnStat-grid-on:focus,
+.btnStat-grid-off:hover, .btnStat-grid-off:focus {
     @extend %shadow-short;
 }
-.btnStat-grid:active {
+.btnStat-grid-on:active,
+.btnStat-grid-off:active {
     @extend %shadow-long;
     transform: translateY(-3px);
 }
@@ -57,12 +70,13 @@
     width: 100%;
     height: 100%;
     border-radius: 0 7px 7px 0;
+    transition: all 0.1s ease;
 }
 .btnStat-right-off {
     background-color: $error;
 }
 .btnStat-right-on {
-    background-color: $submit-darken;
+    background-color: $submit;
 }
 .btnStat-status {
     font-size: 10pt;

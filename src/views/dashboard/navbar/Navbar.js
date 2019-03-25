@@ -8,6 +8,7 @@ import NavbarEditAuth from './NavbarEditAuth';
 import NavbarEdit from './NavbarEdit';
 import NavbarTiles from './NavbarTiles';
 import { AppContext } from '../../../context_provider';
+import Button from '../../../components/button';
 
 class Navbar extends React.Component {
     static contextType = AppContext
@@ -21,6 +22,7 @@ class Navbar extends React.Component {
             loading : false,
             openAuthModal: false,
             openEditModal: false,
+            icon: 'material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-add-button'
         }
     } 
 
@@ -94,7 +96,7 @@ class Navbar extends React.Component {
     }
 
     render() {
-        const { navList, openAuthModal, openEditModal, loading } = this.state
+        const { navList, openAuthModal, openEditModal, loading, icon } = this.state
 
         return (
             <React.Fragment>
@@ -117,13 +119,24 @@ class Navbar extends React.Component {
                         <div className="navbar-base">
                             <div className= "navbar-overflow-superadmin">
                                 <NavbarTiles navList={navList} onClick={this.buttonHendler} />
-                                
                             </div>
                             <div className= "edit-tile">
                                 <ButtonStatus
                                     onClick={this.editSessionHendler}
                                     active={this.state.editSession}
                                 />
+                            </div>
+                            <div className={this.state.editSession? "navbar-add-on": "navbar-add-off"}>
+                                <Button
+                                    blue
+                                    flat
+                                    circle
+                                    title="Add new navigation menu"
+                                    label={
+                                        <span className={icon} aria-hidden="true">
+                                        add
+                                    </span>
+                                }/>
                             </div>
                         </div>
                 </div>

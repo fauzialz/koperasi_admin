@@ -48,7 +48,7 @@
 }
 
 .navbar-tile:hover {
-    background-color: $pure-line;
+    background-color: $pure-darken;
 }
 
 .navbar-icon {
@@ -85,10 +85,10 @@
 }
 
 .navbar-tile-child {
-    width: $navbar - 20px;
+    width: $navbar - 13px;
     margin: 5px;
-    padding-left: 10px;
-    height: 34px;
+    padding-left: 3px;
+    height: 40px;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -100,13 +100,13 @@
 
 .navbar-icon-child {
     padding: {
-        top: 8px;
+        top: 12px;
         left: 8px;
     }
 }
 .navbar-name-child {
     padding: {
-        left: 50px;
+        left: 57px;
         top: 0px;
     }
     font-size: 9pt;
@@ -117,7 +117,7 @@
     position: absolute;
     @extend %noselect;
     color: $secondary-darken;
-    font-size: 14pt;
+    font-size: 13pt;
     color: $dark-lighten;
 }
 
@@ -128,4 +128,21 @@
     height: 65px;
     background-color: $pure;
     width: $navbar;
+}
+
+.navbar-add-on, .navbar-add-off {
+    position: absolute;
+    left: $navbar - 50px;
+}
+.navbar-add-on {
+    bottom: 69px;
+    transition: all 0.6s ease;
+}
+.navbar-add-off {
+    bottom: 20px;
+    transition: all 0s ease;
+}
+.navbar-add-button {
+    padding-top: 2px;
+    font-size: 12pt;
 }
