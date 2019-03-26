@@ -1,0 +1,108 @@
+@import '../../../styles/palette';
+@import '../../../styles/potitions';
+@import '../../../styles/sizes';
+@import '../../../styles/text';
+
+$name-padding : 50px;
+
+.navbar-tile, .navbar-tile-active, .navbar-tile-passive {
+    width: $navbar - 10px;
+    margin: 5px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.navbar-tile:hover {
+    background-color: $pure-line;
+}
+.navbar-tile-active {
+    background-color: $pure-line;
+}
+
+.navbar-icon {
+    padding: {
+        top: 10px;
+        left: 10px;
+    }
+}
+
+.navbar-iconfont-netral {
+    cursor: pointer;
+    position: absolute;
+    @extend %noselect;
+    color: $secondary-darken;
+    font-size: 16pt;
+    color: $dark;
+}
+
+.navbar-name {
+    padding: {
+        left: $name-padding;
+        top: 1px;
+    }
+    font-size: 10pt;
+}
+
+.navbar-tile-child-base {
+    width: $navbar;
+    background-color: $pure-menu;
+    /* padding: {
+        top: 2px;
+        bottom: 2px;
+    } */
+}
+
+.navbar-tile-child {
+    width: $navbar - 13px;
+    margin: 5px;
+    padding-left: 3px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.navbar-tile-child:hover {
+    background-color: $pure-line;
+}
+
+.navbar-name-child {
+    padding: {
+        left: $name-padding - 1px;
+        top: 10px;
+    }
+    font-size: 10pt;
+    color: $dark;
+}
+
+/* ARROW */
+.navbar-arrow-base {
+    width: 21px;
+    height: 21px;
+    display: absolute;
+    margin: {
+        top: -18.5px;
+        left: $navbar - 42px;
+    }
+    border-radius: 4px;
+    background-color: $pure;
+    transition: all .5s ease;
+}
+
+.navbar-arrow-base:hover {
+    background-color: $pure-line;
+}
+
+.navbar-iconfont-parent, .navbar-iconfont-parent-clicked {
+    cursor: pointer;
+    position: absolute;
+    @extend %noselect;
+    color: $secondary-darken;
+    font-size: 16pt;
+    color: $dark;
+    transition: all .2s ease;
+}
+.navbar-iconfont-parent-clicked {
+    transform: rotate(90deg);
+}

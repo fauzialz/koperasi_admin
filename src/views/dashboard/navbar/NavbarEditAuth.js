@@ -27,6 +27,7 @@ class NavbarEditAuth extends React.Component {
         }
         HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, formdata,
         (success, response) => {
+            debugger
             this.props.loading()
             if(success){
                 this.props.editSession()

@@ -57,7 +57,9 @@ class Login extends React.Component {
     componentDidMount(){
         if(HelperCookie.get(ConfigLocal.TOKEN)){
             this.props.history.push('/dashboard')
-        } 
+        }else{
+            localStorage.removeItem(ConfigLocal.LOCSTORE.Navbar)
+        }
     }
 
     render() {

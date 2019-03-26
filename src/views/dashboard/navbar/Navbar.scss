@@ -38,89 +38,6 @@
     overflow-x: hidden;
 }
 
-.navbar-tile {
-    width: $navbar - 10px;
-    margin: 5px;
-    height: 40px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.navbar-tile:hover {
-    background-color: $pure-darken;
-}
-
-.navbar-icon {
-    padding: {
-        top: 8px;
-        left: 8px;
-    }
-}
-
-.navbar-iconfont-netral {
-    cursor: pointer;
-    position: absolute;
-    @extend %noselect;
-    color: $secondary-darken;
-    font-size: 18pt;
-    color: $dark;
-}
-
-.navbar-name {
-    padding: {
-        left: 60px;
-        top: 3px;
-    }
-    font-size: 10pt;
-}
-
-.navbar-tile-child-base {
-    width: $navbar;
-    background-color: $pure;
-    padding: {
-        top: 2px;
-        bottom: 2px;
-    }
-}
-
-.navbar-tile-child {
-    width: $navbar - 13px;
-    margin: 5px;
-    padding-left: 3px;
-    height: 40px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.navbar-tile-child:hover {
-    background-color: $pure-darken;
-}
-
-.navbar-icon-child {
-    padding: {
-        top: 12px;
-        left: 8px;
-    }
-}
-.navbar-name-child {
-    padding: {
-        left: 57px;
-        top: 0px;
-    }
-    font-size: 9pt;
-}
-
-.navbar-iconfont-netral-child {
-    cursor: pointer;
-    position: absolute;
-    @extend %noselect;
-    color: $secondary-darken;
-    font-size: 13pt;
-    color: $dark-lighten;
-}
-
 .edit-tile {
     position: absolute;
     bottom: 35px;
@@ -136,10 +53,11 @@
 }
 .navbar-add-on {
     bottom: 34px;
-    transition: all 0.7s ease;
+    transition: all 0.4s ease;
+    transition-delay: .2s
 }
 .navbar-add-off {
-    bottom: -20px;
+    bottom: -15px;
     transition: all 0.4s ease;
 }
 .navbar-add-button {

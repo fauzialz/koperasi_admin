@@ -10,6 +10,7 @@ import NavbarTiles from './NavbarTiles';
 import { AppContext } from '../../../context_provider';
 import Button from '../../../components/button';
 import ConfigLocal from '../../../config/ConfigLocal';
+import HelperModData from '../../../helper/HelperModData';
 
 class Navbar extends React.Component {
     static contextType = AppContext
@@ -26,7 +27,11 @@ class Navbar extends React.Component {
             icon: 'material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-add-button',
             title: 'Setting Mode'
         }
-    } 
+    }
+
+    loadingSwitch = () => {
+        this.setState({loading : !this.state.loading})
+    }
 
     editSessionSwitch = () => {
         this.setState({
@@ -47,11 +52,7 @@ class Navbar extends React.Component {
         }
     }
 
-    loadingSwitch = () => {
-        this.setState({loading : !this.state.loading})
-    }
-
-    editSessionHendler = () => {
+    editSessionButton = () => {
         if(this.state.editSession === false){
             this.setState({openAuthModal:true})
         }else{
@@ -59,13 +60,41 @@ class Navbar extends React.Component {
         }
     }
 
-    buttonHendler = (id) => {
+    tileHendler = (id) => {
         if(this.state.editSession){
             //edit menu show modal
-            this.getNavbarById(id)
+            this.editModalHandler(id)
         }else{
-            //run menu
+            //open menu
+            this.activeTileHandler(id)
         }
+    }
+
+    activeTileHandler = (id) => {
+        let hotNavList = this.state.navList
+        for(var i = 0; i< hotNavList.length; i++) {
+            if(hotNavList[i].Id === id) {
+                if(hotNavList[i].Children.length > 0) {
+                    hotNavList[i].Clicked = !hotNavList[i].Clicked
+                }else{
+                    hotNavList[i].Active = true
+                }
+            }else{
+                hotNavList[i].Active = false
+                hotNavList[i].Clicked = false
+            }
+            if(hotNavList[i].Children.length > 0){
+                for(var j = 0; j< hotNavList[i].Children.length; j++) {
+                    if(hotNavList[i].Children[j].Id === id) {
+                        hotNavList[i].Children[j].Active = true
+                        hotNavList[i].Clicked = true
+                    }else{
+                        hotNavList[i].Children[j].Active = false
+                    } 
+                }
+            }
+        }
+        this.setState({navList : hotNavList})
     }
 
     getNavigationList = () => {
@@ -74,18 +103,18 @@ class Navbar extends React.Component {
             (success, response) => {
                 this.loadingSwitch()
                 if(success){
-                    let list = response.Result
+                    let list = HelperModData.pushObjBulk(response.Result,'Active',false)
+                    list = HelperModData.pushObjBulk(list,'Clicked',false)
                     this.setState({
                         navList : list
                     })
                     localStorage.setItem(ConfigLocal.LOCSTORE.Navbar,JSON.stringify(list))
-                    debugger
                 }
             }
         )
     }
 
-    getNavbarById = (id) => {
+    editModalHandler = (id) => {
         this.loadingSwitch()
         let route = ConfigApi.ROUTE.MENU + '/' +id
         HelperHttp.request(route, ConfigApi.METHODS.GET, {}, 
@@ -111,9 +140,13 @@ class Navbar extends React.Component {
     componentDidMount() {
         let list = JSON.parse(localStorage.getItem(ConfigLocal.LOCSTORE.Navbar))
         if(list != null){
-            this.setState({
-                navList : list
-            })
+            if(list.length > 0){
+                this.setState({
+                    navList : list
+                })
+            }else{
+                this.getNavigationList()
+            }
         }else{
             this.getNavigationList()
         }
@@ -142,7 +175,7 @@ class Navbar extends React.Component {
                 <div className={this.props.open ? "open-navbar": "close-navbar"}> 
                         <div className="navbar-base">
                             <div className= "navbar-overflow-superadmin">
-                                <NavbarTiles navList={navList} onClick={this.buttonHendler} />
+                                <NavbarTiles navList={navList} onClick={this.tileHendler} />
                             </div>
                             <div className= "edit-tile">
                             <div className={this.state.editSession? "navbar-add-on": "navbar-add-off"}>
@@ -153,13 +186,13 @@ class Navbar extends React.Component {
                                     title="Add new navigation menu"
                                     label={
                                         <span className={icon} aria-hidden="true">
-                                        add
-                                    </span>
-                                }/>
+                                            add
+                                        </span>
+                                    }/>
                             </div>
                                 <ButtonStatus
                                     title={this.state.title}
-                                    onClick={this.editSessionHendler}
+                                    onClick={this.editSessionButton}
                                     active={this.state.editSession}
                                 />
                             </div>
