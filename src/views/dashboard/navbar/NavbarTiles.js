@@ -37,16 +37,17 @@ class NavbarTiles extends React.Component {
                                 {e.Children.length > 0 ?
                                     e.Children.map ( (el) => {
                                         return (
-                                            <div className="navbar-tile-child-base"
-                                                key={el.Id}
-                                                onClick={ () => onClick(el.Id)}
-                                            >
-                                                <div className={el.Active ? "navbar-tile-active" : "navbar-tile"}>
-                                                    <div className="navbar-name-child">
-                                                        {el.Name}
+                                            <React.Fragment key= {el.Id}>
+                                                <div className={e.Clicked ? "navbar-tile-child-clicked" : "navbar-tile-child-none"}>
+                                                    <div className={el.Active ? "navbar-tile-active" : "navbar-tile"}
+                                                        onClick={ () => onClick(el.Id)}
+                                                    >
+                                                        <div className="navbar-name-child">
+                                                            {el.Name}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </React.Fragment>
                                         )
                                     })
                                     : null

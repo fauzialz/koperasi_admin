@@ -69,6 +69,15 @@ class Navbar extends React.Component {
             this.activeTileHandler(id)
         }
     }
+    unclickedHandler = (id) => {
+        let hotNavList = this.state.navList
+        for(var i = 0; i< hotNavList.length; i++) {
+            if(hotNavList[i].Id !== id) {
+                hotNavList[i].Clicked = false
+            }
+        }
+        return hotNavList
+    }
 
     activeTileHandler = (id) => {
         let hotNavList = this.state.navList
@@ -76,24 +85,26 @@ class Navbar extends React.Component {
             if(hotNavList[i].Id === id) {
                 if(hotNavList[i].Children.length > 0) {
                     hotNavList[i].Clicked = !hotNavList[i].Clicked
+                    hotNavList = this.unclickedHandler(id)
                 }else{
                     hotNavList[i].Active = true
                 }
             }else{
                 hotNavList[i].Active = false
-                hotNavList[i].Clicked = false
             }
+            debugger
             if(hotNavList[i].Children.length > 0){
                 for(var j = 0; j< hotNavList[i].Children.length; j++) {
-                    if(hotNavList[i].Children[j].Id === id) {
+                    if( hotNavList[i].Children[j].Id === id)  {
                         hotNavList[i].Children[j].Active = true
-                        hotNavList[i].Clicked = true
                     }else{
                         hotNavList[i].Children[j].Active = false
                     } 
                 }
+                debugger
             }
         }
+        debugger    
         this.setState({navList : hotNavList})
     }
 
