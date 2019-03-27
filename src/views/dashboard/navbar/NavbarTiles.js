@@ -5,13 +5,14 @@ class NavbarTiles extends React.Component {
     state = {
         navbar : [],
         netral : "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-iconfont-netral",
+        active : "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-iconfont-active",
         netralChild : "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-iconfont-parent",
         clickedChild : "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-iconfont-parent-clicked"
     }
 
     render() {
         const { navList, onClick } = this.props
-        const { netral, netralChild, clickedChild } = this.state
+        const { netral, netralChild, clickedChild, active } = this.state
         return (
             <React.Fragment>
                 {navList.map( (e) => {
@@ -21,7 +22,7 @@ class NavbarTiles extends React.Component {
                                     onClick={ () => onClick(e.Id)}
                                 >
                                     <div className= "navbar-icon">
-                                        <span className={netral} aria-hidden="true">
+                                        <span className={e.Active ? active : netral} aria-hidden="true">
                                             {e.Icon}
                                         </span>
                                     </div>

@@ -79,32 +79,43 @@ class Navbar extends React.Component {
         return hotNavList
     }
 
+    parentClickChecker = (id) => {
+        let hotNavList = this.state.navList
+        let parentClicked = false
+        for(var i = 0; i< hotNavList.length; i++) {
+            if(hotNavList[i].Children.length > 0 && hotNavList[i].Id === id) {
+                parentClicked = true
+            }
+        }
+        return parentClicked
+    }
+
     activeTileHandler = (id) => {
         let hotNavList = this.state.navList
+        let parentClicked = this.parentClickChecker(id)
         for(var i = 0; i< hotNavList.length; i++) {
-            if(hotNavList[i].Id === id) {
-                if(hotNavList[i].Children.length > 0) {
-                    hotNavList[i].Clicked = !hotNavList[i].Clicked
-                    hotNavList = this.unclickedHandler(id)
-                }else{
-                    hotNavList[i].Active = true
-                }
+            if(hotNavList[i].Children.length > 0 && hotNavList[i].Id === id) {
+                hotNavList[i].Clicked = !hotNavList[i].Clicked
+                hotNavList = this.unclickedHandler(id)
             }else{
-                hotNavList[i].Active = false
+                if(hotNavList[i].Id === id) {
+                    hotNavList[i].Active = true
+                    //do something base with route
+                }else if(!parentClicked) {
+                    hotNavList[i].Active = false
+                }
             }
-            debugger
             if(hotNavList[i].Children.length > 0){
                 for(var j = 0; j< hotNavList[i].Children.length; j++) {
                     if( hotNavList[i].Children[j].Id === id)  {
                         hotNavList[i].Children[j].Active = true
-                    }else{
+                        //do something base with route
+                    }else if(!parentClicked){
                         hotNavList[i].Children[j].Active = false
                     } 
                 }
-                debugger
             }
         }
-        debugger    
         this.setState({navList : hotNavList})
     }
 
