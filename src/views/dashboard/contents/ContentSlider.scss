@@ -2,55 +2,51 @@
 @import '../../../styles/palette';
 @import '../../../styles/sizes';
 
-.grid-content {
-    display: grid;
-    grid-template-columns:  [v1] 20px [v2] 60px 
-                            [v3] 20px [v4] auto [v5] 20px [v6];
-    grid-template-rows: [h1] $header [h2] auto [h3];
-}
-
-
-.content-base {
-    grid-column: v2 / v5;
-    grid-row: h2 / h3;
-    padding-left: 2px;
-    transition: all 0.5s ease;
-}
-.content-base-open {
-    grid-column: v2 / v5;
-    grid-row: h2 / h3;
-    padding-left: $navbar + 5px;
-    transition: all 0.5s ease;/* 
-    transition-delay: 0.2s; */
-}
 
 @media (max-width: 485px) {
-    .content-base {
-        grid-column: v1 / v6 !important; 
-        grid-row: h2 / h3;
-        transition: all 0.5s ease;
+    .content-square {
+        padding: 0px !important;
     }
-    .content-base-open {
-        grid-column: v1 / v6 !important; 
-        grid-row: h2 / h3;
+    .content-socket {
+        border-radius: 0px !important;
+    }
+    .content-navbar-open {
         padding-left: 0px !important;
-        transition: all 0.5s ease;
     }
 }
 
-.content-dummy-base {
-    top: 60px;
-    margin: {
-        top: 20px;
-        bottom: 20px;
-        right: auto;
-        left: auto;
-    }
+.content-base {
+    padding-top: $header;
     width: 100%;
-    height: 93%;
+}
+
+.content-navbar-open, .content-navbar-close {
+    height: -webkit-calc(100vh - #{$header});
+    height:    -moz-calc(100vh - #{$header});
+    height:         calc(100vh - #{$header});
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: all 0.5s ease;   
+}
+.content-navbar-open {
+    padding-left: $navbar;
+}
+.content-navbar-close {
+    padding-left: 0px;
+}
+
+.content-square {
+    padding: 20px;
+}
+
+.content-socket {
+    width: 100%;
     background-color: $pure;
     border-radius: 15px;
 }
+
+
+//EXAMPLE CONTENT
 .content-dummy-wrapper {
     padding: 20px;
 }
