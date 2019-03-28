@@ -10,7 +10,7 @@
 .notifbar {
     border-radius: 8px;
     max-width: 800px;
-    margin: ($header + 20px) auto 0px auto;
+    margin: ($header + 5px) auto 0px auto;
     height: 30px;
     @extend %shadow;
     transition: all .1s ease;
