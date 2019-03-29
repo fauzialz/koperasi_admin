@@ -49,8 +49,7 @@ class Navbar extends React.Component {
     /*  Active a Neutral Tiles or Child Tiles by detecting navlist and
         param id. If navObj.Id equal id, inject true into navObj.Active,
         or navObj.Clicked if navObj have children (Parent Tiles). */
-    activeTileHandler = (id, hotNavList = this.state.navList) => {
-        debugger
+    activeTileHandler = (id, hotNavList = this.state.navList, onEditSession = false) => {
         let parentClicked = this.parentClickChecker(id)
         for(var i = 0; i< hotNavList.length; i++) {
             if(hotNavList[i].Children.length > 0 && hotNavList[i].Id === id) {
@@ -58,26 +57,30 @@ class Navbar extends React.Component {
                 hotNavList = this.unclickedHandler(id)
             }else{
                 if(hotNavList[i].Id === id) {
-                    hotNavList[i].Active = true
+                    hotNavList[i]['Active'] = true
                     this.setState({historyId : id})
                     //do something base with route
                 }else if(!parentClicked) {
-                    hotNavList[i].Active = false
+                    hotNavList[i]['Active'] = false
                 }
             }
             if(hotNavList[i].Children.length > 0){
                 for(var j = 0; j< hotNavList[i].Children.length; j++) {
                     if( hotNavList[i].Children[j].Id === id)  {
-                        hotNavList[i].Children[j].Active = true
+                        hotNavList[i].Children[j]['Active'] = true
                         this.setState({historyId : id})
                         //do something base with route
                     }else if(!parentClicked){
-                        hotNavList[i].Children[j].Active = false
+                        hotNavList[i].Children[j]['Active'] = false
                     } 
                 }
             }
         }
-        this.setState({navList : hotNavList})
+        if(!onEditSession){
+            this.setState({navList : hotNavList})
+        }else{
+            return hotNavList
+        }
     }
     
     /*  Detect if along the Tiles there is a Parent Tile that clicked. */
@@ -142,7 +145,7 @@ class Navbar extends React.Component {
     clickedAllHandler = (hotNavList = this.state.navList) => {
         for(var i = 0; i< hotNavList.length; i++) {
             if(hotNavList[i].Children.length > 0) {
-                hotNavList[i].Clicked = true
+                hotNavList[i]['Clicked'] = true
             }
         }
         return hotNavList
@@ -155,17 +158,23 @@ class Navbar extends React.Component {
             (success, response) => {
                 this.loadingSwitch()
                 if(success){
-                    let list = HelperModData.pushObjBulk(response.Result,'Active',false)
-                    list = HelperModData.pushObjBulk(list,'Clicked',false)
+                    let list = response.Result
                     if(this.state.editSession) {
-                        list = this.clickedAllHandler(list)
-                        this.activeTileHandler(this.state.historyId, list)
+                        let listEdited = JSON.parse(JSON.stringify(list)) //This method use to deep copy list of object.
+                        listEdited = this.clickedAllHandler(listEdited)
+                        listEdited = this.activeTileHandler(this.state.historyId, listEdited, true)
+                        list = JSON.parse(JSON.stringify(listEdited))
+                        this.setState({
+                            navList : listEdited
+                        })
                     }else{
                         this.setState({
                             navList : list
                         })
-                        localStorage.setItem(ConfigLocal.LOCSTORE.Navbar,JSON.stringify(list))
                     }
+                    list = HelperModData.pushObjBulk(list,'Active',false)
+                    list = HelperModData.pushObjBulk(list,'Clicked',false)
+                    localStorage.setItem(ConfigLocal.LOCSTORE.Navbar,JSON.stringify(list))
                 }
             }
         )
@@ -258,7 +267,6 @@ class Navbar extends React.Component {
                                     active={this.state.editSession}
                                 />
                             </div>
-                            
                         </div>
                 </div>
             </React.Fragment>

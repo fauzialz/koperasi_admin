@@ -23,7 +23,6 @@ class NavbarEdit extends React.Component {
         this.context.closeNotif()
         HelperHttp.request(ConfigApi.ROUTE.MENU, ConfigApi.METHODS.PUT, input,
             (success, response) => {
-                debugger
                 this.props.loading()
                 if(success){
                     this.props.hotReload()
