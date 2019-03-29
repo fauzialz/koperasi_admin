@@ -1,62 +1,44 @@
 import React from 'react'
 import './NotifBar.scss'
+import { AppContext } from '../../context_provider';
 
 class NotifBar extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            errStyle: 'error',
-            status: false
-        }
+    state = {
+        hover: false
     }
-
-    // static getDerivedStateFromProps(props, state){
-    //     if(props.status !== state.status){
-    //         /* setTimeout(() => {
-    //             this.setState({errStyle: "afterError"})
-    //         }, 2000); */
-    //         return {
-    //             status: true
-    //         }
-    //     }
-    // }
-
-    componentDidMount(){
-        if(this.props.status === 1){
-            this.changeStyle()
-        }
-    }
-
-    /* componentDidUpdate= (props) => {
-        if(props.msg !== ''){
-            debugger
-            if(this.state.status){
-                debugger
-                this.changeStyle()
-            }
-        }
-    } */
-
-    changeStyle = () => {
+    hoverOn = () => {
         this.setState({
-            errStyle: "error"
+            hover: true
         })
-        setTimeout(() => {
-            this.setState({
-                errStyle: "afterError",
-                status: false
-            })
-        }, 2000);
     }
-    
+    hoverOff = () => {
+        this.setState({
+            hover: false
+        })
+    }
     render() {  
         return (
-            <div
-                className={this.props.msg ? this.state.errStyle : "neutral"}
-            >
-                {this.props.emptyStart ? '' 
-                : this.props.msg || "Fill the form"}
-            </div>
+            <AppContext.Consumer>
+                {(context) => (
+                    <React.Fragment>
+                        <div className="notifbar-base">
+                            <div onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}
+                                onClick={() => context.closeNotif()}
+                                className={context.notif.msg? 
+                                    "notifbar "+context.notif.status :
+                                    "notifbar-off"
+                                }
+                            >
+                                <div className="notifbar-text">
+                                    {this.state.hover ? 
+                                        "Click to close this notification."
+                                        : context.notif.msg}
+                                </div>
+                            </div>
+                        </div>
+                    </React.Fragment>
+                )}
+            </AppContext.Consumer>
         )
     }
 }

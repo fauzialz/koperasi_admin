@@ -1,40 +1,62 @@
 @import '../../styles/palette';
+@import '../../styles/sizes';
+@import '../../styles/shadows';
 
-.neutral, .error, .afterError {
-    font: {
-        family: Arial, Helvetica, sans-serif;
-        weight: 400; 
-    }
+.notifbar-base {
+    position: fixed;
+    width: 100%;
 }
 
-.error, .afterError {
-    font-size: 13px;
-    text-align: center;
-    border-radius: 5px;
-    margin-top: 10px;
+.notifbar {
+    border-radius: 8px;
+    max-width: 800px;
+    margin: ($header + 5px) auto 0px auto;
+    height: 30px;
+    @extend %shadow;
+    transition: all .1s ease;
+    cursor: pointer;
+}
+
+.notifbar-off {
+    max-width: 800px;
+    margin: -30px auto 0px auto;
+    height: 30px;
+    transition: all 1s ease
+}
+
+.notifbar-text {
     padding: {
-        left: 5px;
-        right: 5px;
-        top: 7px;
-        bottom: 7px;
+        top: 5px;
     }
-    
+    text-align: center;
+    font-size: 10pt;
 }
 
-.neutral {
-    font-size: 14px;
-    color: $primary;
-}
-
-.error {
+.successnotif {
+    background-color: $submit;
     color: $pure-lighten;
+    transition: all 1s ease;
+}
+.successnotif:hover, .errornotif:hover {
+    background-color: $dark;
+}
+.errornotif {
     background-color: $error;
-    transition: all 0.5s ease;
-    box-shadow: 0px 0px 10px 10px $error-lighten;
+    color: $pure-lighten;
+    transition: all 1s ease;
+}
+.afterSuccess {
+    background-color: $dark;
+    color: $pure-lighten;
+    transition: all 1s ease;
 }
 
-.afterError {
-    color: $error-darken; 
-    background-color: $error-lighten;
-    transition: all 1.5s ease;
+@media (max-width: 815px) {
+    .notifbar {
+        border-radius: 0px !important;
+        margin: $header auto 0px auto !important;
+    }
+    .notifbar-button {
+        padding-left: 93% !important;
+    }
 }

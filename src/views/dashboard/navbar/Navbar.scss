@@ -1,83 +1,66 @@
 @import '../../../styles/palette';
 @import '../../../styles/potitions';
 @import '../../../styles/sizes';
+@import '../../../styles/text';
 
-.grid-navbar {
+.open-navbar {
     position: fixed;
     top: $header;
+    transition: all 0.5s ease;
+}
+.close-navbar {
+    position: fixed;
+    top: $header;
+    margin-left: 0 - $navbar;
+    transition: all 0.5s ease;
 }
 
-.navbar-hide, .navbar-show {
+.navbar-base {
+    position: relative;
     background-color: $pure-menu;
     border-right: 1px solid $pure-line;
     height: 100vh;
-}
-
-.navbar-hide {
-    width: 0px;
-    height: 100vh;
-    transition: all 0.5s ease;
-}
-.navbar-show {
-    display: table;
     width: $navbar;
-    transition: all 0.3s ease;
-    /* position: relative; */
-   /*  overflow: auto; */
 }
 
-.navbar-wrapper {
-    /* position: inherit;
-    grid-column: vv1 / vv2;
-    grid-row: hh2 / hh3; */
+.navbar-overflow-superadmin {
     position: relative;
-    height: 100vh;
+    height: -webkit-calc(100vh - 135px);
+    height:    -moz-calc(100vh - 135px);
+    height:         calc(100vh - 135px);
     padding: {
         top: 15px;
     }
-    overflow: auto;
-    /* width: 60px; */
-    /* background-color: $pure; */
-    /* transition: all 0.0s ease; */
-}
-
-.navbar-tile {
-    width: $navbar - 10px;
-    margin: 5px;
-    height: 40px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    /* overflow: auto; */
-}
-
-.navbar-tile:hover {
-    background-color: $pure-line;
-
-}
-
-.navbar-icon {
-    padding: {
-        top: 8px;
-        left: 8px;
+    margin: {
+        bottom: 30px;
     }
+    overflow-y: auto;
+    overflow-x: hidden;
 }
-
-.navbar-name {
-    padding: {
-        left: 60px;
-        top: 2px;
-    }
-    font-size: 10pt;
-}
-
 
 .edit-tile {
     position: absolute;
     bottom: 35px;
     padding-top: 20px;
-    height: 80px;
+    height: 65px;
     background-color: $pure;
-    /* border-top: 1px solid $pure-line; */
-    width: 100%;
+    width: $navbar;
+}
+
+.navbar-add-on, .navbar-add-off {
+    position: absolute;
+    left: $navbar - 50px;
+}
+.navbar-add-on {
+    bottom: 34px;
+    transition: all 0.4s ease;
+    transition-delay: .2s
+}
+.navbar-add-off {
+    bottom: -15px;
+    transition: all 0.4s ease;
+}
+.navbar-add-button {
+    padding-top: 2px;
+    font-size: 12pt;
 }

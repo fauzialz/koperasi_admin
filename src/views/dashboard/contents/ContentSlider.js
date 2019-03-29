@@ -5,15 +5,18 @@ class ContentSlider extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="grid-content">
-                    <div className={ this.props.open ?
-                        "content-base-open" : "content-base"
-                    }>
-                        <div className="content-dummy-base">
-                            <div className="content-dummy-wrapper">
-                                <div className="content-dummy-title"></div>
-                                <div className="content-dummy-table-header"></div>
-                                <div className="content-dummy-table-data"></div>
+                <div className="content-base">
+                    <div className={this.props.open ? "content-navbar-open" : "content-navbar-close"}>
+                        <div className="content-square">
+                            <div className="content-socket">
+                            
+                                {/* CONTENT SWITCHER */}
+                                <div className="content-dummy-wrapper">
+                                    <div className="content-dummy-title"></div>
+                                    <div className="content-dummy-table-header"></div>
+                                    <div className="content-dummy-table-data"></div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

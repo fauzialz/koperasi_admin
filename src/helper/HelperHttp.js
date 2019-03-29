@@ -29,13 +29,11 @@ export default {
                 delete option.data.Etag
             }
         }
-        debugger
         axios(option)
         .then(res => {
             if (res.headers.etag) {
                 res.data.Result['Etag'] = res.headers.etag
             }
-            debugger
             cb(res.data.IsSuccess, res.data)
         })
         .catch(err => {

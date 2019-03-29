@@ -13,7 +13,7 @@
 
 .basic {
     cursor: pointer;
-    position: fixed;
+    position: absolute;
     @extend %noselect;
     color: $secondary-darken;
     font-size: 20pt;
@@ -33,8 +33,14 @@
 
 .small {
     cursor: pointer;
-    position: fixed;
     @extend %noselect;
     color: $secondary-darken;
     font-size: 18pt;
+}
+.very {
+    cursor: pointer;/* 
+    position: fixed; */
+    @extend %noselect;
+    color: $secondary-darken;
+    font-size: 12pt !important;
 }

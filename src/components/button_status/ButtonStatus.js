@@ -6,7 +6,7 @@ const ButtonStatus = (props) => {
     return (
         <React.Fragment>
             <div className="btnStat-base">
-                <div className="btnStat-grid" onClick={ props.onClick } title={props.active? "Turn off setting mode": "Turn on setting mode"}>
+                <div className={props.active? "btnStat-grid-on" : "btnStat-grid-off"} onClick={ props.onClick } title={props.active? "Turn off setting mode": "Turn on setting mode"}>
                     <div className="btnStat-left">
                         <div className="btnStat-icon">
                             <Icon
@@ -15,7 +15,7 @@ const ButtonStatus = (props) => {
                             />
                         </div>
                         <div className="btnStat-title">
-                            { props.title || "Setting Mode"}
+                            { /* props.active? "Setti..." :  */(props.title || "Setting Mode")}
                         </div>
                     </div>
                     <div className={ props.active ? "btnStat-right-on" : "btnStat-right-off"}>

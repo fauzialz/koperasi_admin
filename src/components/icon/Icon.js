@@ -16,18 +16,21 @@ class Icon extends React.Component {
         vivid: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 vivid",
         basic: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 basic",
         small: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 basic small",
+        verysmall: "material-icons MuiIcon-root-1 MuiIcon-colorAction-4 very",
     }
 
     render() {
         return (
             <span className={
-                    !this.props.form && !this.props.small? 
+                    !this.props.form && !this.props.small && !this.props.verysmall ? 
                         this.state.basic :  
-                        this.props.small?
-                            this.state.small :
-                            this.props.seen? 
-                                this.state.contrast : 
-                                this.state.vivid }
+                        this.props.verysmall?
+                            this.state.verysmall :
+                            this.props.small?
+                                this.state.small :
+                                this.props.seen? 
+                                    this.state.contrast : 
+                                    this.state.vivid }
                 aria-hidden="true"
                 onClick={this.props.onClick}
                 title={this.props.seen? this.props.title2 || "click to hide": this.props.title1 || "click to see"}

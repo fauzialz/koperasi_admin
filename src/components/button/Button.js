@@ -53,7 +53,10 @@ class Button extends React.Component {
             styleString +=' red'
         }
         if(this.props.rounded){
-            styleString +=' raund'
+            styleString +=' round'
+        }
+        if(this.props.circle){
+            styleString +=' circle'
         }
         this.setState({
             style: styleString
@@ -69,6 +72,7 @@ class Button extends React.Component {
                     onSubmit={this.props.onSubmit}
                     type={this.props.type || "button"}
                     disabled={this.props.disabled}
+                    title={this.props.title}
                 >
                     {this.props.label || 'Button'}
                 </button>

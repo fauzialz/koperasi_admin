@@ -1,11 +1,12 @@
 import React from 'react'
 import './Dashboard.scss'
-/* import Button from '../../components/button'; */
 import HelperCookie from '../../helper/HelperCookie'
 import ConfigLocal from '../../config/ConfigLocal'
 import Header from './header';
 import Navbar from './navbar';
 import ContentSlider from './contents';
+import { ProviderScope } from '../../context_provider';
+import NotifBar from '../../components/notification_bar';
 
 class Dashboard extends React.Component {
     state = {
@@ -26,23 +27,29 @@ class Dashboard extends React.Component {
     render() {
         return (
             <React.Fragment>
+                <ProviderScope>
 
-            {/* HEADER */}
-            <Header 
-                open= {this.state.drawer}
-                onClick= {this.drawerHandler}   
-            />
+                    {/* NAVBAR */}
+                    <Navbar
+                        open= {this.state.drawer}
+                        />
 
-            {/* NAVBAR */}
-            <Navbar
-                open= {this.state.drawer}
-            />
+                    <NotifBar/>
 
-            {/* CONTENT */}
-            <ContentSlider 
-                open= {this.state.drawer}
-            />     
+                    {/* HEADER */}
+                    <Header 
+                        open= {this.state.drawer}
+                        onClick= {this.drawerHandler}   
+                        />
+                        
+                    {/* CONTENT */}
+                    <ContentSlider 
+                        open= {this.state.drawer}
+                        />     
+                    
+                    
             
+                </ProviderScope>
             </React.Fragment>
         )
     }

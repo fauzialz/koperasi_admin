@@ -1,0 +1,109 @@
+@import '../../../styles/palette';
+@import '../../../styles/potitions';
+@import '../../../styles/sizes';
+@import '../../../styles/text';
+@import '../../../styles/shadows';
+
+$name-padding : 50px;
+
+.navbar-tile, .navbar-tile-active, .navbar-tile-passive {
+    width: $navbar - 10px;
+    margin: 5px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.navbar-tile:hover {
+    background-color: $pure;
+}
+.navbar-tile-active {
+    background-color: $pure;
+    color: $secondary !important;
+}
+
+.navbar-icon {
+    padding: {
+        top: 10px;
+        left: 10px;
+    }
+}
+
+.navbar-iconfont-netral, .navbar-iconfont-active {
+    cursor: pointer;
+    position: absolute;
+    @extend %noselect;
+    color: $secondary-darken;
+    font-size: 16pt;
+}
+.navbar-iconfont-netral {
+    color: $dark;
+}
+.navbar-iconfont-active {
+    color: $secondary;
+}
+
+.navbar-name {
+    padding: {
+        left: $name-padding;
+        top: 1px;
+    }
+    font-size: 10pt;
+    @extend %noselect;
+}
+
+.navbar-tile-child-clicked {
+    width: $navbar;
+    background-color: $pure-menu;
+    transition: all 0.3s ease;
+    height: 40px;
+}
+.navbar-tile-child-none {
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.navbar-tile-child:hover {
+    background-color: $pure-line;
+}
+
+.navbar-name-child {
+    padding: {
+        left: $name-padding - 1px;
+        top: 10px;
+    }
+    font-size: 10pt;
+    /* color: $dark; */
+    @extend %noselect;
+}
+
+/* ARROW */
+.navbar-arrow-base {
+    width: 18px;
+    height: 18px;
+    display: absolute;
+    margin: {
+        top: -17px;
+        left: $navbar - 40px;
+    }
+    border-radius: 4px;
+    background-color: $pure;
+    transition: all .5s ease;
+}
+
+.navbar-arrow-base:hover {
+    background-color: $pure-line;
+}
+
+.navbar-iconfont-parent, .navbar-iconfont-parent-clicked {
+    cursor: pointer;
+    position: absolute;
+    @extend %noselect;
+    color: $secondary-darken;
+    font-size: 14pt;
+    color: $dark;
+    transition: all .2s ease;
+}
+.navbar-iconfont-parent-clicked {
+    transform: rotate(90deg);
+}

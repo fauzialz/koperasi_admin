@@ -109,6 +109,11 @@ button {
 }
 
 //ROUNDED
-.raund {
+.round {
     border-radius: 25px;
+}
+
+.circle {
+    border-radius: 100%;
+    min-width: 30px !important;
 }

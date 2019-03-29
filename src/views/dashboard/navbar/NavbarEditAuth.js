@@ -1,12 +1,15 @@
 import React from 'react';
-import ModalFrame from '../../../components/modal_frame';
 import Input from '../../../components/input';
 import HelperCookie from '../../../helper/HelperCookie';
 import ConfigLocal from '../../../config/ConfigLocal';
 import ConfigApi from '../../../config/ConfigApi';
 import HelperHttp from '../../../helper/HelperHttp'
+import Modal from '../../../components/modal';
+import { AppContext } from '../../../context_provider';
 
 class NavbarEditAuth extends React.Component {
+    static contextType = AppContext
+
     state = {
         password : ''
     }
@@ -17,16 +20,19 @@ class NavbarEditAuth extends React.Component {
 
     onSubmit = () => {
         this.props.loading()
+        this.context.closeNotif()
         let formdata = {
             username : HelperCookie.get(ConfigLocal.USERNAME),
             password : this.state.password
         }
-        debugger
         HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, formdata,
         (success, response) => {
             this.props.loading()
             if(success){
                 this.props.editSession()
+                this.context.setNotif('Password correct. You can edit navigation menu.',ConfigLocal.NOTIF.Success)
+            }else{
+                this.context.setNotif('Password incorrect. Access denied!',ConfigLocal.NOTIF.Error)
             }
             this.onClose()
         })
@@ -40,7 +46,7 @@ class NavbarEditAuth extends React.Component {
     render () {
         const { open } = this.props
         return (
-            <ModalFrame 
+            <Modal
                 title="Authentication" 
                 open={open} 
                 onBtnR={this.onClose}
@@ -56,7 +62,7 @@ class NavbarEditAuth extends React.Component {
                     autoFocus
                     focusEvery={open}
                 />
-            </ModalFrame>
+            </Modal>
         )
     }
 }

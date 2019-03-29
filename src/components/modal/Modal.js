@@ -1,8 +1,8 @@
 import React from 'react';
-import './ModalFrame.scss'
+import './Modal.scss'
 import Button from '../button';
 
-class ModalFrame extends React.Component {
+class Modal extends React.Component {
     render() {
         const { open, title, children, onBtnL, onBtnR, btnL, btnR } = this.props
         return (
@@ -41,4 +41,4 @@ class ModalFrame extends React.Component {
     }
 }
 
-export default ModalFrame
+export default Modal
