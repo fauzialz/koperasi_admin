@@ -18,7 +18,8 @@ class NavbarEditAuth extends React.Component {
         this.setState({password:e.target.value})
     }
 
-    onSubmit = () => {
+    onSubmit = (event) => {
+        event.preventDefault();
         this.props.loading()
         this.context.closeNotif()
         let formdata = {
@@ -51,6 +52,7 @@ class NavbarEditAuth extends React.Component {
                 open={open} 
                 onBtnR={this.onClose}
                 onBtnL={this.onSubmit}
+                form
             >
                 Enter your password to edit the navigation menu.
                 <Input
