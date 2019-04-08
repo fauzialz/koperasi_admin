@@ -42,6 +42,7 @@ class Login extends React.Component {
             if(succes){
                 HelperCookie.set(ConfigLocal.TOKEN, response.Result.Token, response.Result.Expires)
                 HelperCookie.set(ConfigLocal.USERNAME, response.Result.Username,  response.Result.Expires)
+                HelperCookie.set(ConfigLocal.NAVBAR, true)
                 this.props.history.push('/dashboard')
             }else{
                 this.setState({

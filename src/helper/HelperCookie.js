@@ -2,7 +2,14 @@
 
 export default {
     set: (key, value, expires) => {
-        var exp = new Date(expires)
+        var exp
+        if(expires) {
+            exp = new Date(expires)
+        }else{
+            exp = new Date()
+            exp.setTime(exp.getTime() + ( 24 * 60 * 60 * 1000 )) // one day time.
+            exp = exp.toUTCString()
+        }
         document.cookie = key + '=' + value + ';expires=' + exp + ';path=/'
     },
     get: (key) => {

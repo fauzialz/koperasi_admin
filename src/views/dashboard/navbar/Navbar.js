@@ -11,6 +11,7 @@ import { AppContext } from '../../../context_provider';
 import Button from '../../../components/button';
 import ConfigLocal from '../../../config/ConfigLocal';
 import HelperModData from '../../../helper/HelperModData';
+import HelperCookie from '../../../helper/HelperCookie';
 
 class Navbar extends React.Component {
     static contextType = AppContext
@@ -175,6 +176,7 @@ class Navbar extends React.Component {
                     list = HelperModData.pushObjBulk(list,'Active',false)
                     list = HelperModData.pushObjBulk(list,'Clicked',false)
                     localStorage.setItem(ConfigLocal.LOCSTORE.Navbar,JSON.stringify(list))
+                    HelperCookie.set(ConfigLocal.NAVBAR, true)
                 }
             }
         )
@@ -210,7 +212,7 @@ class Navbar extends React.Component {
         If yes, use it immediately. If not, call function to fect the data. */
     componentDidMount() {
         let list = JSON.parse(localStorage.getItem(ConfigLocal.LOCSTORE.Navbar))
-        if(list != null){
+        if(list != null && HelperCookie.get(ConfigLocal.NAVBAR)){
             if(list.length > 0){
                 this.setState({
                     navList : list
