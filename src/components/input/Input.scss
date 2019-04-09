@@ -36,7 +36,8 @@ input::placeholder {
 }
 
 input:active, input:focus {
-    border: 1px solid $primary;
+    border: 1px solid $primary-lighten;
+    box-shadow: 0 0 0 .5pt $primary-lighthover;
     /* padding: {
         top: 4px;
         bottom: 4px;
@@ -48,7 +49,7 @@ input:active, input:focus {
 .input-label {
     font-size: 10pt;
     margin-bottom: -16px;
-    margin-top: -5px;
+    margin-top: -10px;
     color: $pure-darken;
     transition: all .4s ease;
 }
@@ -57,7 +58,7 @@ input:active, input:focus {
     font-size: 10pt;
     margin-left: 2px;
     margin-bottom: -16px;
-    margin-top: -5px;
+    margin-top: -10px;
     color: $dark;
     transition: all .4s ease;
 }

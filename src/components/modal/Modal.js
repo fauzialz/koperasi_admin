@@ -8,7 +8,7 @@ const InnerComponent = (props) => {
             <div className="modal-body">
                 {/* 
                     children props can get everything thrown
-                    between <ModalFrame> and </ModalFrame> 
+                    between <Modal> and </Modal> 
                 */}
                 {props.children}
             </div>

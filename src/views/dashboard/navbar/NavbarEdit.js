@@ -1,27 +1,28 @@
 import React from 'react';
-import ModalForm from '../../../components/modal_form';
 import HelperHttp from '../../../helper/HelperHttp';
 import ConfigApi from '../../../config/ConfigApi';
-import { AppContext } from '../../../context_provider';
 import ConfigLocal from '../../../config/ConfigLocal';
+import Modal from '../../../components/modal';
+import Input from '../../../components/input';
+import { AppContext } from '../../../context_provider';
+import './NavbarEdit.scss';
 
 class NavbarEdit extends React.Component {
     static contextType = AppContext
 
-    onSubmit = (data) => {
-        let input = {
-            Id: data.Id,
-            Name: data.Name,
-            Description: data.Description,
-            Icon: data.Icon,
-            Endpoint: data.Endpoint,
-            Order: data.Order,
-            ParentId: data.ParentId,
-            Etag: data.Etag
+    constructor(props) {
+        super(props)
+        this.state = {
+            data: {},
+            names: ['Id', 'Code', 'Name', 'Description', 'Icon', 'Endpoint', 'Order', 'ParentId', 'Etag']
         }
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault()
         this.props.loading()
         this.context.closeNotif()
-        HelperHttp.request(ConfigApi.ROUTE.MENU, ConfigApi.METHODS.PUT, input,
+        HelperHttp.request(ConfigApi.ROUTE.MENU, ConfigApi.METHODS.PUT, this.state.data,
             (success, response) => {
                 this.props.loading()
                 if(success){
@@ -30,28 +31,60 @@ class NavbarEdit extends React.Component {
                         this.context.setNotif('Data edited.',ConfigLocal.NOTIF.Success)
                     }, 800);
                 }else(
-                    alert(data.Etag)
+                    alert(this.state.data.Etag)
                 )
+                this.clearInput()
                 this.props.onClose()
             }    
         )
     }
 
+    textChange = e => {
+        let tmp = this.state.data
+        tmp[e.target.name] = e.target.value
+        this.setState({ data : tmp })
+    }
+
+    clearInput = () => {
+        let tmp = this.state.data
+        for(let name of this.state.names){
+            tmp[name] = ''
+        }
+        this.setState({
+            data: tmp
+        })
+    }
+
+    closeHandler = () => {
+        this.clearInput()
+        this.props.onClose()
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return { data : props.dataNow }
+    }
+
     render () {
-        const { open, dataNow, onClose } = this.props
-        const names = ['Name', 'Description', 'Icon', 'Endpoint']
+        const { open } = this.props
+        const { data } = this.state
         return (
             <React.Fragment>
-                <ModalForm 
-                    title="Navigation Menu Setting"
-                    open={open} 
-                    names={names}
-                    dataNow={dataNow}
-                    onSubmit={this.onSubmit}
-                    onClose={onClose}
-                    btnL="Edit"
-                    focusIf="Name"
-                />
+                <Modal open={open} title="Navigation Menu Setting" onBtnL={this.onSubmit} onBtnR={this.closeHandler} btnL="Edit" form>
+                    <div className="devider">
+                        <div className="devided-left">
+                            <Input name="Name" value={data.Name} fluid label="Name" focusEvery={open} autoFocus onChange={this.textChange} />
+                        </div>
+                        <div className="devided-right">
+                            <Input name="Endpoint" value={data.Endpoint} fluid label="Endpoint" onChange={this.textChange} />
+                        </div>
+                    </div>
+                    <Input name="ParentId" value={data.ParentId} fluid label="Parent" onChange={this.textChange} />
+                    <Input name="Description" value={data.Description} fluid label="Description" onChange={this.textChange} />
+                    <Input name="Icon" value={data.Icon} fluid label="Icon" onChange={this.textChange} />
+                    <div className="description">
+                        The system use icon from Material Design. <br /><a href="https://material.io/tools/icons/" target="blank">See available icons here</a>.
+                    </div>
+                </Modal>
             </React.Fragment>
         )
     }
