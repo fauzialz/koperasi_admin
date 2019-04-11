@@ -5,6 +5,7 @@ import ConfigLocal from '../../../config/ConfigLocal';
 import Modal from '../../../components/modal';
 import Input from '../../../components/input';
 import { AppContext } from '../../../context_provider';
+import Select from '../../../components/select';
 import './NavbarEdit.scss';
 
 class NavbarEdit extends React.Component {
@@ -60,6 +61,22 @@ class NavbarEdit extends React.Component {
         this.props.onClose()
     }
 
+    /*  In the future, I think this function
+        must be in the HelperModData.js */
+    optionsAssembler = () => {
+        let options = [{value: "", name: "No Parent"}]
+        let tmp = JSON.parse(localStorage.getItem(ConfigLocal.LOCSTORE.Navbar)).map(e=>{
+            return ({value: e.Id, name: e.Name})
+        })
+        options = options.concat(tmp)
+        debugger
+        options = options.filter(e=>{
+            return e.value !== this.state.data['Id']
+        })
+        debugger
+        return options
+    }
+
     static getDerivedStateFromProps(props, state) {
         return { data : props.dataNow }
     }
@@ -67,6 +84,7 @@ class NavbarEdit extends React.Component {
     render () {
         const { open } = this.props
         const { data } = this.state
+        const options = this.optionsAssembler()
         return (
             <React.Fragment>
                 <Modal open={open} title="Navigation Menu Setting" onBtnL={this.onSubmit} onBtnR={this.closeHandler} btnL="Edit" form>
@@ -78,11 +96,12 @@ class NavbarEdit extends React.Component {
                             <Input name="Endpoint" value={data.Endpoint} fluid label="Endpoint" onChange={this.textChange} />
                         </div>
                     </div>
+                    <Select name="ParentId" selected={data.ParentId} onChange={this.textChange} options={options} />
                     <Input name="ParentId" value={data.ParentId} fluid label="Parent" onChange={this.textChange} />
                     <Input name="Description" value={data.Description} fluid label="Description" onChange={this.textChange} />
                     <Input name="Icon" value={data.Icon} fluid label="Icon" onChange={this.textChange} />
                     <div className="description">
-                        The system use icon from Material Design. <br /><a href="https://material.io/tools/icons/" target="blank">See available icons here</a>.
+                        The system use icon from Material Design. <br /><a href="https://material.io/tools/icons/" target="blank">See available icons</a>
                     </div>
                 </Modal>
             </React.Fragment>
