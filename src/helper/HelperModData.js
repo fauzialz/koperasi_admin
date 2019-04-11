@@ -1,4 +1,10 @@
 export default {
+    /**
+     * @param {Object[]} objList - The list of object that you want to modify.
+     * @param {string} key - The object key that you want to change it value.
+     * @param {(string|number|boolean)} value - The value you want to inject to selected key.
+     * @returns {Object[]} - Modified list of object from objList.
+     */
     pushObjBulk: (objList, key, value) => {
         for(var i = 0; i < objList.length; i++) {
             objList[i][key] = value

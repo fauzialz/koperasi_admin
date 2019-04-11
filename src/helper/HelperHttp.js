@@ -4,6 +4,15 @@ import local from '../config/ConfigLocal'
 import HelperCookie from './HelperCookie';
 
 export default {
+    /**
+     * @param {string} route - API Endpoint. Get listed routes in ConfigApi.ROUTE.
+     * @param {string} method - HTTP Request method. Get listed methods in ConfigApi.METHOD.
+     * @param {Object} json - Data in a form of Object to be sent to API.
+     * @param {requestCallback} cb - Callback function that handle the response. common form : (success, response) => {...}
+     * @callback requestCallback 
+     * @param {boolean} success - Handle success response.
+     * @param {Object} response - Handle response body data.
+     */
     request: (route, method, json, cb) => {
         let option = {
             url: config.API_URL + route,

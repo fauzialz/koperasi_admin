@@ -61,8 +61,9 @@ class NavbarEdit extends React.Component {
         this.props.onClose()
     }
 
-    /*  In the future, I think this function
-        must be in the HelperModData.js */
+    /* 
+    todo: In the future, I think this function must be in the HelperModData.js
+    */
     optionsAssembler = () => {
         let options = [{value: "", name: "No Parent"}]
         let tmp = JSON.parse(localStorage.getItem(ConfigLocal.LOCSTORE.Navbar)).map(e=>{
