@@ -16,10 +16,9 @@ input {
     }
     border-radius: 5px;
     border: 1px solid $pure-darken;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
     line-height: unset;
     display: flex;
-    position: sticky;
     box-shadow: none;
     outline: none;
     text-overflow: ellipsis;
@@ -34,7 +33,12 @@ input {
 input::placeholder {
     font-style: italic;
 }
-
+input:hover {
+    background-color: $pure-chrome;
+}
+input:focus:hover {
+    background-color: $pure-lighten;
+}
 input:active, input:focus {
     border: 1px solid $primary-lighten;
     box-shadow: 0 0 0 .5pt $primary-lighthover;

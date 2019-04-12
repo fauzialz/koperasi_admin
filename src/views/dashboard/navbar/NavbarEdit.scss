@@ -1,3 +1,5 @@
+@import '../../../styles/palette';
+
 .devider {
     width: 100%;
     display: grid;
@@ -17,4 +19,16 @@
     margin-top: -3px;
     text-align: center;
     font-size: 9pt;
+    a:link, a:visited {
+        color: $submit;
+        transition: all 0.3s ease;
+    }
+    a:hover, a:active {
+        color: $error;
+        transition: all 0.3s ease;
+    }
 }
+
+/* .description a:link, .description a:visited {
+    color: $success;
+} */

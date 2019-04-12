@@ -1,0 +1,60 @@
+@import '../../styles/palette';
+@import '../../styles/potitions';
+@import '../../styles/text';
+
+select {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    width: 100%;
+    padding: {
+        top: 5px;
+        bottom: 5px;
+        left: 10px;
+        right: 10px;
+    }
+    border-radius: 5px;
+    border: 1px solid $pure-darken;
+    transition: all 0.3s ease;
+    line-height: unset;
+    display: flex;
+    box-shadow: none;
+    outline: none;
+    text-overflow: ellipsis;
+    text-shadow: none;
+    min-height: 32px;
+    min-width: 100px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    position: relative;
+    /* -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none; */
+    cursor: pointer;
+}
+select:hover {
+    background-color: $pure-chrome;
+}
+select:focus:hover {
+    background-color: $pure-lighten;
+}
+select:active, select:focus {
+    border: 1px solid $primary-lighten;
+    box-shadow: 0 0 0 .5pt $primary-lighthover;
+}
+
+.select-blur {
+    font-size: 10pt;
+    margin-bottom: -16px;
+    margin-top: -10px;
+    color: $pure-darken;
+    transition: all .4s ease;
+}
+.select-focus {
+    font-size: 10pt;
+    margin-left: 2px;
+    margin-bottom: -16px;
+    margin-top: -10px;
+    color: $dark;
+    transition: all .4s ease;
+}

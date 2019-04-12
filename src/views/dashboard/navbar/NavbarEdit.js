@@ -42,7 +42,7 @@ class NavbarEdit extends React.Component {
 
     textChange = e => {
         let tmp = this.state.data
-        tmp[e.target.name] = e.target.value
+        tmp[e.target.name] = e.target.value || null
         this.setState({ data : tmp })
     }
 
@@ -66,15 +66,16 @@ class NavbarEdit extends React.Component {
     */
     optionsAssembler = () => {
         let options = [{value: "", name: "No Parent"}]
-        let tmp = JSON.parse(localStorage.getItem(ConfigLocal.LOCSTORE.Navbar)).map(e=>{
-            return ({value: e.Id, name: e.Name})
-        })
-        options = options.concat(tmp)
-        debugger
-        options = options.filter(e=>{
-            return e.value !== this.state.data['Id']
-        })
-        debugger
+        let tmp = JSON.parse(localStorage.getItem(ConfigLocal.LOCSTORE.Navbar))
+        if( tmp ) {
+            tmp = tmp.map(e=>{
+                return ({value: e.Id, name: e.Name})
+            })
+                options = options.concat(tmp)
+                options = options.filter(e=>{
+                return e.value !== this.state.data['Id']
+            })
+        }
         return options
     }
 
@@ -97,8 +98,7 @@ class NavbarEdit extends React.Component {
                             <Input name="Endpoint" value={data.Endpoint} fluid label="Endpoint" onChange={this.textChange} />
                         </div>
                     </div>
-                    <Select name="ParentId" selected={data.ParentId} onChange={this.textChange} options={options} />
-                    <Input name="ParentId" value={data.ParentId} fluid label="Parent" onChange={this.textChange} />
+                    <Select name="ParentId" selected={data.ParentId} onChange={this.textChange} options={options} label="Parent" />
                     <Input name="Description" value={data.Description} fluid label="Description" onChange={this.textChange} />
                     <Input name="Icon" value={data.Icon} fluid label="Icon" onChange={this.textChange} />
                     <div className="description">
