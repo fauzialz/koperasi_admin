@@ -20,15 +20,22 @@
     text-align: center;
     font-size: 9pt;
     a:link, a:visited {
-        color: $submit;
+        color: $submit-darken;
         transition: all 0.3s ease;
+        text-decoration: none;
     }
     a:hover, a:active {
-        color: $error;
+        color: $submit;
         transition: all 0.3s ease;
+        text-decoration: underline;
     }
 }
 
-/* .description a:link, .description a:visited {
-    color: $success;
-} */
+.center-button {
+    position: absolute;
+    transform: translate(148px, 24px)
+}
+.center-button-delete {
+    padding-top: 2px;
+    font-size: 13pt;
+}

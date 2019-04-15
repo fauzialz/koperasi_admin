@@ -23,7 +23,7 @@ input {
     outline: none;
     text-overflow: ellipsis;
     text-shadow: none;
-    min-height: 32px;
+    height: 32px;
     min-width: 100px;
     margin-bottom: 20px;
     margin-top: 20px;
@@ -40,8 +40,8 @@ input:focus:hover {
     background-color: $pure-lighten;
 }
 input:active, input:focus {
-    border: 1px solid $primary-lighten;
-    box-shadow: 0 0 0 .5pt $primary-lighthover;
+    border: 1px solid $primary;
+    box-shadow: 0 0 0 2pt $primary-lighten;
     /* padding: {
         top: 4px;
         bottom: 4px;

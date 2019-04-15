@@ -64,7 +64,7 @@ class Input extends React.Component {
     }
     
     //lifecycle to detect props update
-    // ? I think this method used to colaborate with modal open/close
+    // ! This method used to colaborate with modal open/close
     componentDidUpdate(oldProps) {
         if(this.props.focusEvery !== oldProps.focusEvery) {
             this.setState({focus: true})

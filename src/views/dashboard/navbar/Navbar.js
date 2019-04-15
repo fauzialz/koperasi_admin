@@ -26,6 +26,7 @@ class Navbar extends React.Component {
             loading : false,
             openAuthModal: false,
             openEditModal: false,
+            openAddModal: false,
             icon: 'material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-add-button',
             title: 'Setting Mode'
         }
@@ -200,11 +201,19 @@ class Navbar extends React.Component {
         )
     }
 
+    openAddModal = () => {
+        // ! I CLOSE THE GATE. BUGS INSIDE !
+        // this.setState(
+        //     {openAddModal: !this.state.openAddModal}
+        // )
+    }
+
     /*  To close all modal. */
     onClose = () => {
         this.setState({
             openAuthModal: false,
             openEditModal: false,
+            openAddModal: false
         })
     }
 
@@ -226,7 +235,7 @@ class Navbar extends React.Component {
     }
 
     render() {
-        const { navList, openAuthModal, openEditModal, loading, icon } = this.state
+        const { navList, openAuthModal, openEditModal, openAddModal,loading, icon } = this.state
 
         return (
             <React.Fragment>
@@ -242,6 +251,13 @@ class Navbar extends React.Component {
                     loading={this.loadingSwitch}
                     hotReload={this.getNavigationList}
                 />
+                <NavbarEdit 
+                    open={openAddModal}
+                    onClose={this.onClose}
+                    loading={this.loadingSwitch}
+                    hotReload={this.getNavigationList}
+                    add
+                />
 
                 {loading && <Loading />}
 
@@ -251,18 +267,19 @@ class Navbar extends React.Component {
                                 <NavbarTiles navList={navList} onClick={this.tileHandler} />
                             </div>
                             <div className= "edit-tile">
-                            <div className={this.state.editSession? "navbar-add-on": "navbar-add-off"}>
-                                <Button
-                                    blue
-                                    flat
-                                    circle
-                                    title="Add new navigation menu"
-                                    label={
-                                        <span className={icon} aria-hidden="true">
-                                            add
-                                        </span>
-                                    }/>
-                            </div>
+                                <div className={this.state.editSession? "navbar-add-on": "navbar-add-off"}>
+                                    <Button
+                                        onClick={this.openAddModal}
+                                        blue
+                                        flat
+                                        circle
+                                        title="Add new navigation menu"
+                                        label={
+                                            <span className={icon} aria-hidden="true">
+                                                add
+                                            </span>
+                                        }/>
+                                </div>
                                 <ButtonStatus
                                     title={this.state.title}
                                     onClick={this.editSessionButton}

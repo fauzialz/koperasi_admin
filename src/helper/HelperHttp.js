@@ -31,21 +31,24 @@ export default {
                 'Authorization': 'Bearer ' + HelperCookie.get(local.TOKEN),
                 "Content-Type": config.HEADERS.conten_type
             }
-            if (method === config.METHODS.PUT) {
+            if (method === config.METHODS.PUT || method === config.METHODS.DEL) {
                 option.url += '/' + json.Id
                 option.headers['If-Match'] = json.Etag
                 delete option.data.Id
                 delete option.data.Etag
             }
         }
+        debugger
         axios(option)
         .then(res => {
-            if (res.headers.etag) {
+            debugger
+            if(method === config.METHODS.GET && res.headers.etag) {
                 res.data.Result['Etag'] = res.headers.etag
             }
             cb(res.data.IsSuccess, res.data)
         })
         .catch(err => {
+            debugger
             if(err.response === undefined){  
                 cb(false, { Message: 'Lost connection with server.' })
             }else{
