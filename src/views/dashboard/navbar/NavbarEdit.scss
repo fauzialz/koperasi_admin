@@ -1,0 +1,41 @@
+@import '../../../styles/palette';
+
+.devider {
+    width: 100%;
+    display: grid;
+    grid-template-rows: [dvh1] 1fr [dvh2];
+    grid-template-columns: [dvv1] 1fr [dvv2] 15px [dvv3] 1fr [dvv4];
+}
+
+.devided-left {
+    grid-row: dvh1 / dvh2;
+    grid-column: dvv1 / dvv2;
+}
+.devided-right {
+    grid-row: dvh1 / dvh2;
+    grid-column: dvv3 / dvv4;
+}
+.description {
+    margin-top: -3px;
+    text-align: center;
+    font-size: 9pt;
+    a:link, a:visited {
+        color: $submit-darken;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    a:hover, a:active {
+        color: $submit;
+        transition: all 0.3s ease;
+        text-decoration: underline;
+    }
+}
+
+.center-button {
+    position: absolute;
+    transform: translate(148px, 24px)
+}
+.center-button-delete {
+    padding-top: 2px;
+    font-size: 13pt;
+}

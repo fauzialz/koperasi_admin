@@ -1,9 +1,8 @@
-// ref: https://stackoverflow.com/questions/4698054/css-does-the-width-include-the-padding
 @import '../../styles/palette';
 @import '../../styles/potitions';
 @import '../../styles/text';
 
-input {     
+select {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -11,7 +10,7 @@ input {
     padding: {
         top: 5px;
         bottom: 5px;
-        left: 10px;
+        left: 8px;
         right: 10px;
     }
     border-radius: 5px;
@@ -23,42 +22,36 @@ input {
     outline: none;
     text-overflow: ellipsis;
     text-shadow: none;
-    height: 32px;
+    /* min-height: 32px; */
     min-width: 100px;
     margin-bottom: 20px;
     margin-top: 20px;
     position: relative;
+    /* -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none; */
+    cursor: pointer;
+    height: 32px;
 }
-
-input::placeholder {
-    font-style: italic;
-}
-input:hover {
+select:hover {
     background-color: $pure-chrome;
 }
-input:focus:hover {
+select:focus:hover {
     background-color: $pure-lighten;
 }
-input:active, input:focus {
+select:active, select:focus {
     border: 1px solid $primary;
     box-shadow: 0 0 0 2pt $primary-lighten;
-    /* padding: {
-        top: 4px;
-        bottom: 4px;
-        left: 9px;
-        right: 9px;
-    } */
 }
 
-.input-label {
+.select-blur {
     font-size: 10pt;
     margin-bottom: -16px;
     margin-top: -10px;
     color: $pure-darken;
     transition: all .4s ease;
 }
-
-.input-label-focus {
+.select-focus {
     font-size: 10pt;
     margin-left: 2px;
     margin-bottom: -16px;
@@ -66,28 +59,3 @@ input:active, input:focus {
     color: $dark;
     transition: all .4s ease;
 }
-
-.input-container {
-    max-width: 225px;
-    @extend %auto-margin;
-    position: relative;
-}
-
-.input-fluid {
-    width: 100%;
-    position: relative;
-}
-
-.visibility {
-    cursor: pointer;
-    position: absolute;
-    top: 10%;
-    left: 89%;
-    color: $secondary;
-    @extend %noselect;
-}
-
-.input-visibility, .input-visibility:focus, .input-visibility:active {
-    padding-right: 40px !important;
-}
-

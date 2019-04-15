@@ -1,16 +1,16 @@
 import React from 'react'
 import './Header.scss'
 import Button from '../../../components/button';
-import Icon from '../../../components/icon';
 import HelperCookie from '../../../helper/HelperCookie';
 import ConfigLocal from '../../../config/ConfigLocal';
 import { withRouter } from 'react-router-dom'
-
+import ButtonBurger from '../../../components/button_burger';
 
 class Header extends React.Component {
     signOut = () => {
         HelperCookie.delete(ConfigLocal.TOKEN)
         HelperCookie.delete(ConfigLocal.USERNAME)
+        HelperCookie.delete(ConfigLocal.NAVBAR)
         this.props.history.push('/')
     }
 
@@ -27,11 +27,7 @@ class Header extends React.Component {
                                 "drawer"
                             }>
                                 <div className="drawer-icon">
-                                    <Icon 
-                                        iconName="menu"
-                                        onClick={this.props.onClick}
-                                        title1="Navigation Bar"
-                                    />
+                                    <ButtonBurger onClick={this.props.onClick} active={this.props.open} />
                                 </div>
                             </div>
                         </div>

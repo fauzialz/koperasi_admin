@@ -1,0 +1,63 @@
+@import '../../styles/palette';
+
+$burwidth: 20px;
+$leng: 4px;
+$bold: 3px;
+
+.burger-base, .burger-base-x {
+    width: $burwidth;
+    height: $burwidth;
+    cursor: pointer;
+    transition: all .5s ease;
+}
+
+.burger-base-x {
+    /* background-color: rgba(54, 56, 58, 0.15); */
+    background-color: $primary-darkhover;
+    border-radius: 50%;
+}
+
+.burger-wrapper {
+    transform: translate(0px,2.5px) ;
+    transition: all .5s ease;
+}
+
+.burger-wrapper-x {
+    transform: scale(.7) translate(0px,4px) ;
+    transition: all .5s ease;
+}
+
+.burgerline-top, .burgerline-middle, .burgerline-bottom {
+    width: $burwidth;
+    height: 2px;
+    background-color: $dark;
+    border-radius: 1px;
+    transition: all .5s ease;
+}
+
+.burgerline-middle {
+    transform: translate(0px,$leng) 
+}
+.burgerline-bottom {
+    transform: translate(0px,$leng * 2) 
+}
+
+.burgerline-top-x, .burgerline-middle-x, .burgerline-bottom-x {
+    width: $burwidth;
+    height: $bold;
+    background-color: $dark;
+    border-radius: $bold;
+    transition: all .5s ease;
+}
+
+.burgerline-top-x {
+    transform: translate(0px,$leng + $bold) rotate(-45deg);
+}
+
+.burgerline-middle-x {
+    transform: translate($burwidth / 2,5px);
+    width: 0px
+}
+.burgerline-bottom-x {
+    transform: translate(0px,$leng - $bold) rotate(45deg);
+}

@@ -4,6 +4,15 @@ import local from '../config/ConfigLocal'
 import HelperCookie from './HelperCookie';
 
 export default {
+    /**
+     * @param {string} route - API Endpoint. Get listed routes in ConfigApi.ROUTE.
+     * @param {string} method - HTTP Request method. Get listed methods in ConfigApi.METHOD.
+     * @param {Object} json - Data in a form of Object to be sent to API.
+     * @param {requestCallback} cb - Callback function that handle the response. common form : (success, response) => {...}
+     * @callback requestCallback 
+     * @param {boolean} success - Handle success response.
+     * @param {Object} response - Handle response body data.
+     */
     request: (route, method, json, cb) => {
         let option = {
             url: config.API_URL + route,
@@ -22,21 +31,24 @@ export default {
                 'Authorization': 'Bearer ' + HelperCookie.get(local.TOKEN),
                 "Content-Type": config.HEADERS.conten_type
             }
-            if (method === config.METHODS.PUT) {
+            if (method === config.METHODS.PUT || method === config.METHODS.DEL) {
                 option.url += '/' + json.Id
                 option.headers['If-Match'] = json.Etag
                 delete option.data.Id
                 delete option.data.Etag
             }
         }
+        debugger
         axios(option)
         .then(res => {
-            if (res.headers.etag) {
+            debugger
+            if(method === config.METHODS.GET && res.headers.etag) {
                 res.data.Result['Etag'] = res.headers.etag
             }
             cb(res.data.IsSuccess, res.data)
         })
         .catch(err => {
+            debugger
             if(err.response === undefined){  
                 cb(false, { Message: 'Lost connection with server.' })
             }else{

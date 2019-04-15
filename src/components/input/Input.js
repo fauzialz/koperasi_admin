@@ -3,13 +3,14 @@ import './Input.scss'
 import Icon from '../icon'
 
 class Input extends React.Component {
-    /* ACCESS:
+    /* 
+    !ACCESS:
         <Input
-            --*mandatory--------------------------
-            name= "{name for onChange}"
+            *--mandatory--------------------------
+            name = "{name for onChange}"
             value= "{variable to store the value}"
             onChange= "{your onChange function (use for change value)}"
-            --*optional---------------------------
+            ?--*optional---------------------------
             label= "{texfield with label on the top of it. if this not null, placeholder will disappear."
             placeholder= "{costumize placeholder text. Empty case: this place will filled by capitalized name props}"
             fluid {input width all over the place}
@@ -51,17 +52,19 @@ class Input extends React.Component {
             })
         }
     }
-
+    // *handle label on input focus
     onFocusHandler = () => {
         this.setState({label: 'input-label-focus', focus: true})
         this.textInput.current.focus();
     }
+    // *handle label on input blur
     onBlurHandler = () => {
         this.setState({label: 'input-label', focus: false})
         this.textInput.current.blur();
     }
     
     //lifecycle to detect props update
+    // ! This method used to colaborate with modal open/close
     componentDidUpdate(oldProps) {
         if(this.props.focusEvery !== oldProps.focusEvery) {
             this.setState({focus: true})
@@ -101,7 +104,7 @@ class Input extends React.Component {
                                         this.props.name.charAt(0),
                                         this.props.name.charAt(0).toUpperCase()
                         )}
-                        value={this.props.value}
+                        value={this.props.value || ''}
                         onChange={this.props.onChange}
                         autoComplete="off"
                         required={this.props.required}

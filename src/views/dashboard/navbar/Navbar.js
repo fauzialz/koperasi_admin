@@ -11,6 +11,7 @@ import { AppContext } from '../../../context_provider';
 import Button from '../../../components/button';
 import ConfigLocal from '../../../config/ConfigLocal';
 import HelperModData from '../../../helper/HelperModData';
+import HelperCookie from '../../../helper/HelperCookie';
 
 class Navbar extends React.Component {
     static contextType = AppContext
@@ -25,6 +26,7 @@ class Navbar extends React.Component {
             loading : false,
             openAuthModal: false,
             openEditModal: false,
+            openAddModal: false,
             icon: 'material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-add-button',
             title: 'Setting Mode'
         }
@@ -175,6 +177,7 @@ class Navbar extends React.Component {
                     list = HelperModData.pushObjBulk(list,'Active',false)
                     list = HelperModData.pushObjBulk(list,'Clicked',false)
                     localStorage.setItem(ConfigLocal.LOCSTORE.Navbar,JSON.stringify(list))
+                    HelperCookie.set(ConfigLocal.NAVBAR, true)
                 }
             }
         )
@@ -198,11 +201,19 @@ class Navbar extends React.Component {
         )
     }
 
+    openAddModal = () => {
+        // ! I CLOSE THE GATE. BUGS INSIDE !
+        // this.setState(
+        //     {openAddModal: !this.state.openAddModal}
+        // )
+    }
+
     /*  To close all modal. */
     onClose = () => {
         this.setState({
             openAuthModal: false,
             openEditModal: false,
+            openAddModal: false
         })
     }
 
@@ -210,7 +221,7 @@ class Navbar extends React.Component {
         If yes, use it immediately. If not, call function to fect the data. */
     componentDidMount() {
         let list = JSON.parse(localStorage.getItem(ConfigLocal.LOCSTORE.Navbar))
-        if(list != null){
+        if(list != null && HelperCookie.get(ConfigLocal.NAVBAR)){
             if(list.length > 0){
                 this.setState({
                     navList : list
@@ -224,7 +235,7 @@ class Navbar extends React.Component {
     }
 
     render() {
-        const { navList, openAuthModal, openEditModal, loading, icon } = this.state
+        const { navList, openAuthModal, openEditModal, openAddModal,loading, icon } = this.state
 
         return (
             <React.Fragment>
@@ -240,6 +251,13 @@ class Navbar extends React.Component {
                     loading={this.loadingSwitch}
                     hotReload={this.getNavigationList}
                 />
+                <NavbarEdit 
+                    open={openAddModal}
+                    onClose={this.onClose}
+                    loading={this.loadingSwitch}
+                    hotReload={this.getNavigationList}
+                    add
+                />
 
                 {loading && <Loading />}
 
@@ -249,18 +267,19 @@ class Navbar extends React.Component {
                                 <NavbarTiles navList={navList} onClick={this.tileHandler} />
                             </div>
                             <div className= "edit-tile">
-                            <div className={this.state.editSession? "navbar-add-on": "navbar-add-off"}>
-                                <Button
-                                    blue
-                                    flat
-                                    circle
-                                    title="Add new navigation menu"
-                                    label={
-                                        <span className={icon} aria-hidden="true">
-                                            add
-                                        </span>
-                                    }/>
-                            </div>
+                                <div className={this.state.editSession? "navbar-add-on": "navbar-add-off"}>
+                                    <Button
+                                        onClick={this.openAddModal}
+                                        blue
+                                        flat
+                                        circle
+                                        title="Add new navigation menu"
+                                        label={
+                                            <span className={icon} aria-hidden="true">
+                                                add
+                                            </span>
+                                        }/>
+                                </div>
                                 <ButtonStatus
                                     title={this.state.title}
                                     onClick={this.editSessionButton}

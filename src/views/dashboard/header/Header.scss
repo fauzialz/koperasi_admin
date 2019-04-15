@@ -33,19 +33,21 @@
 
 //DRAWER BUTTON
 .drawer, .drawer-active {
-    height: $header;
-    width: $header;
-    border-radius: 0;
-    margin: 0;
+   background-color: $primary-darkhover;
+   transition: all 0.5s ease;
 }
 .drawer-active {
-    background-color: $primary-darkhover;
-    transition: all 0.5s ease;
+    height: 10px;
+    width: 10px;
+    margin: ($header / 2) - 5px;
+    border-radius: 50%;
 }
 .drawer {
-    transition: all 0.5s ease;
+    height: $header;
+    width: $header;
+    margin: 0;
 }
-.drawer:hover {
+.drawer-active:hover {
     height: $header - $minus;
     width: $header - $minus;
     border-radius: 50%;
@@ -56,6 +58,7 @@
 }
 .drawer-icon {
     position: fixed;
-    top: 12.5px;
-    left: 11.5px;
+    top: 14.5px;
+    left: 14px;
+    /* transform: translate(15px, 15px) */
 }
