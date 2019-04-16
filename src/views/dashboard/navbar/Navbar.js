@@ -12,6 +12,7 @@ import Button from '../../../components/button';
 import ConfigLocal from '../../../config/ConfigLocal';
 import HelperModData from '../../../helper/HelperModData';
 import HelperCookie from '../../../helper/HelperCookie';
+import DummyNavbar from '../../../components/dummy_navbar';
 
 class Navbar extends React.Component {
     static contextType = AppContext
@@ -24,6 +25,7 @@ class Navbar extends React.Component {
             navObj  : {},
             editSession : false,
             loading : false,
+            navbarLoading : false,
             openAuthModal: false,
             openEditModal: false,
             openAddModal: false,
@@ -155,10 +157,10 @@ class Navbar extends React.Component {
 
     /*  Fetch navList data from API and update it in localStorage. */
     getNavigationList = () => {
-        this.loadingSwitch()
+        this.setState({navbarLoading:true})
         HelperHttp.request(ConfigApi.ROUTE.GET_MENU, ConfigApi.METHODS.GET, {},
             (success, response) => {
-                this.loadingSwitch()
+                this.setState({navbarLoading:false})
                 if(success){
                     let list = response.Result
                     if(this.state.editSession) {
@@ -202,10 +204,10 @@ class Navbar extends React.Component {
     }
 
     openAddModal = () => {
-        // ! I CLOSE THE GATE. BUGS INSIDE !
-        // this.setState(
-        //     {openAddModal: !this.state.openAddModal}
-        // )
+        // ! I OPEN THE GATE, BUT BUGS STILL INSIDE !
+        this.setState(
+            {openAddModal: !this.state.openAddModal}
+        )
     }
 
     /*  To close all modal. */
@@ -235,7 +237,7 @@ class Navbar extends React.Component {
     }
 
     render() {
-        const { navList, openAuthModal, openEditModal, openAddModal,loading, icon } = this.state
+        const { navbarLoading, navList, openAuthModal, openEditModal, openAddModal,loading, icon } = this.state
 
         return (
             <React.Fragment>
@@ -264,7 +266,10 @@ class Navbar extends React.Component {
                 <div className={this.props.open ? "open-navbar": "close-navbar"}> 
                         <div className="navbar-base">
                             <div className= "navbar-overflow-superadmin">
+                            {navbarLoading?
+                                <DummyNavbar navList={navList} />:
                                 <NavbarTiles navList={navList} onClick={this.tileHandler} />
+                            }
                             </div>
                             <div className= "edit-tile">
                                 <div className={this.state.editSession? "navbar-add-on": "navbar-add-off"}>
