@@ -4,7 +4,7 @@
 
 .grid-header {
     display: grid;
-    grid-template-columns: [hb1] $header [hb2] auto [hb3] 100px [hb4] 20px [hb5];
+    grid-template-columns: [hb0] 3px [hb1] $header [hb2] auto [hb3] 100px [hb4] 20px [hb5];
     grid-template-rows: [hhb1] $header [hhb2];
     background-color: $primary;
     position: fixed;
@@ -37,9 +37,9 @@
    transition: all 0.5s ease;
 }
 .drawer-active {
-    height: 10px;
-    width: 10px;
-    margin: ($header / 2) - 5px;
+    height: 24px;
+    width: 24px;
+    margin: ($header / 2) - 12px;
     border-radius: 50%;
 }
 .drawer {

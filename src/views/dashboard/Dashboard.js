@@ -24,6 +24,16 @@ class Dashboard extends React.Component {
         })
     }
 
+    checkDimention = () => {
+        if (window.innerWidth <= 485) {
+            this.setState({drawer:false})
+        }
+    }
+
+    componentDidMount() {
+        this.checkDimention()
+    }
+
     render() {
         return (
             <React.Fragment>
