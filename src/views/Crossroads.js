@@ -11,7 +11,10 @@ const Crossroads = () => {
         <main>
             <BrowserRouter>
                 <Switch>
-                    <Route exact path='/' component={Login} />
+                    <Route exact path="/" render={() => (
+                        <Redirect to="/login" />
+                    )} />
+                    <Route path='/login' component={Login} />
                     <PrivateRoute path='/dashboard' component={Dashboard} />
                 </Switch>
             </BrowserRouter>
@@ -26,7 +29,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
             HelperCookie.get(ConfigLocal.TOKEN) == null?
                 (<Redirect 
                     to={{
-                        pathname: "/",
+                        pathname: "/login",
                         state: { from: props.location}
                     }}
                 />):

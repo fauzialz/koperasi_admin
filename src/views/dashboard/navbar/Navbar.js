@@ -64,6 +64,8 @@ class Navbar extends React.Component {
                     hotNavList[i]['Active'] = true
                     this.setState({historyId : id})
                     //do something base with route
+                    // !debugger
+                    // todo history.push(`dashboard${hotNavList[i].Endpoint}`)
                 }else if(!parentClicked) {
                     hotNavList[i]['Active'] = false
                 }

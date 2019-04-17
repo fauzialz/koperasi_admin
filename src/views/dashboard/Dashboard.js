@@ -42,6 +42,7 @@ class Dashboard extends React.Component {
                     {/* NAVBAR */}
                     <Navbar
                         open= {this.state.drawer}
+                        history = {this.props.history}
                         />
 
                     <NotifBar/>

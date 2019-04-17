@@ -34,21 +34,20 @@ export default {
             if (method === config.METHODS.PUT || method === config.METHODS.DEL) {
                 option.url += '/' + json.Id
                 option.headers['If-Match'] = json.Etag
-                delete option.data.Id
-                delete option.data.Etag
             }
+            delete option.data.Id
+            delete option.data.Etag
+            delete option.data.Code
+            delete option.data.Order
         }
-        debugger
         axios(option)
         .then(res => {
-            debugger
             if(method === config.METHODS.GET && res.headers.etag) {
                 res.data.Result['Etag'] = res.headers.etag
             }
             cb(res.data.IsSuccess, res.data)
         })
         .catch(err => {
-            debugger
             if(err.response === undefined){  
                 cb(false, { Message: 'Lost connection with server.' })
             }else{
