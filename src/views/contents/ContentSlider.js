@@ -1,5 +1,6 @@
 import React from 'react'
 import './ContentSlider.scss'
+import { RouterTierTwo } from '../../Router';
 
 class ContentSlider extends React.Component {
     render() {
@@ -11,11 +12,12 @@ class ContentSlider extends React.Component {
                             <div className="content-socket">
                             
                                 {/* CONTENT SWITCHER */}
-                                <div className="content-dummy-wrapper">
+                                {/* <div className="content-dummy-wrapper">
                                     <div className="content-dummy-title"></div>
                                     <div className="content-dummy-table-header"></div>
                                     <div className="content-dummy-table-data"></div>
-                                </div>
+                                </div> */}
+                                <RouterTierTwo />
 
                             </div>
                         </div>

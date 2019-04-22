@@ -4,8 +4,8 @@ import HelperCookie from '../../helper/HelperCookie'
 import ConfigLocal from '../../config/ConfigLocal'
 import Header from './header';
 import Navbar from './navbar';
-import ContentSlider from './contents';
-import { ProviderScope } from '../../context_provider';
+import ContentSlider from '../contents';
+import { ProviderScope } from '../../global';
 import NotifBar from '../../components/notification_bar';
 
 class Dashboard extends React.Component {
@@ -32,6 +32,8 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         this.checkDimention()
+        console.log(this.props)
+        debugger
     }
 
     render() {
@@ -43,6 +45,7 @@ class Dashboard extends React.Component {
                     <Navbar
                         open= {this.state.drawer}
                         history = {this.props.history}
+                        match= {this.props.match}
                         />
 
                     <NotifBar/>

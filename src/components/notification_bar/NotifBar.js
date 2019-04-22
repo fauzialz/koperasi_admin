@@ -1,6 +1,6 @@
 import React from 'react'
 import './NotifBar.scss'
-import { AppContext } from '../../context_provider';
+import { AppContext } from '../../global';
 
 class NotifBar extends React.Component {
     state = {

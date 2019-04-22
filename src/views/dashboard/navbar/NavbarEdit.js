@@ -4,7 +4,7 @@ import ConfigApi from '../../../config/ConfigApi';
 import ConfigLocal from '../../../config/ConfigLocal';
 import Modal from '../../../components/modal';
 import Input from '../../../components/input';
-import { AppContext } from '../../../context_provider';
+import { AppContext } from '../../../global';
 import Select from '../../../components/select';
 import './NavbarEdit.scss';
 import Button from '../../../components/button';

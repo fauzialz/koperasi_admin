@@ -7,7 +7,7 @@ import ButtonStatus from '../../../components/button_status';
 import NavbarEditAuth from './NavbarEditAuth';
 import NavbarEdit from './NavbarEdit';
 import NavbarTiles from './NavbarTiles';
-import { AppContext } from '../../../context_provider';
+import { AppContext } from '../../../global';
 import Button from '../../../components/button';
 import ConfigLocal from '../../../config/ConfigLocal';
 import HelperModData from '../../../helper/HelperModData';
@@ -54,6 +54,7 @@ class Navbar extends React.Component {
         param id. If navObj.Id equal id, inject true into navObj.Active,
         or navObj.Clicked if navObj have children (Parent Tiles). */
     activeTileHandler = (id, hotNavList = this.state.navList, onEditSession = false) => {
+        const { history, match } = this.props
         let parentClicked = this.parentClickChecker(id)
         for(var i = 0; i< hotNavList.length; i++) {
             if(hotNavList[i].Children.length > 0 && hotNavList[i].Id === id) {
@@ -64,8 +65,7 @@ class Navbar extends React.Component {
                     hotNavList[i]['Active'] = true
                     this.setState({historyId : id})
                     //do something base with route
-                    // !debugger
-                    // todo history.push(`dashboard${hotNavList[i].Endpoint}`)
+                    history.push(match.path + hotNavList[i].Endpoint)
                 }else if(!parentClicked) {
                     hotNavList[i]['Active'] = false
                 }
@@ -76,6 +76,7 @@ class Navbar extends React.Component {
                         hotNavList[i].Children[j]['Active'] = true
                         this.setState({historyId : id})
                         //do something base with route
+                        history.push(match.path + hotNavList[i].Children[j].Endpoint)
                     }else if(!parentClicked){
                         hotNavList[i].Children[j]['Active'] = false
                     } 

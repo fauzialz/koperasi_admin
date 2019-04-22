@@ -5,7 +5,7 @@ import ConfigLocal from '../../../config/ConfigLocal';
 import ConfigApi from '../../../config/ConfigApi';
 import HelperHttp from '../../../helper/HelperHttp'
 import Modal from '../../../components/modal';
-import { AppContext } from '../../../context_provider';
+import { AppContext } from '../../../global';
 
 class NavbarEditAuth extends React.Component {
     static contextType = AppContext
