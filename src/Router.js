@@ -16,7 +16,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
             HelperCookie.get(ConfigLocal.TOKEN) == null?
                 (<Redirect 
                     to={{
-                        pathname: {outside},
+                        pathname: '/login',
                         state: { from: props.location}
                     }}
                 />):

@@ -32,8 +32,6 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         this.checkDimention()
-        console.log(this.props)
-        debugger
     }
 
     render() {

@@ -94,6 +94,10 @@ $name-padding : 50px;
 .navbar-arrow-base:hover {
     background-color: $pure-line;
 }
+.navbar-arrow-base:active {
+    background-color: $pure-darken;
+    transition: all .3s ease;
+}
 
 .navbar-iconfont-parent, .navbar-iconfont-parent-clicked {
     cursor: pointer;
