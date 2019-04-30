@@ -1,3 +1,4 @@
+//https://stackoverflow.com/questions/36299174/setinterval-in-a-react-app
 import React from 'react'
 
 const AppContext = React.createContext();
@@ -7,6 +8,17 @@ class ProviderScope extends React.Component {
         notif : {
             msg : '',
             status : ''
+        },
+        count : 0,
+        interval : ''
+    }
+
+    timer = () => {
+        let count = this.state.count + 1
+        if (count <= 10) {
+            this.setState({count:count})
+        }else{
+            this.deleteNotif()
         }
     }
 
@@ -16,41 +28,25 @@ class ProviderScope extends React.Component {
             state : ''
         }
         this.setState({
-            notif: temp
+            notif: temp,
+            count : 0
         })
+        clearInterval(this.state.interval)
     }
 
     setNotif = (msg, status) => {
-        /* let statusChange = '' */
         const temp = {
             msg : msg,
             status : status
         }
         this.setState({
-            notif: temp
+            notif: temp,
+            count : 0
         })
-    
-        /* switch(status) {
-            case 'success':
-                statusChange = 'afterSuccess'
-                break
-            case 'error':
-                statusChange = 'afterError'
-                break
-            case 'alert':
-                statusChange = 'afterAlert'
-                break
-            default:
-                statusChange = status
-        } */
-        
-        /* temp.status = statusChange
-        setTimeout(() => {
-            this.setState({notif : temp})
-        }, 2000) */
-        setTimeout(() => {
-            this.deleteNotif()
-        }, 7000);
+        let interval = setInterval(() => {
+            this.timer()
+        }, 500)
+        this.setState({interval:interval})
     }
 
     render() {
@@ -58,7 +54,8 @@ class ProviderScope extends React.Component {
             <AppContext.Provider value={{
                 notif : this.state.notif,
                 closeNotif : this.deleteNotif,
-                setNotif: this.setNotif
+                setNotif: this.setNotif,
+                seconds: this.state.count
             }}>
                 {this.props.children}
             </AppContext.Provider>
