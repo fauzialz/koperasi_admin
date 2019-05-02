@@ -50,33 +50,38 @@ class Navbar extends React.Component {
         }
     }
     
-    /*  Active a Neutral Tiles or Child Tiles by detecting navlist and
-        param id. If navObj.Id equal id, inject true into navObj.Active,
+    /*  Active a Neutral Tiles or Child Tiles when tile clicked.
+        detecting navlist and param id. If navObj
+        Id equalid, inject true into navObj.Active,
         or navObj.Clicked if navObj have children (Parent Tiles). */
     activeTileHandler = (id, hotNavList = this.state.navList, onEditSession = false) => {
         const { history, match } = this.props
         let parentClicked = this.parentClickChecker(id)
         for(var i = 0; i< hotNavList.length; i++) {
+            // *Actions for Parent Tile that clicked
             if(hotNavList[i].Children.length > 0 && hotNavList[i].Id === id) {
                 hotNavList[i].Clicked = !hotNavList[i].Clicked
                 hotNavList = this.unclickedHandler(id)
             }else{
+                // *Actions for Neutral Tile that clicked
                 if(hotNavList[i].Id === id) {
                     hotNavList[i]['Active'] = true
                     this.setState({historyId : id})
-                    //do something base with route
                     history.push(match.path + hotNavList[i].Endpoint)
+                // *Action for Neutral Tile that not clicked
                 }else if(!parentClicked) {
                     hotNavList[i]['Active'] = false
                 }
             }
+            // *Checking session for Child Tile
             if(hotNavList[i].Children.length > 0){
                 for(var j = 0; j< hotNavList[i].Children.length; j++) {
+                    // *Actions for Child Tile that clicked
                     if( hotNavList[i].Children[j].Id === id)  {
                         hotNavList[i].Children[j]['Active'] = true
                         this.setState({historyId : id})
-                        //do something base with route
                         history.push(match.path + hotNavList[i].Children[j].Endpoint)
+                    // *Action for Child Tile that not clicked
                     }else if(!parentClicked){
                         hotNavList[i].Children[j]['Active'] = false
                     } 
@@ -89,8 +94,28 @@ class Navbar extends React.Component {
             return hotNavList
         }
     }
+
+    /*  Active a Neutral Tiles or Child Tiles when window reloaded.
+        It work by detecting window url */
+    urlActiveTileChecker = (hotNavList) => {
+        const { history, match } = this.props
+        for(var i = 0; i< hotNavList.length; i++) {
+            if(history.location.pathname === match.path + hotNavList[i].Endpoint) {
+                hotNavList[i]['Active'] = true
+            }
+            if(hotNavList[i].Children.length > 0){
+                for(var j = 0; j< hotNavList[i].Children.length; j++) {
+                    if(history.location.pathname === match.path + hotNavList[i].Children[j].Endpoint) {
+                        hotNavList[i].Children[j]['Active'] = true
+                        hotNavList[i]['Clicked'] = true
+                    }
+                }
+            }
+        }
+        this.setState({navList : hotNavList})
+    }
     
-    /*  Detect if along the Tiles there is a Parent Tile that clicked. */
+    /*  Detect if user has clicked Parent Tile. Return True or False */
     parentClickChecker = (id) => {
         let hotNavList = this.state.navList
         let parentClicked = false
@@ -207,7 +232,6 @@ class Navbar extends React.Component {
     }
 
     openAddModal = () => {
-        // ! I OPEN THE GATE, BUT BUGS STILL INSIDE !
         this.setState(
             {openAddModal: !this.state.openAddModal}
         )
@@ -231,12 +255,14 @@ class Navbar extends React.Component {
                 this.setState({
                     navList : list
                 })
+                this.urlActiveTileChecker(list)
             }else{
                 this.getNavigationList()
             }
         }else{
             this.getNavigationList()
         }
+        
     }
 
     render() {

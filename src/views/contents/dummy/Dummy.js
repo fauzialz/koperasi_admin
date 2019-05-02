@@ -1,4 +1,5 @@
 import React from 'react'
+import './Dummy.scss'
 
 const Dummy = () => {
     return (

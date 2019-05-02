@@ -1,0 +1,26 @@
+@import '../../../styles/palette';
+
+//EXAMPLE CONTENT
+.content-dummy-wrapper {
+    padding: 20px;
+}
+.content-dummy-title {
+    height: 40px;
+    max-width: 400px;
+    background-color: $pure-darken;
+    border-radius: 10px;
+}
+.content-dummy-table-header {
+    margin-top: 20px;
+    width: 100%;
+    height: 40px;
+    background-color: $pure-darken;
+    border-radius: 10px;
+}
+.content-dummy-table-data {
+    margin-top: 20px;
+    width: 100%;
+    min-height: 1000px;
+    background-color: $pure-darken;
+    border-radius: 10px;
+}

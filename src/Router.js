@@ -4,7 +4,8 @@ import Login from './views/login';
 import Dashboard from './views/dashboard';
 import HelperCookie from './helper/HelperCookie';
 import ConfigLocal from './config/ConfigLocal';
-import Dummy from './views/contents/Dummy';
+import Dummy from './views/contents/dummy';
+import Store from './views/contents/store';
 
 const outside = '/login'
 const inside = '/dashboard'
@@ -46,6 +47,7 @@ const RouterTierTwo = () => {
     return (
         <Switch>
             <Route path={inside + '/admin'} component={Dummy} />
+            <Route path={inside + '/store'} component={Store} />
         </Switch>
     )
 }
