@@ -30,7 +30,7 @@ class NotifBar extends React.Component {
                                 }
                             >   
                                 <div className="notifbar-loading-wrapper">
-                                    <div className="notifbar-loading" style={{width : (context.seconds*10)+'%'}}/>
+                                    <div className={"notifbar-loading " +context.notif.status+"-loading"} style={{width : (context.seconds*10)+'%'}}/>
                                     <div className="notifbar-loading-negatif"/>
                                 </div>
                                 <div className="notifbar-text">

@@ -25,25 +25,24 @@
 }
 
 .notifbar {
-    border-radius: 5px;
-    max-width: 800px;
-    margin: ($header + 20px) auto 0px auto;
-    height: 30px;
+    border-radius: 0px 0px 10px 10px;
+    max-width: 500px;
+    margin: ($header + 0px) auto 0px auto;
+    min-height: 28px;
+    overflow-wrap: break-word;
     @extend %shadow;
     cursor: pointer;
 }
 
 .notifbar-off {
-    max-width: 800px;
-    margin: -30px auto 0px auto;
-    height: 30px;
+    max-width: 500px;
+    margin: -28px auto 0px auto;
+    min-height: 28px;
     transition: all .5s ease
 }
 
 .notifbar-text {
-    padding: {
-        top: 5px;
-    }
+    padding: 5px;
     text-align: center;
     font-size: 10pt;
 }
@@ -68,26 +67,34 @@
 }
 
 .notifbar-loading-wrapper {
-    width: calc(100% - 8px);
+    width: calc(100% - 0px);
     margin: auto;
     position: relative;
     /* -ms-transform: translate(0px, -1.5px);
     -webkit-transform: translate(0px, -1.5px);
     transform: translate(0px, -1.5px); */
 }
-
 .notifbar-loading {
-    background-color: $dark;
-    opacity: .5;
+    opacity: 1;
     height: 3px;
-    border-radius: 3px;
+    border-radius: 0px;
     position: absolute;
     transition: all .5s linear;
     z-index: 20;
 }
+.successnotif-loading {
+    background-image: linear-gradient(
+        to right, $submit-darken, $submit-lighten
+    );
+}
+.errornotif-loading {
+    background-image: linear-gradient(
+        to right, $error-darken, $error-lighten
+    );
+}
 
 .notifbar-loading-negatif {
-    background-color: $dark;
+    background-color: black;
     opacity: .3;
     height: 3px;
     width: 100%;

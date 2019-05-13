@@ -6,7 +6,7 @@ const AppContext = React.createContext();
 class ProviderScope extends React.Component {
     state = {
         notif : {
-            msg : '',
+            msg : 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
             status : ''
         },
         count : 0,
