@@ -37,7 +37,7 @@ class NavbarEdit extends React.Component {
                             this.props.add? 'Data added.': 'Data edited.',
                             ConfigLocal.NOTIF.Success
                         )
-                    }, 800);
+                    }, 500);
                 }else{
                     setTimeout(() => {
                         this.context.setNotif(
@@ -64,7 +64,7 @@ class NavbarEdit extends React.Component {
                             ConfigLocal.NOTIF.Success
                         )
                         this.props.hotReload()
-                    }, 800);
+                    }, 500);
                 }
                 this.clearInput()
                 this.props.onClose()
