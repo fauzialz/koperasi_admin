@@ -2,8 +2,33 @@ import axios from 'axios'
 import config from '../config/ConfigApi'
 import local from '../config/ConfigLocal'
 import HelperCookie from './HelperCookie';
+import { AxiosOption, HeadersAppCode, HeadersToken, callbackBuild } from '../model/ModelHttp';
 
 export default {
+    /**
+     * @param {string} route - API Endpoint. Get listed routes in ConfigApi.ROUTE.
+     * @param {requestCallback} cb - Callback function that handle the response. common form : (res) => {...}
+     * @callback requestCallback 
+     * @param {Object} res - res contain status {boolean}, data {Object}, and message {string}
+     */
+    get: (route, cb) => {
+        if(HelperCookie.get(local.TOKEN) === null) {
+           cb ( callbackBuild() )
+        }
+        let setting = { headers : new HeadersToken() }
+        axios.get(config.API_URL + route, setting)
+        .then( res => {
+            if( res.headers.etag ) {
+                res.data.Result['Etag'] = res.headers.etag
+            }
+            cb ( callbackBuild(res) )
+        })
+        .catch(err => {
+            let errResponse = err.response
+            cb ( callbackBuild(errResponse, false))
+        })
+    },
+
     /**
      * @param {string} route - API Endpoint. Get listed routes in ConfigApi.ROUTE.
      * @param {string} method - HTTP Request method. Get listed methods in ConfigApi.METHOD.
@@ -14,23 +39,12 @@ export default {
      * @param {Object} response - Handle response body data.
      */
     request: (route, method, json, cb) => {
-        let option = {
-            url: config.API_URL + route,
-            method: method,
-            headers: {},
-            data: json
-        }
+        let option = new AxiosOption( route, method, json)
         if (route === config.ROUTE.SIGN_IN){
-            option.headers = {
-                "Content-Type": config.HEADERS.conten_type,
-                "ApplicationCode": config.HEADERS.application_code
-            }
+            option.headers = new HeadersAppCode()
         }else{
             // if not Sign in, do this
-            option.headers = {
-                'Authorization': 'Bearer ' + HelperCookie.get(local.TOKEN),
-                "Content-Type": config.HEADERS.conten_type
-            }
+            option.headers = new HeadersToken()
             if (method === config.METHODS.PUT || method === config.METHODS.DEL) {
                 option.url += '/' + json.Id
                 option.headers['If-Match'] = json.Etag
@@ -54,5 +68,5 @@ export default {
                 cb(false, err.response.data)
             }
         })
-    }
+    },
 }

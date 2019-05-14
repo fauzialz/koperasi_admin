@@ -3,10 +3,11 @@ export default {
     ROUTE: {
         SIGN_IN: '/authentication',
         MENU: '/menu',
-        GET_MENU: '/menu/navbar'
+        GET_MENU: '/menu/navbar',
+        STORE: '/store'
     },
     HEADERS : {
-        conten_type: 'application/json',
+        content_type: 'application/json',
         application_code: '6D7668B6-919B-4BEA-81E4-71E090339D8C'
     },
     METHODS : {
