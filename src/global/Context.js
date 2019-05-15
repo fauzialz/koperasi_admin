@@ -1,8 +1,68 @@
 //https://stackoverflow.com/questions/36299174/setinterval-in-a-react-app
-import React from 'react'
+import React/* , { useState } */ from 'react'
 
 const AppContext = React.createContext();
 
+/* const ProviderScope = (props) => {
+    const [ notifBar, setNotifBar ] = useState({
+        notif : {
+            msg : '',
+            status : ''
+        },
+        count : 0,
+        interval : ''
+    })
+    var localCount = 0;
+    // const { setNotif, deleteNotif, data } = NotifBarController()
+
+    const timer = () => {
+        localCount++
+        if (localCount <= 10) {
+            setNotifBar(notifBar => ({...notifBar, count : localCount}))
+            console.log(localCount)
+        }else{
+            deleteNotif()
+        }
+    }
+
+    const deleteNotif = () => {
+        const temp = {
+            msg : '',
+            state : ''
+        }
+        debugger
+        setNotifBar({...notifBar, notif : temp, count : 0})
+        localCount = 0
+        debugger
+        clearInterval(notifBar.interval)
+    }
+
+    const setNotif = (msg, status) => {
+        const temp = {
+            msg : msg,
+            status : status
+        }
+        let interval = setInterval(() => {
+            timer(0)
+        }, 500)
+        debugger
+        setNotifBar({...notifBar, notif : temp, count : 0, interval: interval})
+        
+        debugger
+    }
+
+    return (
+        <AppContext.Provider value={{
+            notif : notifBar.notif,
+            seconds: notifBar.count,
+            setNotif: setNotif,
+            closeNotif : deleteNotif
+        }}>
+            {props.children}
+        </AppContext.Provider>
+    )
+}
+ */
 class ProviderScope extends React.Component {
     state = {
         notif : {
