@@ -12,8 +12,6 @@ cache:
 setup:
   stage: setup
   script:
-     - npm audit
-     - npm audit fix
      - npm install
 
 build:
