@@ -12,10 +12,8 @@ cache:
 setup:
   stage: setup
   script:
-     - rm ./package-lock.json
-     - npm -v
-     - npm rebuild node-sass
-     - npm view react-router-dom
+     - npm audit
+     - npm audit fix
      - npm install
 
 build:
