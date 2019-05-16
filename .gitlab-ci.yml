@@ -13,8 +13,9 @@ setup:
   stage: setup
   script:
      - rm ./package-lock.json
-     - npm rebuild node-sass
      - npm update
+     - npm rebuild node-sass
+     - npm view react-router-dom
      - npm install
 
 build:
