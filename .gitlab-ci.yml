@@ -5,8 +5,10 @@ stages:
 
 before_script:
   - npm install
+  - npm rebuild node-sass
 
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
     
