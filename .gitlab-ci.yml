@@ -12,6 +12,8 @@ cache:
 setup:
   stage: setup
   script:
+     - rm ./package-lock.json
+     - npm rebuild node-sass
      - npm install
 
 build:
