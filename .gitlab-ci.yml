@@ -1,15 +1,21 @@
 image: node:latest
 
 stages:
+  - setup
   - build
 
-before_script:
-  - npm install
-
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
     
+setup:
+  stage: setup
+  script:
+     - rm ./package-lock.json
+     - npm rebuild node-sass
+     - npm install
+
 build:
   stage: build
   script:
