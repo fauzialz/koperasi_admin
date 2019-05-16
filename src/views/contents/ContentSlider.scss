@@ -36,11 +36,10 @@
 }
 
 .content-square {
-    padding: 20px;
+    padding: 10px;
 }
 
 .content-socket {
     width: 100%;
-    background-color: $pure;
-    border-radius: 15px;
+    //overflow-wrap: break-word;
 }
