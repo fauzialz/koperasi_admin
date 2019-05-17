@@ -1,10 +1,12 @@
+const MAIN_API = 'https://beemart-development.azurewebsites.net/api'
+
 export default {
-    API_URL: 'https://beemart-development.azurewebsites.net/api',
+    API_URL: MAIN_API,
     ROUTE: {
-        SIGN_IN: '/authentication',
-        MENU: '/menu',
-        GET_MENU: '/menu/navbar',
-        STORE: '/store'
+        SIGN_IN:    MAIN_API + '/authentication',
+        MENU:       MAIN_API + '/menu',
+        GET_MENU:   MAIN_API + '/menu/navbar',
+        STORE:      MAIN_API + '/store'
     },
     HEADERS : {
         content_type: 'application/json',

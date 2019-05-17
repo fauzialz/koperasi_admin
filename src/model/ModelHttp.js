@@ -4,12 +4,12 @@ import ConfigLocal from "../config/ConfigLocal";
 
 class AxiosOption {
     /**
-     * @param {string} route - API Endpoint. Get listed routes in ConfigApi.ROUTE.
+     * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
      * @param {string} method - HTTP Request Method.
      * @param {Object} json - Object data to send to API.
      * */
-    constructor(route, method, json) {
-        this.url = ConfigApi.API_URL + route
+    constructor(url, method, json) {
+        this.url =  url
         this.method = method
         this.headers = {}
         this.data = json
@@ -37,18 +37,18 @@ class HeadersToken {
 }
 
 /**
- * @param {number} status - API response HTTP Status Code. (null if null)
+ * @param {number} status - API response HTTP Status Code.
  * @param {boolean} success - Indicate bussines success or not. (false if null)
- * @param {Object} data - API response data. (null if null)
+ * @param {Object} data - API response data. ('No data' if null)
  * @param {string} message - API response massage. ('No message' if null)
  * Create proper format for callback.
  * */
-var callbackFormat = (status = null, success = false, data = null, message = 'No message.') => {
+var callbackFormat = (status, success = false, data = 'No data.', message = 'No message.') => {
     let newFormat = {
         status : status,
         success : success,
         data : data,
-        message: status === null ? 'Fetching API data canceled due to internal evaluation.' : message
+        message: !status ? 'Fetching API data canceled due to internal evaluation.' : message
     }
     return newFormat
 }
@@ -58,11 +58,11 @@ var callbackFormat = (status = null, success = false, data = null, message = 'No
  * @param {boolean} good - Is API give a good response or not. (true if null)
  * Build proper format for callback from API response object.
  * */
-var callbackBuild = (res = null, good = true) => {
-    if( res === null ) {
+var callbackBuild = (res) => {
+    if( !res ) {
         return callbackFormat()
     }
-    return callbackFormat( res.status ,res.data.IsSuccess, (good? res.data.Result : res.data), res.data.Message)
+    return callbackFormat( res.status ,res.data.IsSuccess, ( res.data.Result || res ), res.data.Message)
 } 
 
 export {

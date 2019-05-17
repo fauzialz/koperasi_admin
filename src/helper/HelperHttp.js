@@ -6,17 +6,17 @@ import { AxiosOption, HeadersAppCode, HeadersToken, callbackBuild } from '../mod
 
 export default {
     /**
-     * @param {string} route - API Endpoint. Get listed routes in ConfigApi.ROUTE.
+     * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
      * @param {requestCallback} cb - Callback function that handle the response. common form : (res) => {...}
      * @callback requestCallback 
      * @param {Object} res - res contain status {boolean}, data {Object}, and message {string}
      */
-    get: (route, cb) => {
+    get: (url, cb) => {
         if(HelperCookie.get(local.TOKEN) === null) {
            cb ( callbackBuild() )
         }
         let setting = { headers : new HeadersToken() }
-        axios.get(config.API_URL + route, setting)
+        axios.get(url, setting)
         .then( res => {
             if( res.headers.etag ) {
                 res.data.Result['Etag'] = res.headers.etag
@@ -25,12 +25,34 @@ export default {
         })
         .catch(err => {
             let errResponse = err.response
-            cb ( callbackBuild(errResponse, false))
+            cb ( callbackBuild(errResponse))
+        })
+    },
+
+     /**
+     * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
+     * @param {Object} data - Some data to post.
+     * @param {requestCallback} cb - Callback function that handle the response. common form : (res) => {...}
+     * @callback requestCallback 
+     * @param {Object} res - res contain status {boolean}, data {Object}, and message {string}
+     */
+    post: (url, data, cb) => {
+        if(HelperCookie.get(local.TOKEN) === null) {
+            cb ( callbackBuild() )
+        }
+        let setting = { headers : new HeadersToken() }
+        axios.post(url, data, setting)
+        .then( res => {
+            cb ( callbackBuild(res) )
+        })
+        .catch( err => {
+            let errResponse = err.response
+            cb ( callbackBuild(errResponse))
         })
     },
 
     /**
-     * @param {string} route - API Endpoint. Get listed routes in ConfigApi.ROUTE.
+     * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
      * @param {string} method - HTTP Request method. Get listed methods in ConfigApi.METHOD.
      * @param {Object} json - Data in a form of Object to be sent to API.
      * @param {requestCallback} cb - Callback function that handle the response. common form : (success, response) => {...}
@@ -38,9 +60,9 @@ export default {
      * @param {boolean} success - Handle success response.
      * @param {Object} response - Handle response body data.
      */
-    request: (route, method, json, cb) => {
-        let option = new AxiosOption( route, method, json)
-        if (route === config.ROUTE.SIGN_IN){
+    request: (url, method, json, cb) => {
+        let option = new AxiosOption( url, method, json)
+        if (url === config.ROUTE.SIGN_IN){
             option.headers = new HeadersAppCode()
         }else{
             // if not Sign in, do this
