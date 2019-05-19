@@ -2,12 +2,13 @@ const MAIN_API = 'https://beemart-development.azurewebsites.net/api'
 const BACKUP_API = 'https://beemart-development.herokuapp.com/api'
 
 export default {
-    API_URL: MAIN_API,
+    AZURE_URL: MAIN_API,
+    HEROKU_URL: BACKUP_API,
     ROUTE: {
         SIGN_IN:    MAIN_API + '/authentication',
         MENU:       MAIN_API + '/menu',
         GET_MENU:   MAIN_API + '/menu/navbar',
-        STORE:      BACKUP_API + '/store'
+        STORE:      MAIN_API + '/store'
     },
     HEADERS : {
         content_type: 'application/json',

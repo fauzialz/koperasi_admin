@@ -12,7 +12,17 @@ class Store extends React.Component {
         contentLoading : true,
         contentProps : {
             title : 'Store'
-        }
+        },
+        tableHover: false,
+    }
+
+    onMouseOverHandler = () => {
+        this.setState({tableHover: true})
+        console.log('row hover')
+    }
+
+    onMouseLeaveHandler = () => {
+        this.setState({tableHover: false})
     }
 
     createStore = () => {
@@ -47,7 +57,7 @@ class Store extends React.Component {
     }
 
     render () {
-        const { contentProps, contentData } = this.state
+        const { contentProps, contentData, tableHover } = this.state
         return (
             <React.Fragment>
                 { this.state.contentLoading ?
@@ -66,8 +76,11 @@ class Store extends React.Component {
                                 <tbody>
                                     { contentData.map( (el) => {
                                         return (
-                                            <tr key={el.Id}>
-                                                <td>{el.Name}</td><td>{el.Address}</td><td>{el.Telephone}</td><td>{el.Email}</td>
+                                            <tr key={el.Id} onMouseOver={this.onMouseOverHandler} onMouseLeave={this.onMouseLeaveHandler}>
+                                                <td><span>{el.Name}</span></td><td><span>{el.Address}</span></td><td>{el.Telephone}</td><td>{el.Email}</td>
+                                                {/* <div className="row-hover">
+                                                    yes!
+                                                </div> */}
                                             </tr>
                                         )
                                     })
