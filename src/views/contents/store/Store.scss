@@ -4,7 +4,7 @@ $padding : 10px 16px;
 
 .content-wrapper {
     padding-left: 7px;
-    padding-right: 14px;
+    padding-right: 7px;
 }
 .content-title {
     font-size: 16pt;
@@ -44,7 +44,6 @@ table {
     }
     tbody {
         tr {
-            position: relative;
             cursor: pointer;
             font-size: 13px !important;
             border-top: 1px solid #f0f0f0;
@@ -67,8 +66,19 @@ table {
             border-top: 1px solid $submit-lighten;
             color: #2e2e2e;
         }
+        width: 100%;
     }
 }
-.row-hover {
-    
+.row-hover-wrapper {
+    position: relative;
+}
+.row-hover-base {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    transform: translateY(-11px);
+    height: 38px;
+    width: 100px;
+    border: 1px solid red;
+    background-color: $pure;
 }

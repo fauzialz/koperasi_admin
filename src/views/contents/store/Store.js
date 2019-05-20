@@ -8,21 +8,32 @@ import Button from '../../../components/button'
 
 class Store extends React.Component {
     state = {
-        contentData : {},
+        contentData : [],
         contentLoading : true,
         contentProps : {
             title : 'Store'
         },
-        tableHover: false,
+        tableHover: {},
     }
 
-    onMouseOverHandler = () => {
-        this.setState({tableHover: true})
-        console.log('row hover')
+    onMouseOverHandler = (e) => {
+        let hotTableHover = this.state.tableHover
+        for(let i in hotTableHover){
+            if(i === e.toString()) {
+                hotTableHover[i] = true
+            }else{
+                hotTableHover[i] = false
+            }
+        }
+        this.setState({tableHover: hotTableHover})
     }
 
     onMouseLeaveHandler = () => {
-        this.setState({tableHover: false})
+        let hotTableHover = this.state.tableHover
+        for(let i in hotTableHover){
+            hotTableHover[i] = false
+        }
+        this.setState({tableHover: hotTableHover})
     }
 
     createStore = () => {
@@ -44,10 +55,14 @@ class Store extends React.Component {
     getStore = () => {
         this.setState({contentLoading : true})
         HelperHttp.get(ConfigApi.ROUTE.STORE, (res)  => {
-            console.log(res.data)
+            let temp = {}
+            for(let i in res.data) {
+                temp[res.data[i].Id]=false
+            } 
             this.setState({
                 contentData : res.data,
-                contentLoading : false
+                contentLoading : false,
+                tableHover : temp
             })
         })
     }
@@ -67,27 +82,38 @@ class Store extends React.Component {
                         <Button onClick={this.createStore} label="Create New Store" depressed blue /> 
                         <div className="table-holder">
 
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th><th>Address</th><th>Telephone</th><th>Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    { contentData.map( (el) => {
-                                        return (
-                                            <tr key={el.Id} onMouseOver={this.onMouseOverHandler} onMouseLeave={this.onMouseLeaveHandler}>
-                                                <td><span>{el.Name}</span></td><td><span>{el.Address}</span></td><td>{el.Telephone}</td><td>{el.Email}</td>
-                                                {/* <div className="row-hover">
-                                                    yes!
-                                                </div> */}
-                                            </tr>
-                                        )
-                                    })
-                                    }
-                                </tbody>
-                            </table>
+                            <div className="row-hover-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th><th>Address</th><th>Telephone</th><th>Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        { contentData.map( (el,n) => {
+                                            return (
+                                                <tr key={el.Id} onMouseEnter={() => this.onMouseOverHandler(el.Id)} onMouseLeave={this.onMouseLeaveHandler}>
+                                                    <td >
+                                                        <span>{el.Name}</span>
+                                                        
+                                                        {/* THIS IS HOVER ACTION BUTTONs */}
+                                                        {tableHover[el.Id] ? <span className="row-hover-base">
+                                                            yes!
+                                                        </span> : null  }
 
+                                                    </td>
+                                                    <td><span>{el.Address}</span>
+                                                    </td><td>{el.Telephone}</td>
+                                                    <td>
+                                                        {el.Email}
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 }

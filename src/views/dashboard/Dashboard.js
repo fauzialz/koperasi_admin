@@ -38,27 +38,29 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <ProviderScope>
+                    <div>
 
-                    {/* NAVBAR */}
-                    <Navbar
-                        open= {this.state.drawer}
-                        history = {this.props.history}
-                        match= {this.props.match}
-                        />
+                        {/* NAVBAR */}
+                        <Navbar
+                            open= {this.state.drawer}
+                            history = {this.props.history}
+                            match= {this.props.match}
+                            />
 
-                    <NotifBar/>
+                        <NotifBar/>
 
-                    {/* HEADER */}
-                    <Header 
-                        open= {this.state.drawer}
-                        onClick= {this.drawerHandler}   
-                        />
-                        
-                    {/* CONTENT */}
-                    <ContentSlider 
-                        open= {this.state.drawer}
-                        />     
+                        {/* HEADER */}
+                        <Header 
+                            open= {this.state.drawer}
+                            onClick= {this.drawerHandler}   
+                            />
+                            
+                        {/* CONTENT */}
+                        <ContentSlider 
+                            open= {this.state.drawer}
+                            />     
                     
+                    </div>
                     
             
                 </ProviderScope>
