@@ -3,7 +3,7 @@ import Dummy from '../dummy';
 import HelperHttp from '../../../helper/HelperHttp';
 import ConfigApi from '../../../config/ConfigApi';
 import './Store.scss'
-// import ConfigLocal from '../../../config/ConfigLocal';
+import ConfigLocal from '../../../config/ConfigLocal';
 import Button from '../../../components/button'
 
 class Store extends React.Component {
@@ -11,7 +11,8 @@ class Store extends React.Component {
         contentData : [],
         contentLoading : true,
         contentProps : {
-            title : 'Store'
+            title : 'Store',
+            icon : ConfigLocal.MISC.MaterialIcon + ' action-button-icon'
         },
         tableHover: {},
     }
@@ -97,8 +98,29 @@ class Store extends React.Component {
                                                         <span>{el.Name}</span>
                                                         
                                                         {/* THIS IS HOVER ACTION BUTTONs */}
-                                                        {tableHover[el.Id] ? <span className="row-hover-base">
-                                                            yes!
+                                                        {tableHover[el.Id] ? 
+                                                        <span className="row-hover-base">
+                                                            <div className="row-hover-middle">
+                                                                <div className="row-hover-socket">
+                                                                    <div className="hover-button-base">
+                                                                        <span className="button-sparator1">
+                                                                            <span className={contentProps.icon} aria-hidden="true">
+                                                                                info
+                                                                            </span>
+                                                                        </span>
+                                                                        <span className="button-sparator2">
+                                                                            <span className={contentProps.icon} aria-hidden="true">
+                                                                                edit
+                                                                            </span>
+                                                                        </span>
+                                                                        <span className="button-sparator3">
+                                                                            <span className={contentProps.icon} aria-hidden="true">
+                                                                                delete
+                                                                            </span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </span> : null  }
 
                                                     </td>
