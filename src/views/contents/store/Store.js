@@ -3,20 +3,22 @@ import Dummy from '../dummy';
 import HelperHttp from '../../../helper/HelperHttp';
 import ConfigApi from '../../../config/ConfigApi';
 import './Store.scss'
+import ContentHeader from '../../../components/content_header';
+import ButtonTable from '../../../components/button_table/ButtonTable';
 import ConfigLocal from '../../../config/ConfigLocal';
-import Button from '../../../components/button'
 
 class Store extends React.Component {
     state = {
         contentData : [],
         contentLoading : true,
         contentProps : {
-            title : 'Store',
-            icon : ConfigLocal.MISC.MaterialIcon + ' action-button-icon'
+            title : 'Store'
         },
         tableHover: {},
+        refTable : React.createRef()
     }
 
+    //!TABLE HOVER HANDLER
     onMouseOverHandler = (e) => {
         let hotTableHover = this.state.tableHover
         for(let i in hotTableHover){
@@ -28,7 +30,7 @@ class Store extends React.Component {
         }
         this.setState({tableHover: hotTableHover})
     }
-
+    //!TABLE HOVER HANDLER
     onMouseLeaveHandler = () => {
         let hotTableHover = this.state.tableHover
         for(let i in hotTableHover){
@@ -37,10 +39,12 @@ class Store extends React.Component {
         this.setState({tableHover: hotTableHover})
     }
 
+    //?CRUD HANDLER
     createStore = () => {
+        alert('Add button clicked!')
         let d = new Date()
         let dummyData = {
-            Name : 'Nama Kantor ' + d.getTime(),
+            Name : ConfigLocal.MISC.LoremIpsum + d.getTime(),
             Address : 'Jl. Bulungan No. 9, Jakarta Selatan',
             Telephone : '081234234234' ,
             Email : 'emailkantor@gmail.com'
@@ -51,6 +55,21 @@ class Store extends React.Component {
                 this.getStore()
             }
         })
+    }
+    
+    //*CRUD HANDLER
+    infoButton = () => {
+        alert('Info button clicked!')
+    }
+    
+    //*CRUD HANDLER
+    editButton = () => {
+        alert('Edit button clicked!')
+    }
+    
+    //*CRUD HANDLER
+    deleteButton = () => {
+        alert('Delete button clicked!')
     }
 
     getStore = () => {
@@ -76,13 +95,12 @@ class Store extends React.Component {
         const { contentProps, contentData, tableHover } = this.state
         return (
             <React.Fragment>
-                { this.state.contentLoading ?
-                    <Dummy />:
-                    <div className="content-wrapper">
-                        <div className="content-title">{contentProps.title}</div>
-                        <Button onClick={this.createStore} label="Create New Store" depressed blue /> 
-                        <div className="table-holder">
+                <div className="content-wrapper">
 
+                    <ContentHeader title={contentProps.title} addFunction={this.createStore} noAdd={contentData.length === 0}/>
+                    
+                    { contentData.length === 0 ? <Dummy />:
+                        <div className="table-holder">
                             <div className="row-hover-wrapper">
                                 <table>
                                     <thead>
@@ -91,37 +109,20 @@ class Store extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        { contentData.map( (el,n) => {
+                                        { contentData.map( el => {
                                             return (
                                                 <tr key={el.Id} onMouseEnter={() => this.onMouseOverHandler(el.Id)} onMouseLeave={this.onMouseLeaveHandler}>
                                                     <td >
                                                         <span>{el.Name}</span>
                                                         
-                                                        {/* THIS IS HOVER ACTION BUTTONs */}
+                                                        {/* THIS IS HOVER ACTION BUTTON MECHANISM */}
                                                         {tableHover[el.Id] ? 
-                                                        <span className="row-hover-base">
-                                                            <div className="row-hover-middle">
-                                                                <div className="row-hover-socket">
-                                                                    <div className="hover-button-base">
-                                                                        <span className="button-sparator1">
-                                                                            <span className={contentProps.icon} aria-hidden="true">
-                                                                                info
-                                                                            </span>
-                                                                        </span>
-                                                                        <span className="button-sparator2">
-                                                                            <span className={contentProps.icon} aria-hidden="true">
-                                                                                edit
-                                                                            </span>
-                                                                        </span>
-                                                                        <span className="button-sparator3">
-                                                                            <span className={contentProps.icon} aria-hidden="true">
-                                                                                delete
-                                                                            </span>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </span> : null  }
+                                                            <ButtonTable 
+                                                                infoButton={this.infoButton}
+                                                                editButton={this.editButton}
+                                                                deleteButton={this.deleteButton}
+                                                            /> : null
+                                                        }
 
                                                     </td>
                                                     <td><span>{el.Address}</span>
@@ -137,8 +138,8 @@ class Store extends React.Component {
                                 </table>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </React.Fragment>
         )
     }

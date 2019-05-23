@@ -70,7 +70,8 @@ class ProviderScope extends React.Component {
             status : ''
         },
         count : 0,
-        interval : ''
+        interval : '',
+        onTop: true,
     }
 
     timer = () => {
@@ -108,6 +109,9 @@ class ProviderScope extends React.Component {
         }, 500)
         this.setState({interval:interval})
     }
+    setOnTop = (status) => {
+        this.setState({onTop: status})
+    }
 
     render() {
         return (
@@ -115,7 +119,9 @@ class ProviderScope extends React.Component {
                 notif : this.state.notif,
                 closeNotif : this.deleteNotif,
                 setNotif: this.setNotif,
-                seconds: this.state.count
+                seconds: this.state.count,
+                onTop: this.state.onTop,
+                setOnTop: this.setOnTop
             }}>
                 {this.props.children}
             </AppContext.Provider>

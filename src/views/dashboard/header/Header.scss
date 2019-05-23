@@ -3,6 +3,7 @@
 
 
 .grid-header {
+    z-index: 9999;
     display: grid;
     grid-template-columns: [hb0] 3px [hb1] $header [hb2] auto [hb3] 100px [hb4] 20px [hb5];
     grid-template-rows: [hhb1] $header [hhb2];
