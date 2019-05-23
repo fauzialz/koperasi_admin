@@ -1,6 +1,6 @@
-@import '../../../styles/potitions';
-@import '../../../styles/palette';
-@import '../../../styles/sizes';
+@import '../../styles/potitions';
+@import '../../styles/palette';
+@import '../../styles/sizes';
 
 
 @media (max-width: 485px) {
@@ -36,37 +36,11 @@
 }
 
 .content-square {
-    padding: 20px;
+    padding: 10px;
+    padding-top: 0px;
 }
 
 .content-socket {
     width: 100%;
-    background-color: $pure;
-    border-radius: 15px;
-}
-
-
-//EXAMPLE CONTENT
-.content-dummy-wrapper {
-    padding: 20px;
-}
-.content-dummy-title {
-    height: 40px;
-    max-width: 400px;
-    background-color: $pure-darken;
-    border-radius: 10px;
-}
-.content-dummy-table-header {
-    margin-top: 20px;
-    width: 100%;
-    height: 40px;
-    background-color: $pure-darken;
-    border-radius: 10px;
-}
-.content-dummy-table-data {
-    margin-top: 20px;
-    width: 100%;
-    min-height: 1000px;
-    background-color: $pure-darken;
-    border-radius: 10px;
+    //overflow-wrap: break-word;
 }

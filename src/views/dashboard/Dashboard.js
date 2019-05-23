@@ -4,8 +4,8 @@ import HelperCookie from '../../helper/HelperCookie'
 import ConfigLocal from '../../config/ConfigLocal'
 import Header from './header';
 import Navbar from './navbar';
-import ContentSlider from './contents';
-import { ProviderScope } from '../../context_provider';
+import ContentSlider from '../contents';
+import { ProviderScope } from '../../global';
 import NotifBar from '../../components/notification_bar';
 
 class Dashboard extends React.Component {
@@ -24,29 +24,43 @@ class Dashboard extends React.Component {
         })
     }
 
+    checkDimention = () => {
+        if (window.innerWidth <= 485) {
+            this.setState({drawer:false})
+        }
+    }
+
+    componentDidMount() {
+        this.checkDimention()
+    }
+
     render() {
         return (
             <React.Fragment>
                 <ProviderScope>
+                    <div>
 
-                    {/* NAVBAR */}
-                    <Navbar
-                        open= {this.state.drawer}
-                        />
+                        {/* NAVBAR */}
+                        <Navbar
+                            open= {this.state.drawer}
+                            history = {this.props.history}
+                            match= {this.props.match}
+                            />
 
-                    <NotifBar/>
+                        <NotifBar/>
 
-                    {/* HEADER */}
-                    <Header 
-                        open= {this.state.drawer}
-                        onClick= {this.drawerHandler}   
-                        />
-                        
-                    {/* CONTENT */}
-                    <ContentSlider 
-                        open= {this.state.drawer}
-                        />     
+                        {/* HEADER */}
+                        <Header 
+                            open= {this.state.drawer}
+                            onClick= {this.drawerHandler}   
+                            />
+                            
+                        {/* CONTENT */}
+                        <ContentSlider 
+                            open= {this.state.drawer}
+                            />     
                     
+                    </div>
                     
             
                 </ProviderScope>

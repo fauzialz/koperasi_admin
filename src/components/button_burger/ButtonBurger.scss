@@ -3,6 +3,7 @@
 $burwidth: 20px;
 $leng: 4px;
 $bold: 3px;
+$arriwX: 4px;
 
 .burger-base, .burger-base-x {
     width: $burwidth;
@@ -13,51 +14,64 @@ $bold: 3px;
 
 .burger-base-x {
     /* background-color: rgba(54, 56, 58, 0.15); */
-    background-color: $primary-darkhover;
+    //background-color: $primary-darkhover;
     border-radius: 50%;
 }
 
 .burger-wrapper {
-    transform: translate(0px,2.5px) ;
+    transform: translate($arriwX - 1px,2.5px) ;
     transition: all .5s ease;
 }
 
 .burger-wrapper-x {
-    transform: scale(.7) translate(0px,4px) ;
+    transform: scale(.7) translate(1px,4px) ;
     transition: all .5s ease;
 }
 
-.burgerline-top, .burgerline-middle, .burgerline-bottom {
+.burgerline-top, .burgerline-bottom {
     width: $burwidth;
     height: 2px;
     background-color: $dark;
     border-radius: 1px;
-    transition: all .5s ease;
+    transition: all .2s ease;
 }
 
 .burgerline-middle {
-    transform: translate(0px,$leng) 
+    width: $burwidth - 2px;
+    border-radius: 1px;
+    transform: translate(0px,$leng);
+    background-color: $dark;
+    border: 1px solid $dark; 
+    transition: all .2s ease;
 }
 .burgerline-bottom {
     transform: translate(0px,$leng * 2) 
 }
 
-.burgerline-top-x, .burgerline-middle-x, .burgerline-bottom-x {
-    width: $burwidth;
+.burgerline-top-x, .burgerline-bottom-x {
+    width: $burwidth - 3px;
     height: $bold;
     background-color: $dark;
     border-radius: $bold;
-    transition: all .5s ease;
+    transition: all .2s ease;
 }
 
 .burgerline-top-x {
-    transform: translate(0px,$leng + $bold) rotate(-45deg);
+    transform: translate($arriwX,-1px) rotate(-35deg);
 }
 
 .burgerline-middle-x {
-    transform: translate($burwidth / 2,5px);
-    width: 0px
+    transform: translate($arriwX + 1px,-8px);
+    width: 0px;
+    width: 0; 
+    height: 0;
+    border-top: $burwidth / 2 solid transparent;
+    border-bottom: $burwidth / 2 solid transparent;
+    border-right: $burwidth - 5.5px solid $dark;
+    border-radius: 0;
+    background-color: transparent;
+    transition: all .2s ease;
 }
 .burgerline-bottom-x {
-    transform: translate(0px,$leng - $bold) rotate(45deg);
+    transform: translate($arriwX,-15px) rotate(35deg);
 }

@@ -1,0 +1,50 @@
+@import '../../styles/palette';
+@import '../../styles/shadows';
+
+.header-sticky {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: $pure-lighten;
+    z-index: 20;
+    padding-top: 10px;
+    
+}
+.header-line {
+    border-bottom: 1px solid $pure-line;
+}
+
+.content-header {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: [chh1] 30% [chh2] auto [chh3] 200px [chh4];
+}
+.content-title {
+    grid-column: chh1 / chh2;
+    font-size: 19pt;
+    font-weight: 650;
+    color: black;
+    margin-bottom: 10px;
+    width: 95%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.content-add-button {
+    grid-column: chh3 /chh4;
+    padding-top: 3px;
+    position: absolute;
+    right: 0;
+}
+.add-button-icon {
+    font-size: 20px;
+    float: left;
+}
+.add-button-text {  
+    float: left;
+    margin-top: 2px;
+    margin-right: 6px;
+}

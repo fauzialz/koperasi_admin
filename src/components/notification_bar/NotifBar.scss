@@ -2,55 +2,6 @@
 @import '../../styles/sizes';
 @import '../../styles/shadows';
 
-.notifbar-base {
-    position: fixed;
-    width: 100%;
-}
-
-.notifbar {
-    border-radius: 8px;
-    max-width: 800px;
-    margin: ($header + 5px) auto 0px auto;
-    height: 30px;
-    @extend %shadow;
-    transition: all .1s ease;
-    cursor: pointer;
-}
-
-.notifbar-off {
-    max-width: 800px;
-    margin: -30px auto 0px auto;
-    height: 30px;
-    transition: all 1s ease
-}
-
-.notifbar-text {
-    padding: {
-        top: 5px;
-    }
-    text-align: center;
-    font-size: 10pt;
-}
-
-.successnotif {
-    background-color: $submit;
-    color: $pure-lighten;
-    transition: all 1s ease;
-}
-.successnotif:hover, .errornotif:hover {
-    background-color: $dark;
-}
-.errornotif {
-    background-color: $error;
-    color: $pure-lighten;
-    transition: all 1s ease;
-}
-.afterSuccess {
-    background-color: $dark;
-    color: $pure-lighten;
-    transition: all 1s ease;
-}
-
 @media (max-width: 815px) {
     .notifbar {
         border-radius: 0px !important;
@@ -59,4 +10,96 @@
     .notifbar-button {
         padding-left: 93% !important;
     }
+    .notifbar-loading-wrapper {
+        width: 100% !important;
+    }
+    .notifbar-loading {
+        background-color: $primary-darkhover !important;
+        opacity: 1 !important;
+    }
+}
+
+.notifbar-base {
+    position: fixed;
+    width: 100%;
+    z-index: 9998;
+}
+
+.notifbar {
+    border-radius: 0px 0px 10px 10px;
+    max-width: 500px;
+    margin: ($header + 0px) auto 0px auto;
+    min-height: 28px;
+    overflow-wrap: break-word;
+    @extend %shadow;
+    cursor: pointer;
+}
+
+.notifbar-off {
+    max-width: 500px;
+    margin: -28px auto 0px auto;
+    min-height: 28px;
+    transition: all .5s ease
+}
+
+.notifbar-text {
+    padding: 5px;
+    text-align: center;
+    font-size: 10pt;
+}
+
+.successnotif {
+    background-color: $submit;
+    color: $pure-lighten;
+    transition: all .5s ease;
+}
+.successnotif:hover, .errornotif:hover {
+    background-color: $dark;
+}
+.errornotif {
+    background-color: $error;
+    color: $pure-lighten;
+    transition: all .5s ease;
+}
+.afterSuccess {
+    background-color: $dark;
+    color: $pure-lighten;
+    transition: all 1s ease;
+}
+
+.notifbar-loading-wrapper {
+    width: calc(100% - 0px);
+    margin: auto;
+    position: relative;
+    /* -ms-transform: translate(0px, -1.5px);
+    -webkit-transform: translate(0px, -1.5px);
+    transform: translate(0px, -1.5px); */
+}
+.notifbar-loading {
+    opacity: 1;
+    height: 3px;
+    border-radius: 0px;
+    position: absolute;
+    transition: all .5s linear;
+    z-index: 20;
+}
+.successnotif-loading {
+    background-image: linear-gradient(
+        to right, $submit-darken, $submit-lighten
+    );
+}
+.errornotif-loading {
+    background-image: linear-gradient(
+        to right, $error-darken, $error-lighten
+    );
+}
+
+.notifbar-loading-negatif {
+    background-color: black;
+    opacity: .3;
+    height: 3px;
+    width: 100%;
+    border-radius: 3px;
+    position: absolute;
+    z-index: 19;
 }

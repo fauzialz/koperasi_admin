@@ -5,6 +5,8 @@ $primary:           #ffb300;
 $primary-darken:    #ff8f00;
 $primary-darkhover: #E5A100;
 
+$primary-gradient : linear-gradient(276deg, #ffe34a, #ffb436, #fd8953);
+
 $secondary-lighten: #aaaaaa; //temporary
 $secondary:         #293e61;
 $secondary-darken:  rgb(54, 56, 58); 
@@ -17,11 +19,13 @@ $pure:              #ECECEC;
 $pure-line:         #DDDDDD;
 $pure-darken:       #c2c2c2;
 
+$secondary-gradient : linear-gradient(225deg, $pure-darken, $pure, $pure-darken);
 //*BLACK
 $dark-lighten:      rgb(136, 136, 136);
 $dark:              #3E3E3E;
 
 //*BUTTON
+$submit-lightest-most:#F6FAFE;
 $submit-lightest:   #E4EDF8;
 $submit-lighten:    #B1CCEA;
 $submit:            #1976D2;

@@ -25,7 +25,7 @@ $name-padding : 50px;
 .navbar-icon {
     padding: {
         top: 10px;
-        left: 10px;
+        left: 11px;
     }
 }
 
@@ -46,7 +46,7 @@ $name-padding : 50px;
 .navbar-name {
     padding: {
         left: $name-padding;
-        top: 1px;
+        top: 2px;
     }
     font-size: 10pt;
     @extend %noselect;
@@ -70,7 +70,7 @@ $name-padding : 50px;
 .navbar-name-child {
     padding: {
         left: $name-padding - 1px;
-        top: 10px;
+        top: 11px;
     }
     font-size: 10pt;
     /* color: $dark; */
@@ -93,6 +93,10 @@ $name-padding : 50px;
 
 .navbar-arrow-base:hover {
     background-color: $pure-line;
+}
+.navbar-arrow-base:active {
+    background-color: $pure-darken;
+    transition: all .3s ease;
 }
 
 .navbar-iconfont-parent, .navbar-iconfont-parent-clicked {

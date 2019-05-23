@@ -5,10 +5,12 @@
 
 .open-navbar {
     position: fixed;
+    z-index: 9997;
     top: $header;
     transition: all 0.5s ease;
 }
 .close-navbar {
+    z-index: 9997;
     position: fixed;
     top: $header;
     margin-left: 0 - $navbar;

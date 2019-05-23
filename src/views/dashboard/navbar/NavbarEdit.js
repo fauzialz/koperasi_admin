@@ -4,7 +4,7 @@ import ConfigApi from '../../../config/ConfigApi';
 import ConfigLocal from '../../../config/ConfigLocal';
 import Modal from '../../../components/modal';
 import Input from '../../../components/input';
-import { AppContext } from '../../../context_provider';
+import { AppContext } from '../../../global';
 import Select from '../../../components/select';
 import './NavbarEdit.scss';
 import Button from '../../../components/button';
@@ -29,7 +29,6 @@ class NavbarEdit extends React.Component {
         this.context.closeNotif()
         HelperHttp.request(ConfigApi.ROUTE.MENU, this.props.add ? ConfigApi.METHODS.POST : ConfigApi.METHODS.PUT, this.state.data,
             (success, response) => {
-                debugger
                 this.props.loading()
                 if(success){
                     this.props.hotReload()
@@ -38,7 +37,7 @@ class NavbarEdit extends React.Component {
                             this.props.add? 'Data added.': 'Data edited.',
                             ConfigLocal.NOTIF.Success
                         )
-                    }, 800);
+                    }, 500);
                 }else{
                     setTimeout(() => {
                         this.context.setNotif(
@@ -65,7 +64,7 @@ class NavbarEdit extends React.Component {
                             ConfigLocal.NOTIF.Success
                         )
                         this.props.hotReload()
-                    }, 800);
+                    }, 500);
                 }
                 this.clearInput()
                 this.props.onClose()

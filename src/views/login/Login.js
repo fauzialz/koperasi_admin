@@ -77,7 +77,7 @@ class Login extends React.Component {
                 <div className="Login-container">
 
                     <div className={this.state.msg? this.state.errStyle : "neutral"}>
-                        {this.state.msg || "Sign In to continue"}
+                        {this.state.msg || "Login to continue"}
                     </div>
                     
                     <div className="Login-content">
@@ -104,7 +104,7 @@ class Login extends React.Component {
                                     <div className="button-gap">
                                         <Button 
                                             fluid
-                                            label="Sign In"
+                                            label="Login"
                                             onClick={this.onSubmit}
                                         />
                                     </div>: ''

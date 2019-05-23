@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import Crossroads from './views/Crossroads';
+import { RouterTierOne } from './Router';
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Crossroads />
+        <RouterTierOne />
       </React.Fragment>
     );
   }
