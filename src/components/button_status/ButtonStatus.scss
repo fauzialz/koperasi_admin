@@ -9,6 +9,9 @@
     transition-delay: 0.1s;
 }
 .btnStat-grid-off, .btnStat-grid-on {
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
     transition: all 0.5s ease;
     border-radius: 7px;
     @extend %noselect;
@@ -16,6 +19,11 @@
     display: grid;
     grid-template-rows: [btnh1] 1fr [btnh2];
     height: 100%;
+    outline: none;
+}
+.btnStat-grid-off:focus, .btnStat-grid-on:focus {
+    border: 1px solid $submit;
+    box-shadow: 0 0 0 2pt $submit-lighten;
 }
 .btnStat-grid-off {
     width: 180px;

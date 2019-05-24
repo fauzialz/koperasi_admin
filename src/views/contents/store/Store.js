@@ -12,10 +12,24 @@ class Store extends React.Component {
         contentData : [],
         contentLoading : true,
         contentProps : {
-            title : 'Store'
+            title : 'Store',
         },
+        rowsCount : '',
+        columnsCount : '',
         tableHover: {},
         refTable : React.createRef()
+    }
+
+    objAttributesCount = (objList) => {
+        if ( objList.length === 0) {
+            return;
+        }
+        let rows = objList.length
+        let columns = Object.keys(objList[0]).length
+        this.setState({
+            rowsCount : rows,
+            columnsCount : columns
+        })
     }
 
     //!TABLE HOVER HANDLER
@@ -79,6 +93,7 @@ class Store extends React.Component {
             for(let i in res.data) {
                 temp[res.data[i].Id]=false
             } 
+            this.objAttributesCount(res.data)
             this.setState({
                 contentData : res.data,
                 contentLoading : false,
@@ -92,12 +107,12 @@ class Store extends React.Component {
     }
 
     render () {
-        const { contentProps, contentData, tableHover } = this.state
+        const { contentProps, contentData, tableHover, rowsCount, columnsCount } = this.state
         return (
             <React.Fragment>
                 <div className="content-wrapper">
 
-                    <ContentHeader title={contentProps.title} addFunction={this.createStore} noAdd={contentData.length === 0}/>
+                    <ContentHeader title={contentProps.title} rowsCount={rowsCount} columnsCount={columnsCount} addFunction={this.createStore} />
                     
                     { contentData.length === 0 ? <Dummy />:
                         <div className="table-holder">

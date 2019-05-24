@@ -3,6 +3,9 @@
 @import '../../styles/potitions';
 
 button {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     cursor: pointer;
     border: none;
     outline: none;
@@ -22,6 +25,10 @@ button {
     display: inherit;
     color: $dark;
 }
+button:focus {
+    border: 1px solid $primary;
+    box-shadow: 0 0 0 2pt $primary-lighten;
+}
 
 //PROPS involvement------
 //DEFAULT
@@ -33,6 +40,10 @@ button {
 }
 .primary-color:active {
     background-color: $primary;
+}
+.primary-color:focus {
+    border: 1px solid $submit;
+    box-shadow: 0 0 0 2pt $submit-lighten;
 }
 .float {
     @extend %shadow-short;

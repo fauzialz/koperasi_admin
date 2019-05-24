@@ -1,5 +1,6 @@
 @import '../../styles/palette';
 @import '../../styles/shadows';
+@import '../../styles/text';
 
 .header-sticky {
     width: 100%;
@@ -18,26 +19,98 @@
     position: relative;
     width: 100%;
     display: grid;
-    grid-template-columns: [chh1] 30% [chh2] auto [chh3] 200px [chh4];
+    grid-template-columns: [chh1] 50% [chh2] auto [chh3] 200px [chh4];
+}
+.content-info {
+    grid-column: chh1 / chh2;
+    font-size: 20pt;
+    margin-bottom: 10px;
+}
+.content-icon-base {
+    height: 40px;
+    width: 40px;
+    background-color: #E8EAF6;
+    border-radius: 5px;
+    float: left;
+}
+.title-icon {
+    font-size: 24px;
+    padding-top: 8px;
+    width: 100%;
+    color: #555555;
+    margin: auto;
+    text-align: center;
+    @extend %noselect;
 }
 .content-title {
-    grid-column: chh1 / chh2;
-    font-size: 19pt;
-    font-weight: 650;
     color: black;
-    margin-bottom: 10px;
-    width: 95%;
+    font-weight: 650;
+    max-width: 200px;
+    float: left;
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: top;
     white-space: nowrap;
+    margin-left: 8px;
+    margin-right: 16px;
+}
+.content-data-status {
+    margin-top: 5px;
+    padding-top: 4px;
+    padding-bottom: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 6px;
+    border: 1px dashed $pure-line;
+    float: left;
+}
+.data-status-wrapper {
+    padding-left: 18px;
+    float: left;
+}
+.data-status-icon {
+    padding-top: 2px;
+    font-size: 18px;
+    font-weight: 100;
+    color: #707070;
+    float: left;
+    @extend %noselect;
+}
+.data-status-number {
+    font-weight: 650;
+    font-size: 15px;
+    padding-left: 4px;
+    padding-top: 1px;
+    float: left;
+}
+.data-status-loading {
+    border-radius: 3px;
+    margin-left: 3px;
+    float: left;
+    height: 14px;
+    width: 16px;
+    border: 1px solid $pure;
+    background-color: $pure;
+    margin-top: 4px;
+}
+.data-status-text {
+    padding-top: 1.5px;
+    font-size: 14px;
+    padding-left: 4px;
+    font-weight: 400;
+    float: left;
 }
 .content-add-button {
     grid-column: chh3 /chh4;
-    padding-top: 3px;
+    padding-top: 5px;
     position: absolute;
     right: 0;
+    button {
+        min-width: 0px !important;
+        border: 1px solid $pure-line;
+        height: 33px !important;
+    }
 }
 .add-button-icon {
     font-size: 20px;
@@ -46,5 +119,5 @@
 .add-button-text {  
     float: left;
     margin-top: 2px;
-    margin-right: 6px;
+    margin-right: 8px;
 }
