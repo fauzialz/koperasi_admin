@@ -292,36 +292,42 @@ class Navbar extends React.Component {
 
                 {loading && <Loading />}
 
-                <div className={this.props.open ? "open-navbar": "close-navbar"}> 
-                        <div className="navbar-base">
-                            <div className= "navbar-overflow-superadmin">
-                            {navbarLoading?
-                                <DummyNavbar navList={navList} />:
-                                <NavbarTiles navList={navList} onClick={this.tileHandler} />
-                            }
-                            </div>
-                            <div className= "edit-tile">
-                                <div className={this.state.editSession? "navbar-add-on": "navbar-add-off"}>
-                                    <Button
-                                        onClick={this.openAddModal}
-                                        blue
-                                        flat
-                                        circle
-                                        title="Add new navigation menu"
-                                        label={
-                                            <span className={icon} aria-hidden="true">
-                                                add
-                                            </span>
-                                        }/>
+                <AppContext.Consumer>
+                    { (context) => (
+                        <React.Fragment>
+                            <div className={context.navbarOpen ? "open-navbar": "close-navbar"}> 
+                                <div className="navbar-base">
+                                    <div className= "navbar-overflow-superadmin">
+                                    {navbarLoading?
+                                        <DummyNavbar navList={navList} />:
+                                        <NavbarTiles navList={navList} onClick={this.tileHandler} />
+                                    }
+                                    </div>
+                                    <div className= "edit-tile">
+                                        <div className={this.state.editSession? "navbar-add-on": "navbar-add-off"}>
+                                            <Button
+                                                onClick={this.openAddModal}
+                                                blue
+                                                flat
+                                                circle
+                                                title="Add new navigation menu"
+                                                label={
+                                                    <span className={icon} aria-hidden="true">
+                                                        add
+                                                    </span>
+                                                }/>
+                                        </div>
+                                        <ButtonStatus
+                                            title={this.state.title}
+                                            onClick={this.editSessionButton}
+                                            active={this.state.editSession}
+                                        />
+                                    </div>
                                 </div>
-                                <ButtonStatus
-                                    title={this.state.title}
-                                    onClick={this.editSessionButton}
-                                    active={this.state.editSession}
-                                />
                             </div>
-                        </div>
-                </div>
+                        </React.Fragment>
+                    )}
+                </AppContext.Consumer>
             </React.Fragment>
         )
     }

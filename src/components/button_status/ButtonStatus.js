@@ -6,7 +6,7 @@ const ButtonStatus = (props) => {
     return (
         <React.Fragment>
             <div className="btnStat-base">
-                <div tabindex="0" className={props.active? "btnStat-grid-on" : "btnStat-grid-off"} onClick={ props.onClick } title={props.active? "Turn off setting mode": "Turn on setting mode"}>
+                <div tabIndex="0" className={props.active? "btnStat-grid-on" : "btnStat-grid-off"} onClick={ props.onClick } title={props.active? "Turn off setting mode": "Turn on setting mode"}>
                     <div className="btnStat-left">
                         <div className="btnStat-icon">
                             <Icon

@@ -8,7 +8,7 @@ export default {
         SIGN_IN:    MAIN_API + '/authentication',
         MENU:       MAIN_API + '/menu',
         GET_MENU:   MAIN_API + '/menu/navbar',
-        STORE:      MAIN_API + '/store'
+        STORE:      BACKUP_API + '/store'
     },
     HEADERS : {
         content_type: 'application/json',

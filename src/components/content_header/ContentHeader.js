@@ -2,69 +2,64 @@ import React from 'react'
 import Button from '../button';
 import ConfigLocal from '../../config/ConfigLocal';
 import './ContentHeader.scss'
-import { AppContext } from '../../global';
 
 const ContentHeader = (props) => {
     const icon1 = ConfigLocal.MISC.MaterialIcon + ' title-icon'
     const icon2 = ConfigLocal.MISC.MaterialIcon + ' data-status-icon'
     const icon3 = ConfigLocal.MISC.MaterialIcon + ' add-button-icon'
     return (
-        <AppContext.Consumer>
-            {contex => (
-                <div className={!contex.onTop? "header-sticky header-line": "header-sticky"}>
-                    <div className="content-header">
-                        <div className="content-info">
-                            <div className="content-icon-base">
-                                <span className={icon1} aria-hidden="true">
-                                    local_grocery_store
-                                </span>
-                            </div>
-                            <div className="content-title">
-                                {props.title}
-                            </div>
-                            {props.rowsCount > 0 && props.columnsCount > 0 ?
-                                <div className="content-data-status">
-                                    <span className={icon2} aria-hidden="true">
-                                        list_alt
-                                    </span>
-                                    {props.rowsCount > 0 ?
-                                        <span className="data-status-number">{props.rowsCount}</span>:
-                                        <span className="data-status-loading" />
-                                    }
-                                    <span className="data-status-text">Rows</span>
-
-                                    <div className="data-status-wrapper">
-                                        <span className={icon2} aria-hidden="true">
-                                            table_chart
-                                        </span>
-                                        {props.columnsCount > 0 ?
-                                            <span className="data-status-number">{props.columnsCount}</span>:
-                                            <span className="data-status-loading" />
-                                        }
-                                        <span className="data-status-text">Columns</span>
-                                    </div>
-                                </div>: null
-                            }
-
-                        </div>
-                        { props.rowsCount > 0 ? 
-                            <div className="content-add-button">
-                                <Button onClick={props.addFunction} label={
-                                    <React.Fragment>
-                                        <span className={icon3} aria-hidden="true">
-                                            add
-                                        </span>
-                                        <span className="add-button-text">
-                                            Add
-                                        </span>
-                                    </React.Fragment>
-                                } blue depressed /> 
-                            </div>: null
-                        }
+        <div className={props.showLine? "header-sticky header-line": "header-sticky"}>
+            <div className="content-header">
+                <div className="content-info">
+                    <div className="content-icon-base">
+                        <span className={icon1} aria-hidden="true">
+                            local_grocery_store
+                        </span>
                     </div>
+                    <div className="content-title">
+                        {props.title}
+                    </div>
+                    {props.rowsCount > 0 && props.columnsCount > 0 ?
+                        <div className="content-data-status">
+                            <span className={icon2} aria-hidden="true">
+                                list_alt
+                            </span>
+                            {props.rowsCount > 0 ?
+                                <span className="data-status-number">{props.rowsCount}</span>:
+                                <span className="data-status-loading" />
+                            }
+                            <span className="data-status-text">Rows</span>
+
+                            <div className="data-status-wrapper">
+                                <span className={icon2} aria-hidden="true">
+                                    table_chart
+                                </span>
+                                {props.columnsCount > 0 ?
+                                    <span className="data-status-number">{props.columnsCount}</span>:
+                                    <span className="data-status-loading" />
+                                }
+                                <span className="data-status-text">Columns</span>
+                            </div>
+                        </div>: null
+                    }
+
                 </div>
-            )}
-        </AppContext.Consumer>
+                { props.rowsCount > 0 ? 
+                    <div className="content-add-button">
+                        <Button onClick={props.addFunction} label={
+                            <React.Fragment>
+                                <span className={icon3} aria-hidden="true">
+                                    add
+                                </span>
+                                <span className="add-button-text">
+                                    Add
+                                </span>
+                            </React.Fragment>
+                        } blue depressed /> 
+                    </div>: null
+                }
+            </div>
+        </div>
     )
 }
 

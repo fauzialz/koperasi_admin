@@ -1,32 +1,17 @@
 import React from 'react'
 import './Dashboard.scss'
-import HelperCookie from '../../helper/HelperCookie'
-import ConfigLocal from '../../config/ConfigLocal'
 import Header from './header';
 import Navbar from './navbar';
 import ContentSlider from '../contents';
-import { ProviderScope } from '../../global';
+import { ProviderScope, AppContext } from '../../global';
 import NotifBar from '../../components/notification_bar';
 
 class Dashboard extends React.Component {
-    state = {
-        drawer : true
-    }
-
-    signOut = () => {
-        HelperCookie.delete(ConfigLocal.TOKEN)
-        this.props.history.push('/')
-    }
-
-    drawerHandler = () => {
-        this.setState({
-            drawer : !this.state.drawer
-        })
-    }
-
+    static contextType = AppContext
+    
     checkDimention = () => {
         if (window.innerWidth <= 485) {
-            this.setState({drawer:false})
+            this.context.setNavbarOpen(false)
         }
     }
 
@@ -42,7 +27,6 @@ class Dashboard extends React.Component {
 
                         {/* NAVBAR */}
                         <Navbar
-                            open= {this.state.drawer}
                             history = {this.props.history}
                             match= {this.props.match}
                             />
@@ -50,15 +34,10 @@ class Dashboard extends React.Component {
                         <NotifBar/>
 
                         {/* HEADER */}
-                        <Header 
-                            open= {this.state.drawer}
-                            onClick= {this.drawerHandler}   
-                            />
+                        <Header />
                             
                         {/* CONTENT */}
-                        <ContentSlider 
-                            open= {this.state.drawer}
-                            />     
+                        <ContentSlider />     
                     
                     </div>
                     

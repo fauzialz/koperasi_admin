@@ -5,10 +5,15 @@ import ConfigApi from '../../../config/ConfigApi';
 import './Store.scss'
 import ContentHeader from '../../../components/content_header';
 import ButtonTable from '../../../components/button_table/ButtonTable';
-import ConfigLocal from '../../../config/ConfigLocal';
 
 class Store extends React.Component {
+    constructor (props) {
+        super (props) 
+        this.refTable = React.createRef()
+    }
     state = {
+        top : 0,
+        showLine : false,
         contentData : [],
         contentLoading : true,
         contentProps : {
@@ -16,9 +21,9 @@ class Store extends React.Component {
         },
         rowsCount : '',
         columnsCount : '',
-        tableHover: {},
-        refTable : React.createRef()
+        tableHover: {}
     }
+
 
     objAttributesCount = (objList) => {
         if ( objList.length === 0) {
@@ -30,6 +35,18 @@ class Store extends React.Component {
             rowsCount : rows,
             columnsCount : columns
         })
+    }
+
+    //!HEADER SCROLLING HANDLER
+    onScrollHandler = () => {
+        let scrollState = this.refTable.current.getBoundingClientRect().bottom
+        console.log('\nTopState\t: '+this.state.top)
+        console.log('ScrollState\t: '+scrollState)
+        if ( scrollState < this.state.top) {
+            this.setState({showLine : true})
+        }else{
+            this.setState({showLine : false})
+        }
     }
 
     //!TABLE HOVER HANDLER
@@ -58,7 +75,7 @@ class Store extends React.Component {
         alert('Add button clicked!')
         let d = new Date()
         let dummyData = {
-            Name : ConfigLocal.MISC.LoremIpsum + d.getTime(),
+            Name : 'Nama Kantor' + d.getTime(),
             Address : 'Jl. Bulungan No. 9, Jakarta Selatan',
             Telephone : '081234234234' ,
             Email : 'emailkantor@gmail.com'
@@ -86,6 +103,11 @@ class Store extends React.Component {
         alert('Delete button clicked!')
     }
 
+    setTop = () => {
+        let top = this.refTable.current.getBoundingClientRect().bottom + 150
+        this.setState({top : top})
+    }
+
     getStore = () => {
         this.setState({contentLoading : true})
         HelperHttp.get(ConfigApi.ROUTE.STORE, (res)  => {
@@ -103,59 +125,68 @@ class Store extends React.Component {
     }
 
     componentDidMount() {
+        this.setTop()
         this.getStore()
     }
 
     render () {
-        const { contentProps, contentData, tableHover, rowsCount, columnsCount } = this.state
+        const { contentProps, contentData, tableHover, rowsCount, columnsCount, showLine } = this.state
         return (
-            <React.Fragment>
-                <div className="content-wrapper">
+                <React.Fragment>
+                    <div className="content-base" onScroll={() => this.onScrollHandler()}>
+                        <div className="content-square">
+                            <div className="content-socket" >
 
-                    <ContentHeader title={contentProps.title} rowsCount={rowsCount} columnsCount={columnsCount} addFunction={this.createStore} />
-                    
-                    { contentData.length === 0 ? <Dummy />:
-                        <div className="table-holder">
-                            <div className="row-hover-wrapper">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th><th>Address</th><th>Telephone</th><th>Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        { contentData.map( el => {
-                                            return (
-                                                <tr key={el.Id} onMouseEnter={() => this.onMouseOverHandler(el.Id)} onMouseLeave={this.onMouseLeaveHandler}>
-                                                    <td >
-                                                        <span>{el.Name}</span>
-                                                        
-                                                        {/* THIS IS HOVER ACTION BUTTON MECHANISM */}
-                                                        {tableHover[el.Id] ? 
-                                                            <ButtonTable 
-                                                                infoButton={this.infoButton}
-                                                                editButton={this.editButton}
-                                                                deleteButton={this.deleteButton}
-                                                            /> : null
-                                                        }
+                                <div className="content-wrapper" ref={this.refTable}>
 
-                                                    </td>
-                                                    <td><span>{el.Address}</span>
-                                                    </td><td>{el.Telephone}</td>
-                                                    <td>
-                                                        {el.Email}
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })
+                                    <ContentHeader title={contentProps.title} rowsCount={rowsCount} columnsCount={columnsCount} addFunction={this.createStore} showLine={showLine} />
+                                    
+                                    { contentData.length === 0 ? <Dummy />:
+                                        <div className="table-holder" >
+                                            <div className="row-hover-wrapper" onScroll={() => this.onScrollHandler()} >
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th><th>Address</th><th>Telephone</th><th>Email</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        { contentData.map( el => {
+                                                            return (
+                                                                <tr key={el.Id} onMouseEnter={() => this.onMouseOverHandler(el.Id)} onMouseLeave={this.onMouseLeaveHandler}>
+                                                                    <td >
+                                                                        <span>{el.Name}</span>
+                                                                        
+                                                                        {/* THIS IS HOVER ACTION BUTTON MECHANISM */}
+                                                                        {tableHover[el.Id] ? 
+                                                                            <ButtonTable 
+                                                                                infoButton={this.infoButton}
+                                                                                editButton={this.editButton}
+                                                                                deleteButton={this.deleteButton}
+                                                                            /> : null
+                                                                        }
+
+                                                                    </td>
+                                                                    <td><span>{el.Address}</span>
+                                                                    </td><td>{el.Telephone}</td>
+                                                                    <td>
+                                                                        {el.Email}
+                                                                    </td>
+                                                                </tr>
+                                                            )
+                                                        })
+                                                    }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     }
-                                    </tbody>
-                                </table>
+                                </div>
+                            
                             </div>
                         </div>
-                    }
-                </div>
-            </React.Fragment>
+                    </div>
+                </React.Fragment>
         )
     }
 }

@@ -71,7 +71,7 @@ class ProviderScope extends React.Component {
         },
         count : 0,
         interval : '',
-        onTop: true,
+        navbarOpen: true,
     }
 
     timer = () => {
@@ -109,8 +109,8 @@ class ProviderScope extends React.Component {
         }, 500)
         this.setState({interval:interval})
     }
-    setOnTop = (status) => {
-        this.setState({onTop: status})
+    setNavbarOpen = (status) => {
+        this.setState({navbarOpen : status})
     }
 
     render() {
@@ -120,8 +120,8 @@ class ProviderScope extends React.Component {
                 closeNotif : this.deleteNotif,
                 setNotif: this.setNotif,
                 seconds: this.state.count,
-                onTop: this.state.onTop,
-                setOnTop: this.setOnTop
+                navbarOpen: this.state.navbarOpen,
+                setNavbarOpen: this.setNavbarOpen
             }}>
                 {this.props.children}
             </AppContext.Provider>
