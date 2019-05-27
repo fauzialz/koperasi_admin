@@ -19,10 +19,12 @@ const ContentHeader = (props) => {
                     <div className="content-title">
                         {props.title}
                     </div>
+
+                    {/* CONTENT STATUS */}
                     {props.rowsCount > 0 && props.columnsCount > 0 ?
                         <div className="content-data-status">
                             <span className={icon2} aria-hidden="true">
-                                list_alt
+                                storage
                             </span>
                             {props.rowsCount > 0 ?
                                 <span className="data-status-number">{props.rowsCount}</span>:
@@ -32,18 +34,20 @@ const ContentHeader = (props) => {
 
                             <div className="data-status-wrapper">
                                 <span className={icon2} aria-hidden="true">
-                                    table_chart
+                                    grid_on
                                 </span>
                                 {props.columnsCount > 0 ?
                                     <span className="data-status-number">{props.columnsCount}</span>:
                                     <span className="data-status-loading" />
                                 }
-                                <span className="data-status-text">Columns</span>
+                                <span className="data-status-text">Attributes</span>
                             </div>
                         </div>: null
                     }
 
                 </div>
+
+                {/* ADD BUTTON */}
                 { props.rowsCount > 0 ? 
                     <div className="content-add-button">
                         <Button onClick={props.addFunction} label={

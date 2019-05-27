@@ -14,6 +14,7 @@ export default {
     get: (url, cb) => {
         if(HelperCookie.get(local.TOKEN) === null) {
            cb ( callbackBuild() )
+           return
         }
         let setting = { headers : new HeadersToken() }
         axios.get(url, setting)
@@ -39,9 +40,28 @@ export default {
     post: (url, data, cb) => {
         if(HelperCookie.get(local.TOKEN) === null) {
             cb ( callbackBuild() )
+            return
         }
         let setting = { headers : new HeadersToken() }
         axios.post(url, data, setting)
+        .then( res => {
+            cb ( callbackBuild(res) )
+        })
+        .catch( err => {
+            let errResponse = err.response
+            cb ( callbackBuild(errResponse))
+        })
+    },
+
+    delete: (url, id, Etag, cb) => {
+        if(HelperCookie.get(local.TOKEN) === null || !id || !url || !Etag) {
+            cb ( callbackBuild() )
+            return
+        }
+        url += '/' + id
+        let setting = { headers : new HeadersToken() }
+        setting.headers['If-Match'] = Etag
+        axios.delete(url, setting)
         .then( res => {
             cb ( callbackBuild(res) )
         })

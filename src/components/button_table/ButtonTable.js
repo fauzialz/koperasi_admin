@@ -10,17 +10,17 @@ const ButtonTable = (props) => {
                 <div className="row-hover-socket">
                     <div className="hover-button-base">
                         <span className="button-sparator1">
-                            <span className={icon} aria-hidden="true" onClick={props.infoButton}>
-                                info
+                            <span className={icon} aria-hidden="true" onClick={() => props.infoButton(props.rowData)} title="See all attribute">
+                                find_in_page
                             </span>
                         </span>
                         <span className="button-sparator2">
-                            <span className={icon} aria-hidden="true" onClick={props.editButton}>
+                            <span className={icon} aria-hidden="true" onClick={props.editButton} title="Edit row">
                                 edit
                             </span>
                         </span>
                         <span className="button-sparator3">
-                            <span className={icon} aria-hidden="true" onClick={props.deleteButton}>
+                            <span className={icon} aria-hidden="true" onClick={() => props.deleteButton(props.rowData.Id)} title="Delete row">
                                 delete
                             </span>
                         </span>
