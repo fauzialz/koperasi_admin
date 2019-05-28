@@ -47,8 +47,10 @@ const ContentHeader = (props) => {
 
                 </div>
 
+                
+
                 {/* ADD BUTTON */}
-                { props.rowsCount > 0 ? 
+                { props.rowsCount && !props.noAdd > 0 ? 
                     <div className="content-add-button">
                         <Button onClick={props.addFunction} label={
                             <React.Fragment>
@@ -62,6 +64,21 @@ const ContentHeader = (props) => {
                         } blue depressed /> 
                     </div>: null
                 }
+            </div>
+
+            {/* TABLE HEADER SHOW */}
+            <div className="table-header-base">
+                <div className="table-header-mask">
+                    <div className={props.showLine?"table-header-show": "table-header-hide"}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th id="Name">Name</th><th id="Address">Address</th><th id="Telephone">Telephone</th><th>Email</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     )

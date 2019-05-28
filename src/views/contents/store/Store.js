@@ -70,7 +70,7 @@ class Store extends React.Component {
 
     //?CRUD HANDLER
     createStore = () => {
-        alert('Add button clicked!')
+        console.log('Add button clicked!')
         let d = new Date()
         let dummyData = {
             Name : 'Nama Kantor' + d.getTime(),
@@ -148,7 +148,11 @@ class Store extends React.Component {
 
                                 <div className="content-wrapper">
 
-                                    <ContentHeader title={contentProps.title} rowsCount={rowsCount} columnsCount={columnsCount} addFunction={this.createStore} showLine={showLine} />
+                                    <ContentHeader 
+                                        title={contentProps.title} rowsCount={rowsCount}
+                                        columnsCount={columnsCount} addFunction={this.createStore}
+                                        showLine={showLine} noAdd={showLine}
+                                    />
                                     
                                     { contentData.length === 0 ? <Dummy />:
                                         <div className="table-holder">
