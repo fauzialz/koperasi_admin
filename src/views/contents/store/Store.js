@@ -39,8 +39,14 @@ class Store extends React.Component {
 
     //!HEADER SCROLLING HANDLER
     onScrollHandler = () => {
-        let scrollState = this.refTable.current.getBoundingClientRect().bottom
-        if ( scrollState < this.state.top) {
+        /* let scrollState = this.refTable.current.getBoundingClientRect().bottom */
+        let topState = this.refTable.current.getBoundingClientRect().top
+        /* console.log(this.refTable.current.offsetTop)
+        console.log(this.refTable.current.offsetHeight)
+        console.log('State\t: '+this.state.top)
+        console.log('top\t: '+topState)
+        console.log('bottom\t: '+scrollState) */
+        if ( topState < this.refTable.current.offsetTop) {
             this.setState({showLine : true})
         }else{
             this.setState({showLine : false})
@@ -111,10 +117,10 @@ class Store extends React.Component {
         })
     }
 
-    setTop = () => {
+    /* setTop = () => {
         let top = this.refTable.current.getBoundingClientRect().bottom - 3
         this.setState({top : top})
-    }
+    } */
 
     getStore = () => {
         this.setState({contentLoading : true})
@@ -129,12 +135,12 @@ class Store extends React.Component {
                 contentLoading : false,
                 tableHover : temp
             })
-            this.setTop()
+            /* this.setTop() */
         })
     }
 
     componentDidMount() {
-        this.setTop()
+        //this.setTop()
         this.getStore()
     }
 
@@ -151,7 +157,7 @@ class Store extends React.Component {
                                     <ContentHeader 
                                         title={contentProps.title} rowsCount={rowsCount}
                                         columnsCount={columnsCount} addFunction={this.createStore}
-                                        showLine={showLine} noAdd={showLine}
+                                        showLine={showLine}
                                     />
                                     
                                     { contentData.length === 0 ? <Dummy />:

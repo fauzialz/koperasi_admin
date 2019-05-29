@@ -2,6 +2,42 @@
 @import '../../styles/shadows';
 @import '../../styles/text';
 
+@media (max-width: 740px) {
+    #table-header {
+        min-width: 1000px !important;
+    }
+    #Name {
+        width: 165px !important;
+    }
+    #Address {
+        width: 185px !important;
+    }
+    #Telephone {
+        width: 84px !important;
+    }
+    .table-header-show {
+        overflow-x: hidden !important;
+    }
+}
+
+@media (max-width: 486px) {
+    .content-header {
+        grid-template-columns: [chh1] 230px [chh2] auto [chh3] 75px [chh4] !important;
+    }
+    .content-data-status {
+        height: 24px;
+        border: none !important;
+        margin-top: 0px !important;
+        padding-top: 10px !important;
+        padding-left: 0px !important;
+        padding-bottom: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    .header-line {
+        height: 100px !important;
+    }
+} 
+
 .header-sticky {
     width: 100%;
     position: sticky;
@@ -12,7 +48,6 @@
     
 }
 .header-line {
-    /* border-bottom: 1px solid $pure-line; */
     height: 80px;
 }
 
@@ -20,7 +55,7 @@
     position: relative;
     width: 100%;
     display: grid;
-    grid-template-columns: [chh1] 50% [chh2] auto [chh3] 200px [chh4];
+    grid-template-columns: [chh1] 370px [chh2] auto [chh3] 75px [chh4];
 }
 .content-info {
     grid-column: chh1 / chh2;
@@ -30,7 +65,7 @@
 .content-icon-base {
     height: 40px;
     width: 40px;
-    background-color: #E8EAF6;
+    background-color: $pure;
     border-radius: 5px;
     float: left;
 }
@@ -38,7 +73,7 @@
     font-size: 24px;
     padding-top: 8px;
     width: 100%;
-    color: #555555;
+    color: $dark;
     margin: auto;
     text-align: center;
     @extend %noselect;
@@ -53,22 +88,27 @@
     text-overflow: ellipsis;
     vertical-align: top;
     white-space: nowrap;
-    margin-left: 8px;
-    margin-right: 16px;
+    margin-left: 10px;
+    margin-right: 18px;
+    margin-top: -1px;
 }
 .content-data-status {
-    margin-top: 5px;
-    padding-top: 4px;
-    padding-bottom: 6px;
-    padding-left: 16px;
-    padding-right: 16px;
+    margin-top: 6px;
+    padding-top: 2px;
+    padding-bottom: 4px;
+    padding-left: 12px;
+    padding-right: 13px;
     border-radius: 6px;
     border: 1px dashed $pure-line;
     float: left;
 }
-.data-status-wrapper {
-    padding-left: 18px;
+.data-status-rows {
     float: left;
+}
+.data-status-attributes {
+    padding-left: 13px;
+    float: left;
+    display: inline-block
 }
 .data-status-icon {
     padding-top: 2px;
@@ -156,7 +196,7 @@
     transform: translate(10px,-40px);
 }
 #Name {
-    width: 28.3%;
+    width: 28.4%;
 }
 #Address {
     width: 31.4%;

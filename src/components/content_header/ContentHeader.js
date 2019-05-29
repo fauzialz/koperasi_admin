@@ -23,18 +23,19 @@ const ContentHeader = (props) => {
                     {/* CONTENT STATUS */}
                     {props.rowsCount > 0 && props.columnsCount > 0 ?
                         <div className="content-data-status">
-                            <span className={icon2} aria-hidden="true">
-                                storage
-                            </span>
-                            {props.rowsCount > 0 ?
-                                <span className="data-status-number">{props.rowsCount}</span>:
-                                <span className="data-status-loading" />
-                            }
-                            <span className="data-status-text">Rows</span>
-
-                            <div className="data-status-wrapper">
+                            <div className="data-status-rows">
                                 <span className={icon2} aria-hidden="true">
-                                    grid_on
+                                    view_agenda
+                                </span>
+                                {props.rowsCount > 0 ?
+                                    <span className="data-status-number">{props.rowsCount}</span>:
+                                    <span className="data-status-loading" />
+                                }
+                                <span className="data-status-text">Rows</span>
+                            </div>
+                            <div className="data-status-attributes">
+                                <span className={icon2} aria-hidden="true">
+                                    description
                                 </span>
                                 {props.columnsCount > 0 ?
                                     <span className="data-status-number">{props.columnsCount}</span>:
@@ -50,7 +51,7 @@ const ContentHeader = (props) => {
                 
 
                 {/* ADD BUTTON */}
-                { props.rowsCount && !props.noAdd > 0 ? 
+                { props.rowsCount > 0 ? 
                     <div className="content-add-button">
                         <Button onClick={props.addFunction} label={
                             <React.Fragment>
@@ -70,7 +71,7 @@ const ContentHeader = (props) => {
             <div className="table-header-base">
                 <div className="table-header-mask">
                     <div className={props.showLine?"table-header-show": "table-header-hide"}>
-                        <table>
+                        <table id="table-header">
                             <thead>
                                 <tr>
                                     <th id="Name">Name</th><th id="Address">Address</th><th id="Telephone">Telephone</th><th>Email</th>

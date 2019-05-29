@@ -3,7 +3,7 @@ import './Dashboard.scss'
 import Header from './header';
 import Navbar from './navbar';
 import ContentSlider from '../contents';
-import { ProviderScope, AppContext } from '../../global';
+import { AppContext } from '../../global';
 import NotifBar from '../../components/notification_bar';
 
 class Dashboard extends React.Component {
@@ -22,27 +22,23 @@ class Dashboard extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <ProviderScope>
-                    <div>
+                <div>
 
-                        {/* NAVBAR */}
-                        <Navbar
-                            history = {this.props.history}
-                            match= {this.props.match}
-                            />
+                    {/* NAVBAR */}
+                    <Navbar
+                        history = {this.props.history}
+                        match= {this.props.match}
+                        />
 
-                        <NotifBar/>
+                    <NotifBar/>
 
-                        {/* HEADER */}
-                        <Header />
-                            
-                        {/* CONTENT */}
-                        <ContentSlider />     
-                    
-                    </div>
-                    
-            
-                </ProviderScope>
+                    {/* HEADER */}
+                    <Header />
+                        
+                    {/* CONTENT */}
+                    <ContentSlider />     
+                
+                </div>
             </React.Fragment>
         )
     }

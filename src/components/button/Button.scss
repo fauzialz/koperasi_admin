@@ -26,7 +26,7 @@ button {
     color: $dark;
 }
 button:focus {
-    border: 1px solid $primary;
+    border: 1px solid $primary !important;
     box-shadow: 0 0 0 2pt $primary-lighten;
 }
 
@@ -42,7 +42,7 @@ button:focus {
     background-color: $primary;
 }
 .primary-color:focus {
-    border: 1px solid $submit;
+    border: 1px solid $submit !important;
     box-shadow: 0 0 0 2pt $submit-lighten;
 }
 .float {

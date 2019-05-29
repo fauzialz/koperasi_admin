@@ -10,7 +10,7 @@ const ButtonTable = (props) => {
                 <div className="row-hover-socket">
                     <div className="hover-button-base">
                         <span className="button-sparator1">
-                            <span className={icon} aria-hidden="true" onClick={() => props.infoButton(props.rowData)} title="See all attribute">
+                            <span id="button-see" className={icon} aria-hidden="true" onClick={() => props.infoButton(props.rowData)} title="See all attribute">
                                 find_in_page
                             </span>
                         </span>
