@@ -44,10 +44,14 @@ select:active, select:focus {
     box-shadow: 0 0 0 2pt $primary-lighten;
 }
 
+.select-label {
+    margin-bottom: 10px !important;
+}
+
 .select-blur {
     font-size: 10pt;
     margin-bottom: -16px;
-    margin-top: -10px;
+    margin-top: 0px;
     color: $pure-darken;
     transition: all .4s ease;
 }
@@ -55,7 +59,7 @@ select:active, select:focus {
     font-size: 10pt;
     margin-left: 2px;
     margin-bottom: -16px;
-    margin-top: -10px;
+    margin-top: 0px;
     color: $dark;
     transition: all .4s ease;
 }

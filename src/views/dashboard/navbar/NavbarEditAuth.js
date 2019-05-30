@@ -53,6 +53,7 @@ class NavbarEditAuth extends React.Component {
                 onBtnR={this.onClose}
                 onBtnL={this.onSubmit}
                 form
+                compact
             >
                 Enter your password to edit the navigation menu.
                 <Input

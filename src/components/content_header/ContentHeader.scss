@@ -2,8 +2,8 @@
 @import '../../styles/shadows';
 @import '../../styles/text';
 
-@media (max-width: 740px) {
-    #table-header {
+@media (max-width: 960px) {
+    .table-header {
         min-width: 1000px !important;
     }
     #Name {

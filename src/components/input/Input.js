@@ -94,7 +94,7 @@ class Input extends React.Component {
                                 this.props.name === 'Code' ?
                                     true : false
                             }
-                        className={this.props.passVisibility? "input-visibility": ''}
+                        className={this.props.passVisibility && this.props.label? "input-visibility input-when-label": this.props.passVisibility? "input-visibility": this.props.label? "input-when-label" : null}
                         type={this.props.password || this.props.passVisibility ? this.state.type : "text"}
                         name={this.props.name}
                         placeholder={this.props.label ? '':

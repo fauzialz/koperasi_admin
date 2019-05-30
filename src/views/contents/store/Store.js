@@ -5,6 +5,8 @@ import ConfigApi from '../../../config/ConfigApi';
 import './Store.scss'
 import ContentHeader from '../../../components/content_header';
 import ButtonTable from '../../../components/button_table/ButtonTable';
+import { StoreInfo } from './store_components';
+import HelperModData from '../../../helper/HelperModData';
 
 class Store extends React.Component {
     constructor (props) {
@@ -12,16 +14,18 @@ class Store extends React.Component {
         this.refTable = React.createRef()
     }
     state = {
-        top : 0,
         showLine : false,
         contentData : [],
+        dataKey : [],
+        rowData: {},
         contentLoading : true,
         contentProps : {
             title : 'Store',
         },
         rowsCount : '',
         columnsCount : '',
-        tableHover: {}
+        tableHover: {},
+        openStoreInfo: false
     }
 
 
@@ -39,13 +43,7 @@ class Store extends React.Component {
 
     //!HEADER SCROLLING HANDLER
     onScrollHandler = () => {
-        /* let scrollState = this.refTable.current.getBoundingClientRect().bottom */
         let topState = this.refTable.current.getBoundingClientRect().top
-        /* console.log(this.refTable.current.offsetTop)
-        console.log(this.refTable.current.offsetHeight)
-        console.log('State\t: '+this.state.top)
-        console.log('top\t: '+topState)
-        console.log('bottom\t: '+scrollState) */
         if ( topState < this.refTable.current.offsetTop) {
             this.setState({showLine : true})
         }else{
@@ -74,7 +72,7 @@ class Store extends React.Component {
         this.setState({tableHover: hotTableHover})
     }
 
-    //?CRUD HANDLER
+    //*MODAL HANDLER
     createStore = () => {
         console.log('Add button clicked!')
         let d = new Date()
@@ -91,19 +89,28 @@ class Store extends React.Component {
             }
         })
     }
-    
-    //*CRUD HANDLER
-    infoButton = (rowData) => {
-        console.table(rowData)
-        console.log('Info button clicked!')
+
+    //*MODAL HANDLER
+    modalClose = () => {
+        this.setState({
+            openStoreInfo: false,
+        })
     }
     
-    //*CRUD HANDLER
+    //*MODAL HANDLER
+    infoButton = (rowData) => {
+        this.setState({
+            openStoreInfo: true,
+            rowData: rowData
+        })
+    }
+    
+    //*MODAL HANDLER
     editButton = () => {
         alert('Edit button clicked!')
     }
     
-    //*CRUD HANDLER
+    //*MODAL HANDLER
     deleteButton = (id) => {
         HelperHttp.get(`${ConfigApi.ROUTE.STORE}/${id}`, (res1) => {
             if(res1.data.Etag) {
@@ -117,15 +124,11 @@ class Store extends React.Component {
         })
     }
 
-    /* setTop = () => {
-        let top = this.refTable.current.getBoundingClientRect().bottom - 3
-        this.setState({top : top})
-    } */
-
     getStore = () => {
         this.setState({contentLoading : true})
         HelperHttp.get(ConfigApi.ROUTE.STORE, (res)  => {
             let temp = {}
+            let keys = HelperModData.getObjKeys(res.data[0])
             for(let i in res.data) {
                 temp[res.data[i].Id]=false
             } 
@@ -133,21 +136,23 @@ class Store extends React.Component {
             this.setState({
                 contentData : res.data,
                 contentLoading : false,
-                tableHover : temp
+                tableHover : temp,
+                dataKey : keys
             })
-            /* this.setTop() */
         })
     }
 
     componentDidMount() {
-        //this.setTop()
         this.getStore()
     }
 
     render () {
-        const { contentProps, contentData, tableHover, rowsCount, columnsCount, showLine } = this.state
+        const { dataKey, contentProps, contentData, tableHover, rowsCount, columnsCount, showLine, openStoreInfo, rowData } = this.state
         return (
                 <React.Fragment>
+
+                    <StoreInfo open={openStoreInfo} close={this.modalClose} rowData={rowData} keys={dataKey}/>
+
                     <div className="content-base" onScroll={() => this.onScrollHandler()}>
                         <div className="content-square">
                             <div className="content-socket" ref={this.refTable} >
@@ -163,7 +168,7 @@ class Store extends React.Component {
                                     { contentData.length === 0 ? <Dummy />:
                                         <div className="table-holder">
                                             <div className="row-hover-wrapper">
-                                                <table>
+                                                <table className="table-content">
                                                     <thead>
                                                         <tr>
                                                             <th>Name</th><th>Address</th><th>Telephone</th><th>Email</th>

@@ -16,7 +16,8 @@
     grid-column: dvv3 / dvv4;
 }
 .description {
-    margin-top: -3px;
+    margin-top: 17px;
+    margin-bottom: 10px;
     text-align: center;
     font-size: 9pt;
     a:link, a:visited {
@@ -33,7 +34,7 @@
 
 .center-button {
     position: absolute;
-    transform: translate(148px, 24px)
+    transform: translate(148px, 14px)
 }
 .center-button-delete {
     padding-top: 2px;
