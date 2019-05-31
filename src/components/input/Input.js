@@ -55,12 +55,10 @@ class Input extends React.Component {
     // *handle label on input focus
     onFocusHandler = () => {
         this.setState({label: 'input-label-focus', focus: true})
-        //this.textInput.current.focus();
     }
     // *handle label on input blur
     onBlurHandler = () => {
         this.setState({label: 'input-label', focus: false})
-        //this.textInput.current.blur();
     }
     
     //lifecycle to detect props update
