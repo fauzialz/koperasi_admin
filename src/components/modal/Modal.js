@@ -31,14 +31,48 @@ const InnerComponent = (props) => {
     )
 }
 
-class Modal extends React.Component {
+class MiddleComponent extends React.Component {
+    closeHandler = (e) => {
+        e.stopPropagation()
+    }
+
     render() {
-        const { open, title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact } = this.props
+        const { title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact } = this.props
+        return(
+            <div className="modal-container" onClick={this.closeHandler}>
+                <div className="modal-header">
+                    {title || "Base Modal"}
+                </div>
+                {form ? 
+                    <form onSubmit={onBtnL}>
+                        <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} form />
+                    </form>:
+                    <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} />
+                }
+            </div>
+        )
+    }
+}
+
+class Modal extends React.Component {
+    
+    closeHandler = (e) => {
+        this.props.onBtnR()
+    }
+
+    render() {
+        const { open, title, children, onBtnL, btnL, btnR, form, hideBtnL, compact } = this.props
         return (
             <React.Fragment>
-                <div className={open? "modal-open": "modal-close"}>
+                {open && <div className="modal-open" onClick={this.closeHandler}>
                     <div className="modal-wrapper">
-                        <div className="modal-container">
+                        <MiddleComponent 
+                            children={children} onBtnL={onBtnL} 
+                            onBtnR={this.closeHandler} btnL={btnL} btnR={btnR}
+                            hideBtnL={hideBtnL} compact={compact}
+                            form={form} title={title} 
+                        />
+                        {/* <div className="modal-container">
                             <div className="modal-header">
                                 {title || "Base Modal"}
                             </div>
@@ -48,9 +82,9 @@ class Modal extends React.Component {
                                 </form>:
                                 <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} />
                             }
-                        </div>
+                        </div> */}
                     </div>
-                </div>
+                </div>}
             </React.Fragment>
         )
     }
