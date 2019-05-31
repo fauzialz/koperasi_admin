@@ -31,24 +31,42 @@ const InnerComponent = (props) => {
     )
 }
 
+class MiddleComponent extends React.Component {
+    closeHandler = (e) => {
+        e.stopPropagation()
+    }
+
+    render() {
+        const { title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact } = this.props
+        return(
+            <div className="modal-container" onClick={this.closeHandler}>
+                <div className="modal-header">
+                    {title || "Base Modal"}
+                </div>
+                {form ? 
+                    <form onSubmit={onBtnL}>
+                        <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} form />
+                    </form>:
+                    <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} />
+                }
+            </div>
+        )
+    }
+}
+
 class Modal extends React.Component {
     render() {
         const { open, title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact } = this.props
         return (
             <React.Fragment>
-                <div className={open? "modal-open": "modal-close"}>
+                <div className={open? "modal-open": "modal-close"} onClick={onBtnR}>
                     <div className="modal-wrapper">
-                        <div className="modal-container">
-                            <div className="modal-header">
-                                {title || "Base Modal"}
-                            </div>
-                            {form ? 
-                                <form onSubmit={onBtnL}>
-                                    <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} form />
-                                </form>:
-                                <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} />
-                            }
-                        </div>
+                        <MiddleComponent 
+                            children={children} onBtnL={onBtnL} 
+                            onBtnR={onBtnR} btnL={btnL} btnR={btnR}
+                            hideBtnL={hideBtnL} compact={compact}
+                            form={form} title={title} 
+                        />
                     </div>
                 </div>
             </React.Fragment>

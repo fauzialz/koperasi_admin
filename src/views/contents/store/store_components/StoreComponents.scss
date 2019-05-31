@@ -1,19 +1,11 @@
 @import '../../../../styles/palette';
 
-#table-info {
+.table-info {
+    margin-top: 8px;
     width: 100%;
     table-layout: fixed;
     border-spacing: 0px;
     border-collapse:collapse;
-    tr:hover > .info-props {
-        color: black;
-        .info-id {
-            color: $submit-darken;
-        }
-        span {
-            color: $primary-darken;
-        }
-    }
 }
 
 .info-key {
@@ -28,26 +20,43 @@
     }
 }
 .info-props {
-    padding: 3px;
-    padding-right: 5px;
+    padding: 6px;
+    padding-left : 10px;
     vertical-align: text-top;
-    width: 210px !important;
+    width: 177px !important;
     overflow: hidden;
-    text-align: right;
-    color: $dark;
+    text-align: left;
+    color: black;
     word-wrap: break-word;
     font-weight: 500;
     span {
         font-weight: 400;
         font-style: italic;
-        color: $primary;
+        color: $dark;
     }
     .info-id {
-        font-weight: 700;
+        font-weight: 500;
+        color: $primary-darken;
+        border-radius: 4px;
+        border: 1px solid $primary;
+        padding: {
+            left: 8px;
+            right: 8px;
+            bottom: 2px;
+        }
+        font-style: normal;/* 
+        background-color: $primary-lighten; */
+    }
+    .info-active {
+        font-weight: 500;
         color: $submit;
         font-style: normal;
+        border: 1px solid $submit;
+        border-radius: 4px;
+        padding: {
+            left: 4px;
+            right: 4px;
+            bottom: 2px;
+        }
     }
 }
-/* .info-props:hover {
-    color: black;
-} */
