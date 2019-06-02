@@ -77,12 +77,12 @@
 
 @media (max-width: 486px) {
     .modal-container {
-        border-radius: 10px;
         background-color: $pure-lighten;
         box-shadow: none;
     }
     .modal-open {
         background-color: $pure;
+        transition: all .7s ease;
     }
 }
 
@@ -94,6 +94,7 @@
         padding: 20px !important;
     }
     .modal-open {
+        transition: all .7s ease;
         background-color: $pure-lighten;
     }
 }

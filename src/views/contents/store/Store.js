@@ -5,7 +5,7 @@ import ConfigApi from '../../../config/ConfigApi';
 import './Store.scss'
 import ContentHeader from '../../../components/content_header';
 import ButtonTable from '../../../components/button_table/ButtonTable';
-import { StoreInfo } from './store_components';
+import { StoreInfo, StoreAdd } from './store_components';
 import HelperModData from '../../../helper/HelperModData';
 
 class Store extends React.Component {
@@ -25,7 +25,8 @@ class Store extends React.Component {
         rowsCount : '',
         columnsCount : '',
         tableHover: {},
-        openStoreInfo: false
+        openStoreInfo: false,
+        openStoreAdd: false,
     }
 
 
@@ -71,32 +72,22 @@ class Store extends React.Component {
         }
         this.setState({tableHover: hotTableHover})
     }
-
-    //*MODAL HANDLER
-    createStore = () => {
-        console.log('Add button clicked!')
-        let d = new Date()
-        let dummyData = {
-            Name : 'Nama Kantor' + d.getTime(),
-            Address : 'Jl. Bulungan No. 9, Jakarta Selatan',
-            Telephone : '081234234234' ,
-            Email : 'emailkantor@gmail.com'
-        }
-        HelperHttp.post(ConfigApi.ROUTE.STORE, dummyData, (res) => {
-            console.log(res)
-            if ( res.status === 200 && res.success) {
-                this.getStore()
-            }
-        })
-    }
-
+    
     //*MODAL HANDLER
     modalClose = () => {
         this.setState({
+            openStoreAdd: false,
             openStoreInfo: false,
         })
     }
-    
+
+    //*MODAL HANDLER
+    addButton = () => {
+       this.setState({
+           openStoreAdd: true
+       })
+    }
+
     //*MODAL HANDLER
     infoButton = (rowData) => {
         this.setState({
@@ -145,12 +136,13 @@ class Store extends React.Component {
     componentDidMount() {
         this.getStore()
     }
-
+    
     render () {
-        const { dataKey, contentProps, contentData, tableHover, rowsCount, columnsCount, showLine, openStoreInfo, rowData } = this.state
+        const { dataKey, contentProps, contentData, tableHover, rowsCount, columnsCount, showLine, openStoreInfo, openStoreAdd, rowData } = this.state
         return (
                 <React.Fragment>
 
+                    <StoreAdd open={openStoreAdd} close={this.modalClose} reload={this.getStore} />
                     <StoreInfo open={openStoreInfo} close={this.modalClose} rowData={rowData} keys={dataKey}/>
 
                     <div className="content-base" onScroll={() => this.onScrollHandler()}>
@@ -161,7 +153,7 @@ class Store extends React.Component {
 
                                     <ContentHeader 
                                         title={contentProps.title} rowsCount={rowsCount}
-                                        columnsCount={columnsCount} addFunction={this.createStore}
+                                        columnsCount={columnsCount} addFunction={this.addButton}
                                         showLine={showLine}
                                     />
                                     
