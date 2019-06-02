@@ -30,7 +30,7 @@ class ModalForm extends React.Component {
 
     textChange = e => {
         let tmp = this.state.data
-        tmp[e.target.name] = e.target.value
+        tmp[e.target.name] = e.target.value || null
         this.setState({
             data:tmp
         })
@@ -56,6 +56,9 @@ class ModalForm extends React.Component {
     }
 
     static getDerivedStateFromProps(props, state) {
+        if( !props.dataNow ){
+            return null
+        }
         return { data : props.dataNow }
     }
 
@@ -69,23 +72,22 @@ class ModalForm extends React.Component {
                 btnR={btnR}
                 onBtnL={() => this.buttonHandler(true)} 
                 onBtnR={() => this.buttonHandler(false)}
+                form
             >
-                <form>
-                    {names.map( name => {
-                        return (
-                            <Input
-                                focusEvery={open}
-                                label={name}
-                                key={name}
-                                fluid
-                                name={name}
-                                value={this.state.data[name]}
-                                onChange={this.textChange}
-                                autoFocus={name === focusIf ? true : false}
-                            />
-                        )
-                    })}
-                </form>
+                {names.map( name => {
+                    return (
+                        <Input
+                            focusEvery={open}
+                            label={name}
+                            key={name}
+                            fluid
+                            name={name}
+                            value={this.state.data[name]}
+                            onChange={this.textChange}
+                            autoFocus={name === focusIf ? true : false}
+                        />
+                    )
+                })}
             </Modal>
         )
     }
