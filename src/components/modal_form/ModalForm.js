@@ -36,6 +36,7 @@ class ModalForm extends React.Component {
         })
     }
 
+    //! Access this method with ref in parent !
     clearInput = () => {
         let tmp = {}
         for(let name of this.props.names){
@@ -47,10 +48,10 @@ class ModalForm extends React.Component {
     }
     
     buttonHandler = (submit) => {
-        this.clearInput()
         if(submit) {
             this.props.onSubmit(this.state.data)
         }else{
+            this.clearInput()
             this.props.onClose()
         }
     }

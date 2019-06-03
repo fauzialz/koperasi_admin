@@ -72,6 +72,7 @@ class ProviderScope extends React.Component {
         count : 0,
         interval : '',
         navbarOpen: true,
+        loading: false,
     }
 
     timer = () => {
@@ -112,6 +113,9 @@ class ProviderScope extends React.Component {
     setNavbarOpen = (status) => {
         this.setState({navbarOpen : status})
     }
+    loadingSwitch = () => {
+        this.setState({loading : !this.state.loading})
+    }
 
     render() {
         return (
@@ -121,7 +125,9 @@ class ProviderScope extends React.Component {
                 setNotif: this.setNotif,
                 seconds: this.state.count,
                 navbarOpen: this.state.navbarOpen,
-                setNavbarOpen: this.setNavbarOpen
+                setNavbarOpen: this.setNavbarOpen,
+                loading: this.state.loading,
+                loadingSwitch: this.loadingSwitch,
             }}>
                 {this.props.children}
             </AppContext.Provider>

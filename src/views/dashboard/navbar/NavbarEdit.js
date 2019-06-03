@@ -25,11 +25,11 @@ class NavbarEdit extends React.Component {
 
     onSubmit = (e) => {
         e.preventDefault()
-        this.props.loading()
+        this.context.loadingSwitch()
         this.context.closeNotif()
         HelperHttp.request(ConfigApi.ROUTE.MENU, this.props.add ? ConfigApi.METHODS.POST : ConfigApi.METHODS.PUT, this.state.data,
             (success, response) => {
-                this.props.loading()
+                this.context.loadingSwitch()
                 if(success){
                     this.props.hotReload()
                     setTimeout(() => {
@@ -53,10 +53,11 @@ class NavbarEdit extends React.Component {
     }
 
     onDelete = () => {
+        this.context.loadingSwitch()
         this.context.closeNotif()
         HelperHttp.request(ConfigApi.ROUTE.MENU, ConfigApi.METHODS.DEL,this.state.data,
             (success, response) => {
-                debugger
+                this.context.loadingSwitch()
                 if(success) {
                     setTimeout(() => {
                         this.context.setNotif(

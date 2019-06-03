@@ -2,7 +2,6 @@ import React from 'react'
 import './Navbar.scss'
 import HelperHttp from '../../../helper/HelperHttp'
 import ConfigApi from '../../../config/ConfigApi';
-import Loading from '../../../components/loading';
 import ButtonStatus from '../../../components/button_status';
 import NavbarEditAuth from './NavbarEditAuth';
 import NavbarEdit from './NavbarEdit';
@@ -24,7 +23,6 @@ class Navbar extends React.Component {
             navList : [],
             navObj  : {},
             editSession : false,
-            loading : false,
             navbarLoading : false,
             openAuthModal: false,
             openEditModal: false,
@@ -32,11 +30,6 @@ class Navbar extends React.Component {
             icon: 'material-icons MuiIcon-root-1 MuiIcon-colorAction-4 navbar-add-button',
             title: 'Setting Mode'
         }
-    }
-    
-    /*  Switch loading on or off. */
-    loadingSwitch = () => {
-        this.setState({loading : !this.state.loading})
     }
     
     /*  Decide the Tiles to work normal or become button to edit navlist. */
@@ -216,11 +209,11 @@ class Navbar extends React.Component {
     /*  Open modal for edit tile. Fetch navObj data
         from id to get eTag, then open modal. */
     openTileEdit = (id) => {
-        this.loadingSwitch()
+        this.context.loadingSwitch()
         let route = ConfigApi.ROUTE.MENU + '/' +id
         HelperHttp.request(route, ConfigApi.METHODS.GET, {}, 
             (success, response) => {
-                this.loadingSwitch()
+                this.context.loadingSwitch()
                 if(success) {
                     this.setState({
                         navObj: response.Result,
@@ -266,31 +259,27 @@ class Navbar extends React.Component {
     }
 
     render() {
-        const { navbarLoading, navList, openAuthModal, openEditModal, openAddModal,loading, icon } = this.state
+        const { navbarLoading, navList, openAuthModal, openEditModal, openAddModal, icon } = this.state
 
         return (
             <React.Fragment>
 
                 <NavbarEditAuth
                     open={openAuthModal}    editSession={this.editSessionSwitch}
-                    onClose={this.onClose}  loading={this.loadingSwitch}
+                    onClose={this.onClose}
                 />
                 <NavbarEdit 
                     open={openEditModal}
                     dataNow={this.state.navObj}
                     onClose={this.onClose}
-                    loading={this.loadingSwitch}
                     hotReload={this.getNavigationList}
                 />
                 <NavbarEdit 
                     open={openAddModal}
                     onClose={this.onClose}
-                    loading={this.loadingSwitch}
                     hotReload={this.getNavigationList}
                     add
                 />
-
-                {loading && <Loading />}
 
                 <AppContext.Consumer>
                     { (context) => (

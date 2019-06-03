@@ -3,13 +3,14 @@ import './Login.scss'
 import Logo from '../../logo.svg'
 import Input from '../../components/input'
 import Button from '../../components/button'
-import Loading from '../../components/loading'
 import HelperHttp from '../../helper/HelperHttp'
 import HelperCookie from '../../helper/HelperCookie'
 import ConfigLocal from '../../config/ConfigLocal';
 import ConfigApi from '../../config/ConfigApi';
+import { AppContext } from '../../global';
 
 class Login extends React.Component {
+    static contextType = AppContext
     constructor() {
         super()
         this.state = {
@@ -17,7 +18,6 @@ class Login extends React.Component {
                 username : '',
                 password : ''
             },
-            loading: false,
             msg: '',
             errStyle: 'afterError'
         }
@@ -32,11 +32,11 @@ class Login extends React.Component {
     }
 
     onSubmit = () => {
-        this.setState({loading : true})
+        this.context.loadingSwitch()
         HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, this.state.formdata,
         (succes, response) => {
+            this.context.loadingSwitch()
             this.setState({
-                loading : false,
                 msg: response.Message
             })
             if(succes){
@@ -66,8 +66,6 @@ class Login extends React.Component {
     render() {
         return (
             <div className="Login-base">
-                
-                {this.state.loading && <Loading />}
                 
                 <div className="Login-title">
                     <div><img src={Logo} className="App-logo" alt="logo" /></div>

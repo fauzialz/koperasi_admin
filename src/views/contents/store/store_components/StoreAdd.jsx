@@ -8,11 +8,13 @@ import ConfigLocal from '../../../../config/ConfigLocal';
 class StoreAdd extends React.Component {
     static contextType = AppContext
     state = {
-        names : ['Name', 'Address', 'Telephone', 'Email']
+        names : ['Name', 'Address', 'Telephone', 'Email'],
+        child : React.createRef()
     }
     
     onSubmit = (data) => {
         window.event.preventDefault()
+        this.context.loadingSwitch()
 
         HelperHttp.post(ConfigApi.ROUTE.STORE, data, (res) => {
             if(res.status === 200 && res.success) {
@@ -20,7 +22,13 @@ class StoreAdd extends React.Component {
                 this.context.setNotif(
                     'New Store added.', ConfigLocal.NOTIF.Success
                 )
+            }else{
+                this.context.setNotif(
+                    res.message, ConfigLocal.NOTIF.Error
+                )
             }
+            this.context.loadingSwitch()
+            this.state.child.current.clearInput()
             this.props.close()
         })
     }
@@ -28,6 +36,7 @@ class StoreAdd extends React.Component {
     render() {
         return (
             <ModalForm 
+                ref={this.state.child}
                 title="Create New Store"
                 open={this.props.open} 
                 onSubmit={this.onSubmit}
