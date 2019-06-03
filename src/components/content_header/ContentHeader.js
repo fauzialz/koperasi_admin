@@ -48,8 +48,6 @@ const ContentHeader = (props) => {
 
                 </div>
 
-                
-
                 {/* ADD BUTTON */}
                 { props.rowsCount > 0 ? 
                     <div className="content-add-button">

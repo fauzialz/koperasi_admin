@@ -5,10 +5,13 @@ import ConfigApi from '../../../config/ConfigApi';
 import './Store.scss'
 import ContentHeader from '../../../components/content_header';
 import ButtonTable from '../../../components/button_table/ButtonTable';
-import { StoreInfo, StoreAdd } from './store_components';
+import { StoreInfo, StoreAdd, StoreDelete } from './store_components';
 import HelperModData from '../../../helper/HelperModData';
+import { AppContext } from '../../../global';
+import ConfigLocal from '../../../config/ConfigLocal';
 
 class Store extends React.Component {
+    static contextType = AppContext
     constructor (props) {
         super (props) 
         this.refTable = React.createRef()
@@ -27,6 +30,7 @@ class Store extends React.Component {
         tableHover: {},
         openStoreInfo: false,
         openStoreAdd: false,
+        openStoreDelete: false,
     }
 
 
@@ -78,6 +82,7 @@ class Store extends React.Component {
         this.setState({
             openStoreAdd: false,
             openStoreInfo: false,
+            openStoreDelete: false,
         })
     }
 
@@ -103,14 +108,19 @@ class Store extends React.Component {
     
     //*MODAL HANDLER
     deleteButton = (id) => {
-        HelperHttp.get(`${ConfigApi.ROUTE.STORE}/${id}`, (res1) => {
-            if(res1.data.Etag) {
-                HelperHttp.delete(ConfigApi.ROUTE.STORE, res1.data.Id, res1.data.Etag, (res2) => {
-                    if(res2.status === 200 && res2.success){
-                        alert(`${res1.data.Name} berhasil dihapus.`)
-                        this.getStore()
-                    }
+        this.context.loadingSwitch()
+        HelperHttp.get(`${ConfigApi.ROUTE.STORE}/${id}`, (res) => {
+            this.context.loadingSwitch()
+            if(res.data.Etag) {
+                this.setState({
+                    rowData : res.data,
+                    openStoreDelete : true
                 })
+            }else{
+                console.log(res)
+                this.context.setNotif(
+                    res.message, ConfigLocal.NOTIF.Error
+                )
             }
         })
     }
@@ -138,12 +148,13 @@ class Store extends React.Component {
     }
     
     render () {
-        const { dataKey, contentProps, contentData, tableHover, rowsCount, columnsCount, showLine, openStoreInfo, openStoreAdd, rowData } = this.state
+        const { dataKey, contentProps, contentData, tableHover, rowsCount, columnsCount, showLine, openStoreInfo, openStoreAdd, openStoreDelete, rowData } = this.state
         return (
                 <React.Fragment>
 
                     <StoreAdd open={openStoreAdd} close={this.modalClose} reload={this.getStore} />
                     <StoreInfo open={openStoreInfo} close={this.modalClose} rowData={rowData} keys={dataKey}/>
+                    <StoreDelete open={openStoreDelete} close={this.modalClose} rowData={rowData} reload={this.getStore} />
 
                     <div className="content-base" onScroll={() => this.onScrollHandler()}>
                         <div className="content-square">

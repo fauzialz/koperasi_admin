@@ -14,7 +14,7 @@ const InnerComponent = (props) => {
             </div>
             <div className="modal-footer">
                 {!props.hideBtnL && <div className="modal-footer-left">
-                    <Button rounded flat blue 
+                    <Button rounded flat blue={!props.flip? true: false} depressed={!props.flip? false: true} 
                     label={props.btnL || "Submit"}
                     onClick={!props.form? props.onBtnL : null}
                     onSubmit={props.form? props.onBtnL : null}
@@ -22,7 +22,7 @@ const InnerComponent = (props) => {
                     />
                 </div>}
                 <div className="modal-footer-right">
-                    <Button rounded depressed 
+                    <Button rounded depressed={!props.flip? true: false} flat={!props.flip? false: true} blue={!props.flip? false: true} 
                     label={props.btnR || "Cancel"}
                     onClick={props.onBtnR}/>
                 </div>
@@ -37,7 +37,7 @@ class MiddleComponent extends React.Component {
     }
 
     render() {
-        const { title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact } = this.props
+        const { title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact, flip } = this.props
         return(
             <div className="modal-container" onClick={this.closeHandler}>
                 <div className="modal-header">
@@ -45,9 +45,9 @@ class MiddleComponent extends React.Component {
                 </div>
                 {form ? 
                     <form onSubmit={onBtnL}>
-                        <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} form />
+                        <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} flip={flip} form />
                     </form>:
-                    <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} />
+                    <InnerComponent children={children} onBtnL={onBtnL} onBtnR={onBtnR} btnL={btnL} btnR={btnR} hideBtnL={hideBtnL} compact={compact} flip={flip} />
                 }
             </div>
         )
@@ -56,7 +56,7 @@ class MiddleComponent extends React.Component {
 
 class Modal extends React.Component {
     render() {
-        const { open, title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact } = this.props
+        const { open, title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact, flip } = this.props
         return (
             <React.Fragment>
                 <div className={open? "modal-open": "modal-close"} onClick={onBtnR}>
@@ -65,7 +65,7 @@ class Modal extends React.Component {
                             children={children} onBtnL={onBtnL} 
                             onBtnR={onBtnR} btnL={btnL} btnR={btnR}
                             hideBtnL={hideBtnL} compact={compact}
-                            form={form} title={title} 
+                            form={form} title={title} flip={flip}
                         />
                     </div>
                 </div>
