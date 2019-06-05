@@ -8,7 +8,6 @@ import ConfigLocal from '../../../../config/ConfigLocal';
 class StoreAdd extends React.Component {
     static contextType = AppContext
     state = {
-        names : ['Name', 'Address', 'Telephone', 'Email'],
         child : React.createRef()
     }
     
@@ -42,7 +41,7 @@ class StoreAdd extends React.Component {
                 onSubmit={this.onSubmit}
                 onClose={this.props.close}
                 focusIf="Name"
-                names={this.state.names}
+                names={ConfigLocal.COMPONENTS.StoreInputNames}
             />
         )
     }

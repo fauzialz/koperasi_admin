@@ -15,7 +15,7 @@ const ButtonTable = (props) => {
                             </span>
                         </span>
                         <span className="button-sparator2">
-                            <span className={icon} aria-hidden="true" onClick={props.editButton} title="Edit row">
+                            <span className={icon} aria-hidden="true" onClick={() => props.editButton(props.rowData.Id)} title="Edit row">
                                 edit
                             </span>
                         </span>

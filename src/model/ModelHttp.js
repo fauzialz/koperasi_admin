@@ -48,7 +48,7 @@ var callbackFormat = (status, success = false, data = 'No data.', message = 'No 
         status : status,
         success : success,
         data : data,
-        message: !status ? 'Fetching API data canceled due to internal evaluation.' : message
+        message: !status ? 'Fetching API data canceled due to internal evaluation or no internet service.' : message
     }
     return newFormat
 }

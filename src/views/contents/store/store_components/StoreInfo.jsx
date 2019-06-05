@@ -14,7 +14,7 @@ const StoreInfo = (props) => {
                                 <td className="info-key"> {e} </td>
                                 {e !== 'IsActive'?
                                     <td className="info-props"> {e === 'Id'? <span className="info-id">{props.rowData[e]}</span> : props.rowData[e] || <span>Null</span>} </td>:
-                                    <td className="info-props"> {props.rowData[e] ? <span className="info-active">True</span> : 'False'} </td>
+                                    <td className="info-props"> {props.rowData[e] ? <span className="info-active">True</span> : <span className="info-inactive">False</span>} </td>
                                 }
                             </tr>
                         </React.Fragment>

@@ -53,6 +53,41 @@ export default {
         })
     },
 
+    /**
+     * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
+     * @param {Number} id - Row data Id.
+     * @param {String} Etag - Etag string for row data. Get it when find by id.
+     * @param {Object} data - Edited data.
+     * @param {requestCallback} cb - Callback function that handle the response. common form : (res) => {...}
+     * @callback requestCallback 
+     * @param {Object} res - res contain status {boolean}, data {Object}, and message {string}
+     */
+    put: (url, id, Etag, data, cb) => {
+        if(HelperCookie.get(local.TOKEN) === null || !data || !url || !Etag | !id) {
+            cb ( callbackBuild() )
+            return
+        }
+        url += '/' +id
+        let setting = { headers : new HeadersToken() }
+        setting.headers['If-Match'] = Etag
+        axios.put(url, data, setting)
+        .then( res => {
+            cb ( callbackBuild(res) )
+        })
+        .catch( err => {
+            let errResponse = err.response
+            cb ( callbackBuild(errResponse))
+        })
+    },
+
+    /**
+     * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
+     * @param {Number} id - Row data Id.
+     * @param {String} Etag - Etag string for row data. Get it when find by id.
+     * @param {requestCallback} cb - Callback function that handle the response. common form : (res) => {...}
+     * @callback requestCallback 
+     * @param {Object} res - res contain status {boolean}, data {Object}, and message {string}
+     */
     delete: (url, id, Etag, cb) => {
         if(HelperCookie.get(local.TOKEN) === null || !id || !url || !Etag) {
             cb ( callbackBuild() )

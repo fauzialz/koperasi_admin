@@ -5,7 +5,7 @@ import ConfigApi from '../../../config/ConfigApi';
 import './Store.scss'
 import ContentHeader from '../../../components/content_header';
 import ButtonTable from '../../../components/button_table/ButtonTable';
-import { StoreInfo, StoreAdd, StoreDelete } from './store_components';
+import { StoreInfo, StoreAdd, StoreDelete, StoreEdit } from './store_components';
 import HelperModData from '../../../helper/HelperModData';
 import { AppContext } from '../../../global';
 import ConfigLocal from '../../../config/ConfigLocal';
@@ -28,8 +28,9 @@ class Store extends React.Component {
         rowsCount : '',
         columnsCount : '',
         tableHover: {},
-        openStoreInfo: false,
         openStoreAdd: false,
+        openStoreInfo: false,
+        openStoreEdit: false,
         openStoreDelete: false,
     }
 
@@ -82,6 +83,7 @@ class Store extends React.Component {
         this.setState({
             openStoreAdd: false,
             openStoreInfo: false,
+            openStoreEdit: false,
             openStoreDelete: false,
         })
     }
@@ -102,8 +104,22 @@ class Store extends React.Component {
     }
     
     //*MODAL HANDLER
-    editButton = () => {
-        alert('Edit button clicked!')
+    editButton = (id) => {
+        this.context.loadingSwitch()
+        HelperHttp.get(`${ConfigApi.ROUTE.STORE}/${id}`, (res) => {
+            this.context.loadingSwitch()
+            if(res.data.Etag) {
+                this.setState({
+                    openStoreEdit: true,
+                    rowData: res.data
+                })
+            }else{
+                console.log(res)
+                this.context.setNotif(
+                    res.message, ConfigLocal.NOTIF.Error
+                )
+            }
+        })
     }
     
     //*MODAL HANDLER
@@ -148,12 +164,13 @@ class Store extends React.Component {
     }
     
     render () {
-        const { dataKey, contentProps, contentData, tableHover, rowsCount, columnsCount, showLine, openStoreInfo, openStoreAdd, openStoreDelete, rowData } = this.state
+        const { dataKey, contentProps, contentData, tableHover, rowsCount, columnsCount, showLine, openStoreInfo, openStoreAdd, openStoreEdit, openStoreDelete, rowData } = this.state
         return (
                 <React.Fragment>
 
                     <StoreAdd open={openStoreAdd} close={this.modalClose} reload={this.getStore} />
                     <StoreInfo open={openStoreInfo} close={this.modalClose} rowData={rowData} keys={dataKey}/>
+                    <StoreEdit open={openStoreEdit} close={this.modalClose} rowData={rowData} reload={this.getStore} />
                     <StoreDelete open={openStoreDelete} close={this.modalClose} rowData={rowData} reload={this.getStore} />
 
                     <div className="content-base" onScroll={() => this.onScrollHandler()}>
