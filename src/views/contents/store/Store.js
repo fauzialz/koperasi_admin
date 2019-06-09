@@ -4,11 +4,11 @@ import HelperHttp from '../../../helper/HelperHttp';
 import ConfigApi from '../../../config/ConfigApi';
 import './Store.scss'
 import ContentHeader from '../../../components/content_header';
-import ButtonTable from '../../../components/button_table/ButtonTable';
 import { StoreInfo, StoreAdd, StoreDelete, StoreEdit } from './store_components';
 import HelperModData from '../../../helper/HelperModData';
 import { AppContext } from '../../../global';
 import ConfigLocal from '../../../config/ConfigLocal';
+import ContentTable from '../../../components/content_table/ContentTable';
 
 class Store extends React.Component {
     static contextType = AppContext
@@ -27,7 +27,6 @@ class Store extends React.Component {
         },
         rowsCount : '',
         columnsCount : '',
-        tableHover: {},
         openStoreAdd: false,
         openStoreInfo: false,
         openStoreEdit: false,
@@ -55,27 +54,6 @@ class Store extends React.Component {
         }else{
             this.setState({showLine : false})
         }
-    }
-
-    //!TABLE HOVER HANDLER
-    onMouseOverHandler = (e) => {
-        let hotTableHover = this.state.tableHover
-        for(let i in hotTableHover){
-            if(i === e.toString()) {
-                hotTableHover[i] = true
-            }else{
-                hotTableHover[i] = false
-            }
-        }
-        this.setState({tableHover: hotTableHover})
-    }
-    //!TABLE HOVER HANDLER
-    onMouseLeaveHandler = () => {
-        let hotTableHover = this.state.tableHover
-        for(let i in hotTableHover){
-            hotTableHover[i] = false
-        }
-        this.setState({tableHover: hotTableHover})
     }
     
     //*MODAL HANDLER
@@ -144,16 +122,11 @@ class Store extends React.Component {
     getStore = () => {
         this.setState({contentLoading : true})
         HelperHttp.get(ConfigApi.ROUTE.STORE, (res)  => {
-            let temp = {}
             let keys = HelperModData.getObjKeys(res.data[0])
-            for(let i in res.data) {
-                temp[res.data[i].Id]=false
-            } 
             this.objAttributesCount(res.data)
             this.setState({
                 contentData : res.data,
                 contentLoading : false,
-                tableHover : temp,
                 dataKey : keys
             })
         })
@@ -164,7 +137,7 @@ class Store extends React.Component {
     }
     
     render () {
-        const { dataKey, contentProps, contentData, tableHover, rowsCount, columnsCount, showLine, openStoreInfo, openStoreAdd, openStoreEdit, openStoreDelete, rowData } = this.state
+        const { dataKey, contentProps, contentData, rowsCount, columnsCount, showLine, openStoreInfo, openStoreAdd, openStoreEdit, openStoreDelete, rowData } = this.state
         return (
                 <React.Fragment>
 
@@ -186,45 +159,13 @@ class Store extends React.Component {
                                     />
                                     
                                     { contentData.length === 0 ? <Dummy />:
-                                        <div className="table-holder">
-                                            <div className="row-hover-wrapper">
-                                                <table className="table-content">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th><th>Address</th><th>Telephone</th><th>Email</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        { contentData.map( el => {
-                                                            return (
-                                                                <tr key={el.Id} onMouseEnter={() => this.onMouseOverHandler(el.Id)} onMouseLeave={this.onMouseLeaveHandler}>
-                                                                    <td >
-                                                                        <span>{el.Name}</span>
-                                                                        
-                                                                        {/* THIS IS HOVER ACTION BUTTON MECHANISM */}
-                                                                        {tableHover[el.Id] ? 
-                                                                            <ButtonTable 
-                                                                                infoButton={this.infoButton}
-                                                                                editButton={this.editButton}
-                                                                                deleteButton={this.deleteButton}
-                                                                                rowData={el}
-                                                                            /> : null
-                                                                        }
-
-                                                                    </td>
-                                                                    <td><span>{el.Address}</span>
-                                                                    </td><td>{el.Telephone}</td>
-                                                                    <td>
-                                                                        {el.Email}
-                                                                    </td>
-                                                                </tr>
-                                                            )
-                                                        })
-                                                    }
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                        <ContentTable
+                                            names={ConfigLocal.COMPONENTS.StoreInputNames}
+                                            data={contentData} 
+                                            infoButton={this.infoButton}
+                                            editButton={this.editButton}
+                                            deleteButton={this.deleteButton}    
+                                        />
                                     }
                                 </div>
                             
