@@ -161,7 +161,7 @@ class Store extends React.Component {
                                     { contentData.length === 0 ? <Dummy />:
                                         <ContentTable
                                             names={ConfigLocal.COMPONENTS.StoreInputNames}
-                                            data={contentData} 
+                                            data={contentData} parent="store"
                                             infoButton={this.infoButton}
                                             editButton={this.editButton}
                                             deleteButton={this.deleteButton}    

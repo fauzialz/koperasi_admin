@@ -67,7 +67,7 @@ const ContentHeader = (props) => {
 
             {/* TABLE HEADER SHOW */}
             <div className="table-header-base">
-                <div className="table-header-mask">
+                <div className={props.showLine?"table-header-mask": "table-header-mask-off"}>
                     <div className={props.showLine?"table-header-show": "table-header-hide"}>
                         <table className="table-content table-header">
                             <thead>

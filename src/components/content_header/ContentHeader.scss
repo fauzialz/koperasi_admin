@@ -168,7 +168,7 @@
     position: relative;
     margin-right: 0px;
 }
-.table-header-mask {
+.table-header-mask,.table-header-mask-off {
     bottom: 0;
     width: calc(100% + 20px);
     height: 40px;
@@ -178,6 +178,9 @@
     transform: translate(-10px, 42px);
     /* border-radius: 8px 8px 0 0; */
     overflow: hidden;
+}
+.table-header-mask-off {
+    visibility: hidden;
 }
 .table-header-show, .table-header-hide {
     position: absolute;

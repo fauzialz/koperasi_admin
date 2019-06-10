@@ -64,3 +64,28 @@ $padding : 10px 16px;
 .row-hover-wrapper {
     position: relative;
 }
+
+.sort-button {
+    cursor: pointer;
+    padding-right: 20px;
+}
+.sort-arrow-neutral, .sort-arrow-asc, .sort-arrow-desc {
+    position: absolute;
+    transition: all .3s ease;
+    transform: translate(2px, 4px);
+    font-size: 15px;
+    font-weight: 500;
+}
+.sort-arrow-neutral {
+    color: $pure-lighten;
+}
+.sort-button:hover > .sort-arrow-neutral {
+    color: $pure-darken;
+}
+.sort-arrow-asc {
+    color: $primary;
+}
+.sort-arrow-desc {
+    color: $primary;
+    transform: rotate(180deg) translate(-2px,-3px);
+}
