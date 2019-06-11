@@ -72,7 +72,7 @@ $padding : 10px 16px;
 .sort-arrow-neutral, .sort-arrow-asc, .sort-arrow-desc {
     position: absolute;
     transition: all .3s ease;
-    transform: translate(2px, 4px);
+    transform: translate(2px, 2px);
     font-size: 15px;
     font-weight: 500;
 }
@@ -87,5 +87,41 @@ $padding : 10px 16px;
 }
 .sort-arrow-desc {
     color: $primary;
-    transform: rotate(180deg) translate(-2px,-3px);
+    transform: rotate(180deg) translate(-2px,-1px);
+}
+
+.loading-socket {
+    height: 50px;
+    width: 100%;
+    display: table;
+}
+.loading-mid {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 16px;
+    font-size: 14px;
+    color: $dark;
+}
+.loading-base {
+    margin-top: 3px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    height: 8px;
+    border-radius: 20px;
+    width: 200px;
+    background-color: $pure;
+}
+.loading-core {
+    height: 20px;
+    width: 100px;
+    background-color: $pure-line;
+    animation: moving .9s ease infinite;
+}
+@keyframes moving {
+    from {
+        transform: translate(-100px, 0px)
+    }
+    to {
+        transform: translate(200px, 0px)
+    }
 }

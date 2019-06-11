@@ -3,6 +3,19 @@ import ButtonTable from '../button_table/ButtonTable';
 import './ContentTable.scss'
 import ConfigLocal from '../../config/ConfigLocal';
 
+const Loading = (props) => {
+    return (
+        <div className="loading-socket">
+            <div className="loading-mid">
+                {props.loadingText || 'Doing science...'}
+                <div className="loading-base">
+                    <div className="loading-core"></div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 class ContentTable extends React.Component {
     state = {
         tableHover: {},
@@ -59,7 +72,6 @@ class ContentTable extends React.Component {
         for (let i in this.props.names) {
             sortStatus[this.props.names[i]]= 0
         }
-        debugger;
         this.setState({sortStatus : sortStatus})
     }
 
@@ -97,7 +109,7 @@ class ContentTable extends React.Component {
     }
 
     render() {
-        const { names, infoButton, editButton, deleteButton, parent } = this.props
+        const { names, infoButton, editButton, deleteButton, parent, loadingText } = this.props
         const { sortStatus } = this.state
         const neutral = ConfigLocal.MISC.MaterialIcon + ' sort-arrow-neutral'
         const asc = ConfigLocal.MISC.MaterialIcon + ' sort-arrow-asc'
@@ -105,6 +117,11 @@ class ContentTable extends React.Component {
         return (
             <div className="table-holder">
                 <div className="row-hover-wrapper">
+
+                {
+                    !this.state.data && !names ? null :
+                    !this.state.data.length ? <Loading loadingText={loadingText} /> :
+
                     <table className="table-content">
                         <thead>
                             <tr>
@@ -112,7 +129,7 @@ class ContentTable extends React.Component {
                                     return (
                                         <th key={head}className={`table-header-${parent + head}`}><span className='sort-button' onClick={() => this.sortDataHandler(head)}>
                                             {head} <span className={sortStatus[head] === 0? neutral: sortStatus[head] === 1? asc: desc}>
-                                            arrow_downward
+                                                arrow_downward
                                             </span>
                                         </span></th>
                                     )
@@ -151,6 +168,7 @@ class ContentTable extends React.Component {
                             })}
                         </tbody>
                     </table>
+                }
                 </div>
             </div>
         )

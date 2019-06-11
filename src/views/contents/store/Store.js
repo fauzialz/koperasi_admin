@@ -1,5 +1,4 @@
 import React from 'react'
-import Dummy from '../dummy';
 import HelperHttp from '../../../helper/HelperHttp';
 import ConfigApi from '../../../config/ConfigApi';
 import './Store.scss'
@@ -158,15 +157,14 @@ class Store extends React.Component {
                                         showLine={showLine}
                                     />
                                     
-                                    { contentData.length === 0 ? <Dummy />:
-                                        <ContentTable
-                                            names={ConfigLocal.COMPONENTS.StoreInputNames}
-                                            data={contentData} parent="store"
-                                            infoButton={this.infoButton}
-                                            editButton={this.editButton}
-                                            deleteButton={this.deleteButton}    
-                                        />
-                                    }
+                                    <ContentTable
+                                        names={ConfigLocal.COMPONENTS.StoreInputNames}
+                                        data={contentData} parent="store"
+                                        infoButton={this.infoButton}
+                                        editButton={this.editButton}
+                                        deleteButton={this.deleteButton}    
+                                    />
+                                    
                                 </div>
                             
                             </div>
