@@ -2,6 +2,7 @@ import React from 'react'
 import ButtonTable from '../button_table/ButtonTable';
 import './ContentTable.scss'
 import ConfigLocal from '../../config/ConfigLocal';
+import HelperString from '../../helper/HelperString';
 
 const Loading = (props) => {
     return (
@@ -96,11 +97,12 @@ class ContentTable extends React.Component {
 
     static getDerivedStateFromProps(props, state) {
         if( state.data !== props.data){
+            let data = props.data || []
             let temp = {}
-            for(let i in props.data) {
-                temp[props.data[i].Id]=false
+            for(let i in data) {
+                temp[data[i].Id]=false
             }
-            return { tableHover: temp, data: props.data}
+            return { tableHover: temp, data: data }
         }else return null
     }
 
@@ -119,7 +121,6 @@ class ContentTable extends React.Component {
                 <div className="row-hover-wrapper">
 
                 {
-                    !this.state.data && !names ? null :
                     !this.state.data.length ? <Loading loadingText={loadingText} /> :
 
                     <table className="table-content">
@@ -128,7 +129,7 @@ class ContentTable extends React.Component {
                                 { names.map( head => {
                                     return (
                                         <th key={head}className={`table-header-${parent + head}`}><span className='sort-button' onClick={() => this.sortDataHandler(head)}>
-                                            {head} <span className={sortStatus[head] === 0? neutral: sortStatus[head] === 1? asc: desc}>
+                                            {HelperString.toCapital(head)} <span className={sortStatus[head] === 0? neutral: sortStatus[head] === 1? asc: desc}>
                                                 arrow_downward
                                             </span>
                                         </span></th>

@@ -6,6 +6,18 @@
     table-layout: fixed;
     border-spacing: 0px;
     border-collapse:collapse;
+    tr:hover > .info-key{
+        span {
+            position: absolute;
+            background-color: $submit;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 3px 8px;
+            border-right: 1px solid $submit;
+            transform: translate(-8px, 0px) !important;
+            text-decoration: none;
+        }
+    }
 }
 
 .info-key {
@@ -14,16 +26,19 @@
     padding: 3px;
     padding-left: 5px;
     color: $dark-lighten;
-    span {
-        font-weight: 500;
-        color: $dark;
-    }
+    border-right: 1px solid $pure-line;
 }
+.mark-key {
+    color: $dark-lighten;
+    text-decoration: underline;
+}
+
 .info-props {
     padding: 6px;
-    padding-left : 10px;
+    padding-bottom: 10px;
+    padding-left : 30px;
     vertical-align: text-top;
-    width: 177px !important;
+    width: 270px !important;
     overflow: hidden;
     text-align: left;
     color: black;
@@ -43,9 +58,9 @@
             left: 8px;
             right: 8px;
             bottom: 2px;
+            top: 2px;
         }
-        font-style: normal;/* 
-        background-color: $primary-lighten; */
+        font-style: normal;
     }
     .info-active {
         font-weight: 500;
@@ -57,19 +72,27 @@
             left: 4px;
             right: 4px;
             bottom: 2px;
+            top: 2px;
         }
     }
     .info-inactive {
         font-weight: 500;
-        color: $error;
+        color: $pure-lighten;
         font-style: normal;
         border: 1px solid $error;
+        background-color: $error;
         border-radius: 4px;
         padding: {
             left: 4px;
             right: 4px;
             bottom: 2px;
+            top: 2px;
         }
+    }
+}
+@media (max-width: 500px) {
+    .info-props {
+        width: 70% !important;
     }
 }
 

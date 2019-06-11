@@ -37,9 +37,9 @@ class MiddleComponent extends React.Component {
     }
 
     render() {
-        const { title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact, flip } = this.props
+        const { title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact, flip, extraWidth } = this.props
         return(
-            <div className="modal-container" onClick={this.closeHandler}>
+            <div className={extraWidth? "modal-container extra-width": "modal-container"} onClick={this.closeHandler}>
                 <div className="modal-header">
                     {title || "Base Modal"}
                 </div>
@@ -56,16 +56,17 @@ class MiddleComponent extends React.Component {
 
 class Modal extends React.Component {
     render() {
-        const { open, title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact, flip } = this.props
+        const { open, title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact, flip, extraWidth} = this.props
         return (
             <React.Fragment>
-                <div className={open? "modal-open": "modal-close"} onClick={onBtnR}>
+                <div className={!open? "modal-close": extraWidth? "modal-open extra-width-open": "modal-open"} onClick={onBtnR}>
                     <div className="modal-wrapper">
                         <MiddleComponent 
                             children={children} onBtnL={onBtnL} 
                             onBtnR={onBtnR} btnL={btnL} btnR={btnR}
                             hideBtnL={hideBtnL} compact={compact}
                             form={form} title={title} flip={flip}
+                            extraWidth={extraWidth}
                         />
                     </div>
                 </div>

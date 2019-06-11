@@ -141,7 +141,7 @@ class Store extends React.Component {
                 <React.Fragment>
 
                     <StoreAdd open={openStoreAdd} close={this.modalClose} reload={this.getStore} />
-                    <StoreInfo open={openStoreInfo} close={this.modalClose} rowData={rowData} keys={dataKey}/>
+                    <StoreInfo open={openStoreInfo} close={this.modalClose} rowData={rowData} keys={dataKey} marks={ConfigLocal.COMPONENTS.StoreInputNames}/>
                     <StoreEdit open={openStoreEdit} close={this.modalClose} rowData={rowData} reload={this.getStore} />
                     <StoreDelete open={openStoreDelete} close={this.modalClose} rowData={rowData} reload={this.getStore} />
 
