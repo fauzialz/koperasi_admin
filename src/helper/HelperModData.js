@@ -19,7 +19,7 @@ export default {
 
     getObjKeys: (obj) => {
         if ( !obj ) {
-            return null
+            return []
         }
         var keys = []
         for (var key in obj) {

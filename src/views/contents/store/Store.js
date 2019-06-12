@@ -123,6 +123,9 @@ class Store extends React.Component {
         HelperHttp.get(ConfigApi.ROUTE.STORE, (res)  => {
             let keys = HelperModData.getObjKeys(res.data[0])
             this.objAttributesCount(res.data)
+            if( res.data[0].message ) {
+                alert(res.data[0].message)
+            }
             this.setState({
                 contentData : res.data,
                 contentLoading : false,
@@ -158,6 +161,8 @@ class Store extends React.Component {
                                     />
                                     
                                     <ContentTable
+                                        loading={this.state.contentLoading}
+                                        tryAgain={this.getStore}
                                         names={ConfigLocal.COMPONENTS.StoreInputNames}
                                         data={contentData} parent="store"
                                         infoButton={this.infoButton}

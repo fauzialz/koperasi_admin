@@ -3,6 +3,7 @@ import ButtonTable from '../button_table/ButtonTable';
 import './ContentTable.scss'
 import ConfigLocal from '../../config/ConfigLocal';
 import HelperString from '../../helper/HelperString';
+import Button from '../button';
 
 const Loading = (props) => {
     return (
@@ -11,6 +12,21 @@ const Loading = (props) => {
                 {props.loadingText || 'Doing science...'}
                 <div className="loading-base">
                     <div className="loading-core"></div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const TryAgain = (props) => {
+    return (
+        <div className="loading-socket">
+            <div className="loading-mid">
+                <div className="try-again-msg">
+                    {props.message}
+                </div>
+                <div className="try-again-button">
+                    <Button onClick={props.tryAgain} blue label="Try Again" rounded/>
                 </div>
             </div>
         </div>
@@ -111,7 +127,7 @@ class ContentTable extends React.Component {
     }
 
     render() {
-        const { names, infoButton, editButton, deleteButton, parent, loadingText } = this.props
+        const { names, infoButton, editButton, deleteButton, loading, parent, loadingText, tryAgain } = this.props
         const { sortStatus } = this.state
         const neutral = ConfigLocal.MISC.MaterialIcon + ' sort-arrow-neutral'
         const asc = ConfigLocal.MISC.MaterialIcon + ' sort-arrow-asc'
@@ -121,7 +137,8 @@ class ContentTable extends React.Component {
                 <div className="row-hover-wrapper">
 
                 {
-                    !this.state.data.length ? <Loading loadingText={loadingText} /> :
+                    this.state.data.length === 0 || loading ? <Loading loadingText={loadingText} /> :
+                    this.state.data[0].message ? <TryAgain message={this.state.data[0].message} tryAgain={tryAgain} />:
 
                     <table className="table-content">
                         <thead>

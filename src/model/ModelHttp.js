@@ -43,7 +43,7 @@ class HeadersToken {
  * @param {string} message - API response massage. ('No message' if null)
  * Create proper format for callback.
  * */
-var callbackFormat = (status, success = false, data = 'No data.', message = 'No message.') => {
+var callbackFormat = (status, success = false, data = [], message = 'No message.') => {
     let newFormat = {
         status : status,
         success : success,
@@ -61,6 +61,9 @@ var callbackFormat = (status, success = false, data = 'No data.', message = 'No 
 var callbackBuild = (res) => {
     if( !res ) {
         return callbackFormat()
+    }
+    if( typeof res === 'string') {
+        return callbackFormat(500, false,[{message: res}],res,)
     }
     return callbackFormat( res.status ,res.data.IsSuccess, ( res.data.Result || res ), res.data.Message)
 } 
