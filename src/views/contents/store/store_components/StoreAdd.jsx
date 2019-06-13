@@ -17,7 +17,7 @@ class StoreAdd extends React.Component {
 
         HelperHttp.post(ConfigApi.ROUTE.STORE, data, (res) => {
             if(res.status === 200 && res.success) {
-                this.props.reload()
+                this.props.reload(false)
                 this.context.setNotif(
                     'New Store added.', ConfigLocal.NOTIF.Success
                 )

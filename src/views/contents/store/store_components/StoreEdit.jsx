@@ -24,7 +24,7 @@ const StoreEdit = (props) => {
                 )
             }
             props.close()
-            props.reload()
+            props.reload(false)
         })
 
     }

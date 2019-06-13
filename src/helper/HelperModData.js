@@ -17,6 +17,9 @@ export default {
         return objList
     },
 
+    /**
+     * @param {Object} obj - Object to get all the keys.
+     */
     getObjKeys: (obj) => {
         if ( !obj ) {
             return []

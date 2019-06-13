@@ -95,21 +95,3 @@
         width: 70% !important;
     }
 }
-
-.delete-notif {
-    margin: 8px 0;
-    text-align: center;
-    div {
-        b {
-            font-weight: 500;
-            background-color: $error-lighten;
-            border-radius: 4px;
-            padding: 9px;
-            padding-top: 3px;
-            padding-bottom: 4px;
-            color: $error-darken;
-        }
-        width: 100%;
-        margin: 10px 0 8px 0;
-    }
-}

@@ -3,11 +3,12 @@ import HelperHttp from '../../../helper/HelperHttp';
 import ConfigApi from '../../../config/ConfigApi';
 import './Store.scss'
 import ContentHeader from '../../../components/content_header';
-import { StoreInfo, StoreAdd, StoreDelete, StoreEdit } from './store_components';
+import { StoreInfo, StoreAdd, StoreEdit } from './store_components';
 import HelperModData from '../../../helper/HelperModData';
 import { AppContext } from '../../../global';
 import ConfigLocal from '../../../config/ConfigLocal';
 import ContentTable from '../../../components/content_table/ContentTable';
+import { ModalDelete } from '../../../components/modal_content_packages';
 
 class Store extends React.Component {
     static contextType = AppContext
@@ -118,8 +119,8 @@ class Store extends React.Component {
         })
     }
 
-    getStore = () => {
-        this.setState({contentLoading : true})
+    getStore = (loading = true) => {
+        if(loading) { this.setState({contentLoading : true}) }
         HelperHttp.get(ConfigApi.ROUTE.STORE, (res)  => {
             let keys = HelperModData.getObjKeys(res.data[0])
             this.objAttributesCount(res.data)
@@ -146,7 +147,8 @@ class Store extends React.Component {
                     <StoreAdd open={openStoreAdd} close={this.modalClose} reload={this.getStore} />
                     <StoreInfo open={openStoreInfo} close={this.modalClose} rowData={rowData} keys={dataKey} marks={ConfigLocal.COMPONENTS.StoreInputNames}/>
                     <StoreEdit open={openStoreEdit} close={this.modalClose} rowData={rowData} reload={this.getStore} />
-                    <StoreDelete open={openStoreDelete} close={this.modalClose} rowData={rowData} reload={this.getStore} />
+
+                    <ModalDelete open={openStoreDelete} close={this.modalClose} data={rowData} reload={this.getStore} tableName="Store" url={ConfigApi.ROUTE.STORE} />
 
                     <div className="content-base" onScroll={() => this.onScrollHandler()}>
                         <div className="content-square">

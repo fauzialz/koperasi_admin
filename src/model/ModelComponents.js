@@ -10,6 +10,9 @@ class StoreModel {
     }
 }
 
+/**
+ * @param {Object} object - Store data in object.
+ */
 var storeModel = (object) => {
     let newStore = {
         Name : object.Name,
