@@ -29,5 +29,5 @@ export default {
             keys.push(key)
         }
         return keys
-    }
+    },
 }

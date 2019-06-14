@@ -9,9 +9,9 @@ import NavbarTiles from './NavbarTiles';
 import { AppContext } from '../../../global';
 import Button from '../../../components/button';
 import ConfigLocal from '../../../config/ConfigLocal';
-import HelperModData from '../../../helper/HelperModData';
 import HelperCookie from '../../../helper/HelperCookie';
 import DummyNavbar from '../../../components/dummy_navbar';
+import HelperObject from '../../../helper/HelperObject';
 
 class Navbar extends React.Component {
     static contextType = AppContext
@@ -197,8 +197,8 @@ class Navbar extends React.Component {
                             navList : list
                         })
                     }
-                    list = HelperModData.pushObjBulk(list,'Active',false)
-                    list = HelperModData.pushObjBulk(list,'Clicked',false)
+                    list = HelperObject.pushObjBulk(list,'Active',false)
+                    list = HelperObject.pushObjBulk(list,'Clicked',false)
                     localStorage.setItem(ConfigLocal.LOCSTORE.Navbar,JSON.stringify(list))
                     HelperCookie.set(ConfigLocal.NAVBAR, true)
                 }

@@ -94,7 +94,7 @@ class NavbarEdit extends React.Component {
     }
 
     /* 
-    todo: In the future, I think this function must be in the HelperModData.js
+    todo: In the future, I think this function must be in the HelperObject.js
     */
     optionsAssembler = () => {
         let options = [{value: "", name: "No Parent"}]
