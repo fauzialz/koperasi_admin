@@ -26,12 +26,14 @@ class ContentBase extends React.Component {
             openEditModal : false,
             openDeleteModal : false,
             pagination : {},
-            paginationArray : []
+            paginationArray : [],
+            fetchMessage: ''
         }
     }
 
     getRowsAndColumns = (objList, rowsCount = 0) => {
-        if ( objList.length === 0) {
+        if ( !objList.length ) {
+            this.setState({tableRows: 0})
             return;
         }
         let rows = rowsCount !== 0 ? rowsCount : objList.length
@@ -122,16 +124,12 @@ class ContentBase extends React.Component {
             let keys = HelperObject.getObjKeys(res.data[0])
             this.getRowsAndColumns(res.data,res.pagination.TotalCount)
             this.getPaginationArray(res.pagination.TotalPages)
-
-            //* if you lost connections
-            if(res.data[0].message) {
-                alert(res.data[0].message)
-            }
             this.setState({
                 tableData : res.data,
                 tableLoading : false,
                 tableDataKey : keys,
-                pagination : res.pagination
+                pagination : res.pagination,
+                fetchMessage: res.message
             })
         })
     }
@@ -152,7 +150,8 @@ class ContentBase extends React.Component {
             openAddModal,
             openInfoModal, 
             openEditModal, 
-            openDeleteModal
+            openDeleteModal,
+            fetchMessage
         } = this.state
         const {
             config
@@ -214,8 +213,10 @@ class ContentBase extends React.Component {
                                 <ContentTable
                                     loading={tableLoading}
                                     tryAgain={this.getTableData}
+                                    addNew={this.openAddModalHandler}
                                     names={config.Input}
                                     data={tableData}
+                                    message={fetchMessage}
                                     parent={config.Name}
                                     infoButton={this.openInfoModalHandler}
                                     editButton={this.openEditModalHandler}

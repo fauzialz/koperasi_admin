@@ -25,6 +25,7 @@ export default {
             cb ( callbackBuild(res) )
         })
         .catch(err => {
+            console.log(err)
             let errResponse = err.response || err.message
             cb ( callbackBuild(errResponse))
         })

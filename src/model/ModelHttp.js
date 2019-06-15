@@ -64,9 +64,9 @@ var callbackBuild = (res) => {
         return callbackFormat()
     }
     if( typeof res === 'string') {
-        return callbackFormat(500, false,[{message: res}],res,)
+        return callbackFormat(500, false,[],res,)
     }
-    return callbackFormat( res.status ,res.data.IsSuccess, ( res.data.Result || res ), res.data.Message, ( res.data.Pagination || {}))
+    return callbackFormat( res.status ,res.data.IsSuccess, res.data.Result, res.data.Message, res.data.Pagination )
 } 
 
 export {
