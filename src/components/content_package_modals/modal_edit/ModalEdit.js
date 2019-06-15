@@ -23,7 +23,7 @@ const ModalEdit = (props) => {
                 )
             }
             props.close()
-            props.reload(false)
+            props.reload(false,props.currentPage)
         })
     }
     

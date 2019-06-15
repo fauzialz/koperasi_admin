@@ -21,24 +21,33 @@ class ContentBase extends React.Component {
             tableLoading : false,
             tableRows : 0,
             tableColumns : 0,
-            openAddModal: false,
-            openInfoModal: false,
-            openEditModal: false,
-            openDeleteModal: false
+            openAddModal : false,
+            openInfoModal : false,
+            openEditModal : false,
+            openDeleteModal : false,
+            pagination : {},
+            paginationArray : []
         }
     }
 
-    getRowsAndColumns = (objList) => {
+    getRowsAndColumns = (objList, rowsCount = 0) => {
         if ( objList.length === 0) {
             return;
         }
-        let rows = objList.length
+        let rows = rowsCount !== 0 ? rowsCount : objList.length
         let columns = Object.keys(objList[0]).length
         this.setState({
             tableRows : rows,
             tableColumns : columns
         })
     } 
+    getPaginationArray = (length) => {
+        let arr = []
+        for( let i = 0; i < length; i++) {
+            arr.push(i+1)
+        }
+        this.setState({paginationArray:arr})
+    }
 
     onScrollHandler = () => {
         let topState = this.refTable.current.getBoundingClientRect().top
@@ -107,11 +116,12 @@ class ContentBase extends React.Component {
         })
     }
 
-    getTableData = (loading = true) => {
+    getTableData = (loading = true, pageIndex = 0, pageSize = 10) => {
         if(loading) { this.setState({ tableLoading : true }) }
-        HelperHttp.get(this.props.config.Url, (res) => {
+        HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}`, (res) => {
             let keys = HelperObject.getObjKeys(res.data[0])
-            this.getRowsAndColumns(res.data)
+            this.getRowsAndColumns(res.data,res.pagination.TotalCount)
+            this.getPaginationArray(res.pagination.TotalPages)
 
             //* if you lost connections
             if(res.data[0].message) {
@@ -120,7 +130,8 @@ class ContentBase extends React.Component {
             this.setState({
                 tableData : res.data,
                 tableLoading : false,
-                tableDataKey : keys
+                tableDataKey : keys,
+                pagination : res.pagination
             })
         })
     }
@@ -156,6 +167,7 @@ class ContentBase extends React.Component {
                     close={this.closeModalsHandler}
                     names={config.Input}
                     reload={this.getTableData}
+                    currentPage={this.state.pagination.PageIndex}
                 />
                 <ModalInfo
                     tableName={config.Name}
@@ -173,6 +185,7 @@ class ContentBase extends React.Component {
                     names={config.Input}
                     data={rowData}
                     reload={this.getTableData}
+                    currentPage={this.state.pagination.PageIndex}
                 />
                 <ModalDelete 
                     tableName={config.Name}
@@ -181,6 +194,7 @@ class ContentBase extends React.Component {
                     close={this.closeModalsHandler}
                     data={rowData}
                     reload={this.getTableData}
+                    currentPage={this.state.pagination.PageIndex}
                 />
 
                 <div className="content-base" onScroll={() => this.onScrollHandler()}>
@@ -190,6 +204,7 @@ class ContentBase extends React.Component {
 
                                 <ContentHeader
                                     title={config.Name}
+                                    icon={config.Icon}
                                     rowsCount={tableRows}
                                     columnsCount={tableColumns}
                                     addFunction={this.openAddModalHandler}
@@ -206,6 +221,48 @@ class ContentBase extends React.Component {
                                     editButton={this.openEditModalHandler}
                                     deleteButton={this.openDeleteModalHandler}
                                 />
+
+                                {this.state.paginationArray.length === 0?null:
+
+                                <div className="pagination-base">
+                                    
+                                    <div className="pagination-button-socket-left">
+                                        <button className={this.state.pagination.HasPreviousPage ?"pagination-button-left": "pagination-button-disable"}
+                                            onClick={() => this.getTableData(false,this.state.pagination.PageIndex-1)}
+                                            disabled={!this.state.pagination.HasPreviousPage}
+                                        >
+                                            <span className={ConfigLocal.MISC.MaterialIcon+' pagination-icon'} aria-hidden="true">
+                                                keyboard_arrow_left
+                                            </span>
+                                        </button>
+                                    </div>
+
+                                    <div className="pagination-button-number-socket">
+                                    {this.state.paginationArray.map( e => {
+                                        return (
+                                                <button key={e} className={e-1 === this.state.pagination.PageIndex? "pagination-active" :"pagination-button-number"}
+                                                    onClick={
+                                                        e-1 === this.state.pagination.PageIndex? null:
+                                                        () => this.getTableData(false,e-1)
+                                                    }
+                                                >
+                                                    {e}
+                                                </button>
+                                        )
+                                    })}
+                                    </div>
+                                    
+                                    <div className="pagination-button-socket-left pagination-right">
+                                        <button className={this.state.pagination.HasNextPage ? "pagination-button-left pagination-right": "pagination-button-disable-right"}
+                                            onClick={() => this.getTableData(false,this.state.pagination.PageIndex+1)}
+                                            disabled={!this.state.pagination.HasNextPage}
+                                        >
+                                            <span className={ConfigLocal.MISC.MaterialIcon+' pagination-icon'} aria-hidden="true">
+                                                keyboard_arrow_right
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>}
 
                             </div>
                         </div>

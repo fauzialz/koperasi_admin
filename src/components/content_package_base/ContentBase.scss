@@ -1,5 +1,137 @@
+@import '../../styles/shadows';
+@import '../../styles/palette';
+
 .content-wrapper {
     padding-left: 7px;
     padding-right: 7px;
     padding-bottom: 10px;
+}
+
+
+
+
+
+.pagination-base {
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+    margin-right: 12px;
+    /* width: 200px; */
+    /* height: 40px; */
+    //background-color: aqua;
+}
+
+.pagination-button-socket-left {
+    float: left;
+    width: 36px;
+    height: 34px;
+    border-radius: 8px 0px 0px 8px;
+    transition: all .5s ease;/* 
+    @extend %shadow; */
+}/* 
+.pagination-button-socket-left:hover {
+    transition: all .5s ease;
+} */
+
+.pagination-button-left {
+    cursor: pointer;
+    outline: none;
+    border: 1px solid $pure-line;
+    background-color: white;
+    width: 36px;
+    height: 34px;
+    border-radius: 8px 0px 0px 8px;
+    transition: all .5s ease;
+}
+.pagination-button-left:hover {
+    background-color: $submit-lighten;
+    border: 1px solid $pure-darken;
+    transition: all .5s ease;
+}
+.pagination-button-left:hover > .pagination-icon {
+    color: $submit;
+    transition: all .3s ease;
+}
+.pagination-button-left:active {
+    transform: translateY(-2px);
+}
+
+.pagination-button-left:focus {
+    border: 1px solid $primary;
+    box-shadow: 0 0 0 2pt $primary-lighten;
+}
+
+.pagination-icon{
+    transform: translate(-2px, 1px);
+    transition: all .3s ease;
+}
+
+.pagination-right {
+    border-radius: 0px 8px 8px 0px !important;
+}
+
+.pagination-button-number-socket {
+    padding-left: 15px;
+    padding-right: 15px;
+    float: left;
+    height: 34px;
+    /* width: 34px; */
+}
+
+.pagination-button-number, .pagination-active {
+    color: $dark-lighten;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid transparent;
+    transition: all .3s ease;
+    
+    border-radius: 8px;
+    background-color: white;
+}
+
+.pagination-button-number:hover {
+    height: 32px;
+    width: 32px;
+    border-radius: 8px;
+    border: 2px solid $pure-darken;
+    transition: all .3s ease;
+}
+
+.pagination-button-disable {
+    cursor: no-drop;
+    outline: none;
+    border: 1px solid $pure-line;
+    background-color: $pure;
+    width: 36px;
+    height: 34px;
+    border-radius: 8px 0px 0px 8px;
+    transition: all .5s ease;
+}
+.pagination-button-disable-right {
+    cursor: no-drop;
+    outline: none;
+    border: 1px solid $pure-line;
+    background-color: $pure;
+    width: 36px;
+    height: 34px;
+    border-radius: 0px 8px 8px 0px;
+    transition: all .5s ease;
+}
+
+.pagination-active {
+    /* background-color: $primary; */
+    color: $dark;
+    height: 32px;
+    width: 32px;
+    margin-left: 6px;
+    margin-right: 6px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 2px solid $primary-darkhover
+    /* @extend %shadow-short; */
 }

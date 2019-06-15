@@ -21,7 +21,7 @@ const ModalDelete = (props) => {
             }
             context.loadingSwitch()
             props.close()
-            props.reload(false)
+            props.reload(false,props.currentPage)
         })
     }
 

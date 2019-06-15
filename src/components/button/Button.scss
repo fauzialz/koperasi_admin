@@ -2,129 +2,131 @@
 @import '../../styles/palette';
 @import '../../styles/potitions';
 
-button {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    transition: all 0.3s ease;
-    min-height: 30px;
-    min-width: 100px;
-    border: {
-        radius: 6px;
+.button-base {
+    button {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        transition: all 0.3s ease;
+        min-height: 30px;
+        min-width: 100px;
+        border: {
+            radius: 6px;
+        }
+        font: {
+            size: 11pt;
+            weight: 550;
+        }
+        text-align: center;
+        position: sticky;
+        line-height: unset;
+        display: inherit;
+        color: $dark;
     }
-    font: {
-        size: 11pt;
-        weight: 550;
+    button:focus {
+        border: 1px solid $primary !important;
+        box-shadow: 0 0 0 2pt $primary-lighten !important;
     }
-    text-align: center;
-    position: sticky;
-    line-height: unset;
-    display: inherit;
-    color: $dark;
-}
-button:focus {
-    border: 1px solid $primary !important;
-    box-shadow: 0 0 0 2pt $primary-lighten;
-}
 
-//PROPS involvement------
-//DEFAULT
-.primary-color {
-    background-color: $primary;
-}
-.primary-color:hover {
-    background-color: $primary-darken;
-}
-.primary-color:active {
-    background-color: $primary;
-}
-.primary-color:focus {
-    border: 1px solid $submit !important;
-    box-shadow: 0 0 0 2pt $submit-lighten;
-}
-.float {
-    @extend %shadow-short;
-}
-.primary-color:active,
-.float:Active,
-.blue:active,
-.red:active {
-    @extend %shadow-long;
-    transform: translateY(-3px);
-}
-.depressed:active,
-.depressed-blue:active,
-.depressed-red:active {
-    transform: translateY(-1px);
-}
-
-//DEPRESSED
-.depressed {
-    background-color: transparent;
-    font-size: 10.5pt;
-}
-.depressed:hover {
-    background:rgba(0,0,0,0.1);
-}
-.depressed:active {
-    background:rgba(255, 255, 255, 0.4);
-}
-
-//BLUE
-.blue {
-    background-color: $submit;
-    color: $pure-lighten;
-}
-.blue:hover {
-    background-color: $submit-darken;
-}
-.blue:active {
-    background-color: $submit;
-}
-.depressed-blue {
-    background-color: transparent;
-    color: $submit;
-}
-.depressed-blue:hover {
-    background-color: $submit-lightest;
-    color: $submit-darken;
-}
-.depressed-blue:active {
-    background-color: $submit-lighten;
-}
-
-//RED
-.red {
-    background-color: $error;
-    color: $pure-lighten;
-}
-.red:hover {
-    background-color: $error-darken;
-}
-.red:active {
-    background-color: $error;
-}
-.depressed-red {
-    background-color: transparent;
-    color: $error;
-}
-.depressed-red:hover {
-    background-color: $error-lightest;
-    color: $error-darken;
-}
-.depressed-red:active {
-    background-color: $error-lighten;
-}
-
-//ROUNDED
-.round {
-    border-radius: 25px;
-}
-
-.circle {
-    border-radius: 100%;
-    min-width: 30px !important;
+    //PROPS involvement------
+    //DEFAULT
+    .primary-color {
+        background-color: $primary;
+    }
+    .primary-color:hover {
+        background-color: $primary-darken;
+    }
+    .primary-color:active {
+        background-color: $primary;
+    }
+    .primary-color:focus {
+        border: 1px solid $submit !important;
+        box-shadow: 0 0 0 2pt $submit-lighten !important;
+    }
+    .float {
+        @extend %shadow-short;
+    }
+    .primary-color:active,
+    .float:Active,
+    .blue:active,
+    .red:active {
+        @extend %shadow-long;
+        transform: translateY(-3px);
+    }
+    .depressed:active,
+    .depressed-blue:active,
+    .depressed-red:active {
+        transform: translateY(-1px);
+    }
+    
+    //DEPRESSED
+    .depressed {
+        background-color: transparent;
+        font-size: 10.5pt;
+    }
+    .depressed:hover {
+        background:rgba(0,0,0,0.1);
+    }
+    .depressed:active {
+        background:rgba(255, 255, 255, 0.4);
+    }
+    
+    //BLUE
+    .blue {
+        background-color: $submit;
+        color: $pure-lighten;
+    }
+    .blue:hover {
+        background-color: $submit-darken;
+    }
+    .blue:active {
+        background-color: $submit;
+    }
+    .depressed-blue {
+        background-color: transparent;
+        color: $submit;
+    }
+    .depressed-blue:hover {
+        background-color: $submit-lightest;
+        color: $submit-darken;
+    }
+    .depressed-blue:active {
+        background-color: $submit-lighten;
+    }
+    
+    //RED
+    .red {
+        background-color: $error;
+        color: $pure-lighten;
+    }
+    .red:hover {
+        background-color: $error-darken;
+    }
+    .red:active {
+        background-color: $error;
+    }
+    .depressed-red {
+        background-color: transparent;
+        color: $error;
+    }
+    .depressed-red:hover {
+        background-color: $error-lightest;
+        color: $error-darken;
+    }
+    .depressed-red:active {
+        background-color: $error-lighten;
+    }
+    
+    //ROUNDED
+    .round {
+        border-radius: 25px;
+    }
+    
+    .circle {
+        border-radius: 100%;
+        min-width: 30px !important;
+    }
 }

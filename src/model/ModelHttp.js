@@ -43,12 +43,13 @@ class HeadersToken {
  * @param {string} message - API response massage. ('No message' if null)
  * Create proper format for callback.
  * */
-var callbackFormat = (status, success = false, data = [], message = 'No message.') => {
+var callbackFormat = (status, success = false, data = [], message = 'No message.', pagination = {}) => {
     let newFormat = {
         status : status,
         success : success,
         data : data,
-        message: !status ? 'Fetching API data canceled due to internal evaluation or no internet service.' : message
+        message: !status ? 'Fetching API data canceled due to internal evaluation or no internet service.' : message,
+        pagination: pagination
     }
     return newFormat
 }
@@ -65,7 +66,7 @@ var callbackBuild = (res) => {
     if( typeof res === 'string') {
         return callbackFormat(500, false,[{message: res}],res,)
     }
-    return callbackFormat( res.status ,res.data.IsSuccess, ( res.data.Result || res ), res.data.Message)
+    return callbackFormat( res.status ,res.data.IsSuccess, ( res.data.Result || res ), res.data.Message, ( res.data.Pagination || {}))
 } 
 
 export {

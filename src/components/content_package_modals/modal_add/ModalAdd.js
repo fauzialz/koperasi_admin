@@ -17,7 +17,7 @@ class ModalAdd extends React.Component {
         HelperHttp.post(this.props.url, data, (res) => {
             this.context.loadingSwitch()
             if(res.status === 200 && res.success) {
-                this.props.reload(false)
+                this.props.reload(false,this.props.currentPage)
                 this.context.setNotif(
                     `New ${this.props.tableName} data added.`, ConfigLocal.NOTIF.Success
                 )

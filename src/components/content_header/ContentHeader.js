@@ -13,7 +13,7 @@ const ContentHeader = (props) => {
                 <div className="content-info">
                     <div className="content-icon-base">
                         <span className={icon1} aria-hidden="true">
-                            local_grocery_store
+                            {props.icon || 'face'}
                         </span>
                     </div>
                     <div className="content-title">
