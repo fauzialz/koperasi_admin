@@ -33,7 +33,7 @@ class Navbar extends React.Component {
     }
 
     updateDimensions = () => {
-        if(window.innerWidth <= 485 ) {
+        if(window.innerWidth <= 500 ) {
             this.context.setPhoneMode(true)
             this.context.setNavbarOpen(false)
         }else{

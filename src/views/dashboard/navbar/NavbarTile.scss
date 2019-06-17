@@ -112,7 +112,7 @@ $name-padding : 50px;
     transform: rotate(90deg);
 }
 
-@media( max-width : 420px ){
+@media( max-width : 480px ){
     .navbar-tile:hover, .navbar-tile-active {
         background-color: $primary-darkhover;
         color: black !important;
