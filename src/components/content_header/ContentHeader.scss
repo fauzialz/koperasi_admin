@@ -20,7 +20,7 @@
     }
 }
 
-@media (max-width: 486px) {
+@media (max-width: 460px) {
     .content-header {
         grid-template-columns: [chh1] 230px [chh2] auto [chh3] 75px [chh4] !important;
     }
@@ -29,7 +29,7 @@
         border: none !important;
         margin-top: 0px !important;
         padding-top: 10px !important;
-        padding-left: 0px !important;
+        padding-left: 8px !important;
         padding-bottom: 0px !important;
         margin-bottom: 0px !important;
     }
@@ -37,6 +37,12 @@
         height: 100px !important;
     }
 } 
+
+@media (max-width: 420px) {
+    .add-button-text{
+        display: none;
+    }
+}
 
 .header-sticky {
     width: 100%;

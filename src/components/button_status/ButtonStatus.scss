@@ -95,3 +95,9 @@
     }
     color: $pure-lighten;
 }
+
+@media( max-width : 485px ){
+    .btnStat-left {
+        background-color: $pure-line;
+    }
+}

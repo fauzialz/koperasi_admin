@@ -54,7 +54,7 @@ $name-padding : 50px;
 
 .navbar-tile-child-clicked {
     width: $navbar;
-    background-color: $pure-menu;
+    /* background-color: $pure-menu; */
     transition: all 0.3s ease;
     height: 40px;
 }
@@ -64,7 +64,7 @@ $name-padding : 50px;
 }
 
 .navbar-tile-child:hover {
-    background-color: $pure-line;
+    /* background-color: $pure-line; */
 }
 
 .navbar-name-child {
@@ -110,4 +110,15 @@ $name-padding : 50px;
 }
 .navbar-iconfont-parent-clicked {
     transform: rotate(90deg);
+}
+
+@media( max-width : 420px ){
+    .navbar-tile:hover, .navbar-tile-active {
+        background-color: $primary-darkhover;
+        color: black !important;
+    }
+    .navbar-iconfont-active {
+        color: black !important;
+        
+    }
 }

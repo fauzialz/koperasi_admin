@@ -13,7 +13,7 @@
     z-index: 9997;
     position: fixed;
     top: $header;
-    margin-left: 0 - $navbar;
+    margin-left: 0 - ($navbar + 1px);
     transition: all 0.5s ease;
 }
 
@@ -65,4 +65,34 @@
 .navbar-add-button {
     padding-top: 2px;
     font-size: 12pt;
+}
+
+.navbar-black-screen, .navbar-black-off {
+    width: 100%;
+    z-index: 9997;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.251);
+    position: absolute;
+}
+.navbar-black-off {
+    visibility: hidden !important;
+}
+
+@media( max-width : 420px ){
+    .navbar-base {
+        background-color: $primary;
+        border-right: 1px solid $primary;
+        padding-top: $header - 0px;
+    }
+    .edit-tile {
+        background-color: $primary-darkhover;
+
+    }
+    .open-navbar, .close-navbar {
+        top: 0px;
+        z-index: 9998;
+    }
+    .navbar-black-screen {
+        z-index: 9998;
+    }
 }

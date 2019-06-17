@@ -64,16 +64,22 @@ const AppContext = React.createContext();
 }
  */
 class ProviderScope extends React.Component {
-    state = {
-        notif : {
-            msg : '',
-            status : ''
-        },
-        count : 0,
-        interval : '',
-        navbarOpen: true,
-        loading: false,
+
+    constructor(props) {
+        super(props) 
+        this.state ={
+            phoneMode : window.innerWidth <= 485 ? true: false,
+            navbarOpen: window.innerWidth <= 485 ? false: true,
+            notif : {
+                msg : '',
+                status : ''
+            },
+            count : 0,
+            interval : '',
+            loading: false,
+        }
     }
+
 
     timer = () => {
         let count = this.state.count + 1
@@ -110,6 +116,9 @@ class ProviderScope extends React.Component {
         }, 500)
         this.setState({interval:interval})
     }
+    setPhoneMode = (status) => {
+        this.setState({phoneMode : status})
+    }
     setNavbarOpen = (status) => {
         this.setState({navbarOpen : status})
     }
@@ -120,12 +129,14 @@ class ProviderScope extends React.Component {
     render() {
         return (
             <AppContext.Provider value={{
+                phoneMode: this.state.phoneMode,
+                setPhoneMode: this.setPhoneMode,
+                navbarOpen: this.state.navbarOpen,
+                setNavbarOpen: this.setNavbarOpen,
                 notif : this.state.notif,
                 closeNotif : this.deleteNotif,
                 setNotif: this.setNotif,
                 seconds: this.state.count,
-                navbarOpen: this.state.navbarOpen,
-                setNavbarOpen: this.setNavbarOpen,
                 loading: this.state.loading,
                 loadingSwitch: this.loadingSwitch,
             }}>

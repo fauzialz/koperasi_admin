@@ -31,6 +31,16 @@ class Navbar extends React.Component {
             title: 'Setting Mode'
         }
     }
+
+    updateDimensions = () => {
+        if(window.innerWidth <= 485 ) {
+            this.context.setPhoneMode(true)
+            this.context.setNavbarOpen(false)
+        }else{
+            this.context.setPhoneMode(false)
+            this.context.setNavbarOpen(true)
+        }
+    }
     
     /*  Decide the Tiles to work normal or become button to edit navlist. */
     tileHandler = (id) => {
@@ -239,9 +249,9 @@ class Navbar extends React.Component {
         })
     }
 
-    /*  LifeCircle. Detect if navlist has been stored in LocalStorege or not.
+    /*  Detect if navlist has been stored in LocalStorege or not.
         If yes, use it immediately. If not, call function to fect the data. */
-    componentDidMount() {
+    localStorageDataChecker = () => {
         let list = JSON.parse(localStorage.getItem(ConfigLocal.LOCSTORE.Navbar))
         if(list != null && HelperCookie.get(ConfigLocal.NAVBAR)){
             if(list.length > 0){
@@ -255,7 +265,19 @@ class Navbar extends React.Component {
         }else{
             this.getNavigationList()
         }
+    }
+
+    /*  LifeCircle.  */
+    componentDidMount() {
+        this.updateDimensions()
+        this.localStorageDataChecker()
+        window.addEventListener("resize", () => this.updateDimensions())
+
         
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", () => this.updateDimensions())
     }
 
     render() {
@@ -284,6 +306,8 @@ class Navbar extends React.Component {
                 <AppContext.Consumer>
                     { (context) => (
                         <React.Fragment>
+                            
+                            {context.phoneMode? <div className={context.navbarOpen? "navbar-black-screen": "navbar-black-off"} onClick={() => context.setNavbarOpen(false)} />: null}
                             <div className={context.navbarOpen ? "open-navbar": "close-navbar"}> 
                                 <div className="navbar-base">
                                     <div className= "navbar-overflow-superadmin">

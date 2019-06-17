@@ -3,21 +3,9 @@ import './Dashboard.scss'
 import Header from './header';
 import Navbar from './navbar';
 import ContentSlider from '../contents';
-import { AppContext } from '../../global';
 import NotifBar from '../../components/notification_bar';
 
 class Dashboard extends React.Component {
-    static contextType = AppContext
-    
-    checkDimention = () => {
-        if (window.innerWidth <= 485) {
-            this.context.setNavbarOpen(false)
-        }
-    }
-
-    componentDidMount() {
-        this.checkDimention()
-    }
 
     render() {
         return (
