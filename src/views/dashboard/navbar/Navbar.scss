@@ -70,7 +70,7 @@
 .navbar-black-screen, .navbar-black-off {
     width: 100%;
     z-index: 9997;
-    height: 100%;
+    height: calc(100% + 100px);
     background-color: rgba(0, 0, 0, 0.251);
     position: absolute;
 }
