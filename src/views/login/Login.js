@@ -60,6 +60,7 @@ class Login extends React.Component {
             this.props.history.push('/dashboard')
         }else{
             localStorage.removeItem(ConfigLocal.LOCSTORE.Navbar)
+            localStorage.removeItem('ruulzIndex')
         }
     }
 
