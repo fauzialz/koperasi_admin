@@ -35,16 +35,16 @@
 
 .info-props {
     padding: 6px;
-    padding-bottom: 10px;
+    padding-bottom: 13px;
     padding-left : 30px;
     vertical-align: text-top;
-    width: 270px !important;
+    width: 320px !important;
     overflow: hidden;
     text-align: left;
     color: black;
     word-wrap: break-word;
     font-weight: 500;
-    span {
+    .null-info {
         font-weight: 400;
         font-style: italic;
         color: $dark;
@@ -89,9 +89,19 @@
             top: 2px;
         }
     }
+    .time-calender {
+        font-weight: 500;
+    }
+    .time-relative {
+        font-weight: 400;
+        padding-left: 5px;
+        color: $dark-lighten;
+        font-size: 11px;
+    }
 }
 @media (max-width: 500px) {
     .info-props {
         width: 70% !important;
     }
 }
+

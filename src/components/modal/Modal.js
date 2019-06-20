@@ -40,7 +40,7 @@ class MiddleComponent extends React.Component {
         const { title, children, onBtnL, onBtnR, btnL, btnR, form, hideBtnL, compact, flip, extraWidth } = this.props
         return(
             <div className={extraWidth? "modal-container extra-width": "modal-container"} onClick={this.closeHandler}>
-                <div className="modal-header">
+                <div className={this.props.leftTitle ? "modal-header left-header" : "modal-header" }>
                     {title || "Base Modal"}
                 </div>
                 {form ? 
@@ -67,6 +67,7 @@ class Modal extends React.Component {
                             hideBtnL={hideBtnL} compact={compact}
                             form={form} title={title} flip={flip}
                             extraWidth={extraWidth}
+                            leftTitle={this.props.leftTitle}
                         />
                     </div>
                 </div>

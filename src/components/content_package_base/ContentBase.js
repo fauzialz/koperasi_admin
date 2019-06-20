@@ -230,7 +230,7 @@ class ContentBase extends React.Component {
                                     <div className="pagination-button-socket-left">
                                         <button className={this.state.pagination.HasPreviousPage ?"pagination-button-left": "pagination-button-disable"}
                                             onClick={() => this.getTableData(false,this.state.pagination.PageIndex-1)}
-                                            disabled={!this.state.pagination.HasPreviousPage}
+                                            disabled={!this.state.pagination.HasPreviousPage} type="button"
                                         >
                                             <span className={ConfigLocal.MISC.MaterialIcon+' pagination-icon'} aria-hidden="true">
                                                 keyboard_arrow_left
@@ -246,6 +246,7 @@ class ContentBase extends React.Component {
                                                         e-1 === this.state.pagination.PageIndex? null:
                                                         () => this.getTableData(false,e-1)
                                                     }
+                                                    type="button"
                                                 >
                                                     {e}
                                                 </button>
@@ -257,6 +258,7 @@ class ContentBase extends React.Component {
                                         <button className={this.state.pagination.HasNextPage ? "pagination-button-left pagination-right": "pagination-button-disable-right"}
                                             onClick={() => this.getTableData(false,this.state.pagination.PageIndex+1)}
                                             disabled={!this.state.pagination.HasNextPage}
+                                            type="button"
                                         >
                                             <span className={ConfigLocal.MISC.MaterialIcon+' pagination-icon'} aria-hidden="true">
                                                 keyboard_arrow_right

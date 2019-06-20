@@ -2,6 +2,7 @@ import React from 'react'
 import HelperString from '../../../helper/HelperString';
 import Modal from '../../modal/Modal';
 import './ModalInfo.scss'
+import moment from 'moment';
 
 const ModalInfo = (props) => {
     const marks = props.marks || []
@@ -16,8 +17,17 @@ const ModalInfo = (props) => {
                                 <tr>
                                     <td className="info-key"><span> {marks.includes(e)?HelperString.toCapital(e)+' •': HelperString.toCapital(e)} </span> </td>
                                     {e !== 'IsActive'?
-                                        <td className="info-props"> {e === 'Id'? <span className="info-id">{props.data[e]}</span> : props.data[e] || <span>Null</span>} </td>:
-                                        <td className="info-props"> {props.data[e] ? <span className="info-active">True</span> : <span className="info-inactive">False</span>} </td>
+                                        <td className="info-props"> {e === 'Id'? 
+                                            <span className="info-id">{props.data[e]}</span> :
+                                            ( e === 'CreatedTime' || e === 'ModifiedTime') && props.data[e] ?
+                                                <React.Fragment><span className="time-calender">{moment(props.data[e]).add(7, 'h').format('D MMM YY [at] H:mm A')}</span><span className="time-relative">- {moment(props.data[e]).add(7, 'h').fromNow()}</span></React.Fragment>:
+                                                props.data[e] || <span className="null-info">Null</span>}
+                                        </td>:
+
+                                        <td className="info-props"> {props.data[e] ? 
+                                            <span className="info-active">True</span> : 
+                                            <span className="info-inactive">False</span>} 
+                                        </td>
                                     }
                                 </tr>
                             </React.Fragment>
