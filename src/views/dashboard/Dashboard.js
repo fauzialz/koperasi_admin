@@ -4,43 +4,28 @@ import Header from './header';
 import Navbar from './navbar';
 import ContentSlider from '../contents';
 import NotifBar from '../../components/notification_bar';
-import Swipe from 'react-easy-swipe';
-import { AppContext } from '../../global';
+import Swipe from '../../components/swipe';
 
 class Dashboard extends React.Component {
-    static contextType = AppContext 
-    onSwipeRight = () => {
-        this.context.setNavbarOpen(true)
-    }
-    onSwipeLeft = () => {
-        this.context.setNavbarOpen(false)
-    }
     
     render() {
         return (
             <React.Fragment>
-                <Swipe
-                    onSwipeRight={this.onSwipeRight}
-                    onSwipeLeft={this.onSwipeLeft}
-                >
-                    <div className="wrapper-core">
+                <Swipe>
+                    {/* NAVBAR */}
+                    <Navbar
+                        history = {this.props.history}
+                        match= {this.props.match}
+                        />
 
-                        {/* NAVBAR */}
-                        <Navbar
-                            history = {this.props.history}
-                            match= {this.props.match}
-                            />
+                    <NotifBar/>
 
-                        <NotifBar/>
-
-                        {/* HEADER */}
-                        <Header />
-                            
-                        {/* CONTENT */}
-                        <ContentSlider />     
-                    
-                    </div>
-                </Swipe>
+                    {/* HEADER */}
+                    <Header />
+                        
+                    {/* CONTENT */}
+                    <ContentSlider />
+                </Swipe>                    
             </React.Fragment>
         )
     }
