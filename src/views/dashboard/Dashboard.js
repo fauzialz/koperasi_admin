@@ -4,14 +4,14 @@ import Header from './header';
 import Navbar from './navbar';
 import ContentSlider from '../contents';
 import NotifBar from '../../components/notification_bar';
+import Swipe from '../../components/swipe';
 
 class Dashboard extends React.Component {
-
+    
     render() {
         return (
             <React.Fragment>
-                <div>
-
+                <Swipe>
                     {/* NAVBAR */}
                     <Navbar
                         history = {this.props.history}
@@ -24,9 +24,8 @@ class Dashboard extends React.Component {
                     <Header />
                         
                     {/* CONTENT */}
-                    <ContentSlider />     
-                
-                </div>
+                    <ContentSlider />
+                </Swipe>                    
             </React.Fragment>
         )
     }
