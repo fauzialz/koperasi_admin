@@ -64,15 +64,22 @@ const AppContext = React.createContext();
 }
  */
 class ProviderScope extends React.Component {
-    state = {
-        notif : {
-            msg : '',
-            status : ''
-        },
-        count : 0,
-        interval : '',
-        onTop: true,
+
+    constructor(props) {
+        super(props) 
+        this.state ={
+            phoneMode : window.innerWidth <= 485 ? true: false,
+            navbarOpen: window.innerWidth <= 485 ? false: true,
+            notif : {
+                msg : '',
+                status : ''
+            },
+            count : 0,
+            interval : '',
+            loading: false,
+        }
     }
+
 
     timer = () => {
         let count = this.state.count + 1
@@ -109,19 +116,29 @@ class ProviderScope extends React.Component {
         }, 500)
         this.setState({interval:interval})
     }
-    setOnTop = (status) => {
-        this.setState({onTop: status})
+    setPhoneMode = (status) => {
+        this.setState({phoneMode : status})
+    }
+    setNavbarOpen = (status) => {
+        this.setState({navbarOpen : status})
+    }
+    loadingSwitch = () => {
+        this.setState({loading : !this.state.loading})
     }
 
     render() {
         return (
             <AppContext.Provider value={{
+                phoneMode: this.state.phoneMode,
+                setPhoneMode: this.setPhoneMode,
+                navbarOpen: this.state.navbarOpen,
+                setNavbarOpen: this.setNavbarOpen,
                 notif : this.state.notif,
                 closeNotif : this.deleteNotif,
                 setNotif: this.setNotif,
                 seconds: this.state.count,
-                onTop: this.state.onTop,
-                setOnTop: this.setOnTop
+                loading: this.state.loading,
+                loadingSwitch: this.loadingSwitch,
             }}>
                 {this.props.children}
             </AppContext.Provider>

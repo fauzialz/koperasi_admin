@@ -8,7 +8,8 @@ export default {
         SIGN_IN:    MAIN_API + '/authentication',
         MENU:       MAIN_API + '/menu',
         GET_MENU:   MAIN_API + '/menu/navbar',
-        STORE:      MAIN_API + '/store'
+        STORE:      BACKUP_API + '/store',
+        MITRA:      BACKUP_API + '/mitra'
     },
     HEADERS : {
         content_type: 'application/json',

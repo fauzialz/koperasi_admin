@@ -13,7 +13,7 @@
     z-index: 9997;
     position: fixed;
     top: $header;
-    margin-left: 0 - $navbar;
+    margin-left: 0 - ($navbar + 1px);
     transition: all 0.5s ease;
 }
 
@@ -65,4 +65,46 @@
 .navbar-add-button {
     padding-top: 2px;
     font-size: 12pt;
+}
+
+.navbar-black-screen, .navbar-black-off {
+    width: 100%;
+    z-index: 9997;
+    height: calc(100% + 100px);
+    position: absolute;
+    transition: all .5s ease;
+}
+.navbar-black-screen {
+    visibility: visible;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.203);
+}
+.navbar-black-off {
+    visibility: hidden !important;
+    opacity: 0;
+    background-color: transparent;
+}
+
+@media( max-width : 480px ){
+    .navbar-base {
+        background-color: $primary;
+        border-right: 0px solid transparent;
+        padding-top: $header - 0px;
+    }
+    .edit-tile {
+        background-color: $primary-darkhover;
+
+    }
+    .open-navbar, .close-navbar {
+        top: 0px;
+        z-index: 9998;
+    }
+    .open-navbar {
+        -webkit-box-shadow: 10px -4px 7px -6px rgba(0,0,0,0.183);
+        -moz-box-shadow: 10px -4px 7px -6px rgba(0,0,0,0.183);
+        box-shadow: 10px -4px 7px -6px rgba(0, 0, 0, 0.183);
+    }
+    .navbar-black-screen, .navbar-black-off {
+        z-index: 9998;
+    }
 }

@@ -34,8 +34,8 @@
 
 //DRAWER BUTTON
 .drawer, .drawer-active {
-   background-color: $primary-darkhover;
-   transition: all 0.5s ease;
+    background-color: $primary-darkhover;
+    transition: all 0.5s ease;
 }
 .drawer-active {
     height: 24px;
@@ -62,4 +62,17 @@
     top: 14.5px;
     left: 14px;
     /* transform: translate(15px, 15px) */
+}
+
+@media(max-width : 485px) {
+    .grid-header {
+        background-color: $pure;
+        z-index: 9997;
+    }
+    .drawer-active, .drawer {
+        background-color: $pure-line;
+    }
+    .drawer-active:hover, .drawer:hover{
+        background-color: $pure-darken
+    }
 }

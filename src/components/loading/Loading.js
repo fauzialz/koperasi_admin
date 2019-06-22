@@ -14,10 +14,14 @@ class Loading extends React.Component {
                 <div className="Loading-wrapper">
                     <div className="Loading" >
                         {/* this is he spinner */}
-                        <div className="lds-ripple">
+                        {/* <div className="lds-ripple">
                             <div></div>
                             <div></div>
-                        </div>
+                        </div> */}
+                        {<div className="box">
+                            <div className="plane"></div>
+                        </div>}
+                        {/* <div className="circle-loading" /> */}
                     </div>
                 </div>
             </div>

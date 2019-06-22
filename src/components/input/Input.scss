@@ -50,10 +50,14 @@ input:active, input:focus {
     } */
 }
 
+.input-when-label {
+    margin-bottom: 10px !important;
+}
+
 .input-label {
     font-size: 10pt;
     margin-bottom: -16px;
-    margin-top: -10px;
+    margin-top: 0px;
     color: $pure-darken;
     transition: all .4s ease;
 }
@@ -62,7 +66,7 @@ input:active, input:focus {
     font-size: 10pt;
     margin-left: 2px;
     margin-bottom: -16px;
-    margin-top: -10px;
+    margin-top: 0px;
     color: $dark;
     transition: all .4s ease;
 }

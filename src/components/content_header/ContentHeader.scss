@@ -1,5 +1,48 @@
 @import '../../styles/palette';
 @import '../../styles/shadows';
+@import '../../styles/text';
+
+@media (max-width: 960px) {
+    .table-header {
+        min-width: 1000px !important;
+    }
+    #Name {
+        width: 165px !important;
+    }
+    #Address {
+        width: 185px !important;
+    }
+    #Telephone {
+        width: 84px !important;
+    }
+    .table-header-show {
+        overflow-x: hidden !important;
+    }
+}
+
+@media (max-width: 460px) {
+    .content-header {
+        grid-template-columns: [chh1] 230px [chh2] auto [chh3] 75px [chh4] !important;
+    }
+    .content-data-status {
+        height: 24px;
+        border: none !important;
+        margin-top: 0px !important;
+        padding-top: 10px !important;
+        padding-left: 8px !important;
+        padding-bottom: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    .header-line {
+        height: 100px !important;
+    }
+} 
+
+@media (max-width: 440px) {
+    .add-button-text{
+        display: none;
+    }
+}
 
 .header-sticky {
     width: 100%;
@@ -11,33 +54,110 @@
     
 }
 .header-line {
-    border-bottom: 1px solid $pure-line;
+    height: 80px;
 }
 
 .content-header {
     position: relative;
     width: 100%;
     display: grid;
-    grid-template-columns: [chh1] 30% [chh2] auto [chh3] 200px [chh4];
+    grid-template-columns: [chh1] 370px [chh2] auto [chh3] 75px [chh4];
+}
+.content-info {
+    grid-column: chh1 / chh2;
+    font-size: 20pt;
+    margin-bottom: 10px;
+}
+.content-icon-base {
+    height: 40px;
+    width: 40px;
+    background-color: $pure;
+    border-radius: 5px;
+    float: left;
+}
+.title-icon {
+    font-size: 24px;
+    padding-top: 8px;
+    width: 100%;
+    color: $dark;
+    margin: auto;
+    text-align: center;
+    @extend %noselect;
 }
 .content-title {
-    grid-column: chh1 / chh2;
-    font-size: 19pt;
-    font-weight: 650;
     color: black;
-    margin-bottom: 10px;
-    width: 95%;
+    font-weight: 650;
+    max-width: 200px;
+    float: left;
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: top;
     white-space: nowrap;
+    margin-left: 10px;
+    margin-right: 18px;
+    margin-top: -1px;
+}
+.content-data-status {
+    margin-top: 6px;
+    padding-top: 2px;
+    padding-bottom: 4px;
+    padding-left: 12px;
+    padding-right: 13px;
+    border-radius: 6px;
+    border: 1px dashed $pure-line;
+    float: left;
+}
+.data-status-rows {
+    float: left;
+}
+.data-status-attributes {
+    padding-left: 13px;
+    float: left;
+    display: inline-block
+}
+.data-status-icon {
+    padding-top: 2px;
+    font-size: 18px;
+    font-weight: 100;
+    color: #707070;
+    float: left;
+    @extend %noselect;
+}
+.data-status-number {
+    font-weight: 650;
+    font-size: 15px;
+    padding-left: 4px;
+    padding-top: 1px;
+    float: left;
+}
+.data-status-loading {
+    border-radius: 3px;
+    margin-left: 3px;
+    float: left;
+    height: 14px;
+    width: 16px;
+    border: 1px solid $pure;
+    background-color: $pure;
+    margin-top: 4px;
+}
+.data-status-text {
+    padding-top: 1.5px;
+    font-size: 14px;
+    padding-left: 4px;
+    font-weight: 400;
+    float: left;
 }
 .content-add-button {
     grid-column: chh3 /chh4;
-    padding-top: 3px;
+    padding-top: 5px;
     position: absolute;
     right: 0;
+    button {
+        min-width: 0px !important;
+        border: 1px solid $pure-line;
+        height: 33px !important;
+    }
 }
 .add-button-icon {
     font-size: 20px;
@@ -46,5 +166,50 @@
 .add-button-text {  
     float: left;
     margin-top: 2px;
-    margin-right: 6px;
+    margin-right: 8px;
+}
+
+
+.table-header-base {
+    position: relative;
+    margin-right: 0px;
+}
+.table-header-mask,.table-header-mask-off {
+    bottom: 0;
+    width: calc(100% + 20px);
+    height: 40px;
+    z-index: 0;
+    position: absolute;
+    /* border: 1px solid #555555; */
+    transform: translate(-10px, 42px);
+    /* border-radius: 8px 8px 0 0; */
+    overflow: hidden;
+}
+.table-header-mask-off {
+    visibility: hidden;
+}
+.table-header-show, .table-header-hide {
+    position: absolute;
+    width: calc(100% - 22px);
+    height: 38px;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid #e5e5e5;
+    background-color: #FCFCFC;
+    transition: all .3s ease;
+    overflow: hidden;
+}
+.table-header-show {
+    transform: translate(10px,0px);
+}
+.table-header-hide {
+    transform: translate(10px,-40px);
+}
+#Name {
+    width: 27.8%;
+}
+#Address {
+    width: 31.8%;
+}
+#Telephone {
+    width: 16.4%;
 }

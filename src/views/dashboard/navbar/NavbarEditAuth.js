@@ -20,7 +20,7 @@ class NavbarEditAuth extends React.Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        this.props.loading()
+        this.context.loadingSwitch()
         this.context.closeNotif()
         let formdata = {
             username : HelperCookie.get(ConfigLocal.USERNAME),
@@ -28,7 +28,7 @@ class NavbarEditAuth extends React.Component {
         }
         HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, formdata,
         (success, response) => {
-            this.props.loading()
+            this.context.loadingSwitch()
             if(success){
                 this.props.editSession()
                 this.context.setNotif('Password correct. You can edit navigation menu.',ConfigLocal.NOTIF.Success)
@@ -53,6 +53,7 @@ class NavbarEditAuth extends React.Component {
                 onBtnR={this.onClose}
                 onBtnL={this.onSubmit}
                 form
+                compact
             >
                 Enter your password to edit the navigation menu.
                 <Input

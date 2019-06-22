@@ -6,6 +6,7 @@ import HelperCookie from './helper/HelperCookie';
 import ConfigLocal from './config/ConfigLocal';
 import Dummy from './views/contents/dummy';
 import Store from './views/contents/store';
+import Mitra from './views/contents/mitra';
 
 const outside = '/login'
 const inside = '/dashboard'
@@ -48,6 +49,7 @@ const RouterTierTwo = () => {
         <Switch>
             <Route path={inside + '/admin'} component={Dummy} />
             <Route path={inside + '/store'} component={Store} />
+            <Route path={inside + '/mitra'} component={Mitra} />
         </Switch>
     )
 }

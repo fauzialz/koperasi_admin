@@ -66,16 +66,18 @@ class Button extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <button
-                    className={this.state.style}
-                    onClick={this.props.onClick}
-                    onSubmit={this.props.onSubmit}
-                    type={this.props.type || "button"}
-                    disabled={this.props.disabled}
-                    title={this.props.title}
-                >
-                    {this.props.label || 'Button'}
-                </button>
+                <div className="button-base">
+                    <button
+                        className={this.state.style}
+                        onClick={this.props.onClick}
+                        onSubmit={this.props.onSubmit}
+                        type={this.props.type || "button"}
+                        disabled={this.props.disabled}
+                        title={this.props.title}
+                    >
+                        {this.props.label || 'Button'}
+                    </button>
+                </div>
             </React.Fragment>
         )
     }

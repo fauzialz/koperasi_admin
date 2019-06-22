@@ -15,5 +15,19 @@ export default {
             }
         }
         return objList
-    }
+    },
+
+    /**
+     * @param {Object} obj - Object to get all the keys.
+     */
+    getObjKeys: (obj) => {
+        if ( !obj ) {
+            return []
+        }
+        var keys = []
+        for (var key in obj) {
+            keys.push(key)
+        }
+        return keys
+    },
 }

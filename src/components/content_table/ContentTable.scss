@@ -1,0 +1,136 @@
+@import '../../styles/palette';
+
+$padding : 10px 16px;
+
+.table-holder {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    min-height: 50px;
+    white-space: nowrap;
+    box-sizing:border-box;
+}
+.table-content {
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+    font-size: 14px !important;
+    color: black;
+    text-align: left;
+    border-spacing: 0px;
+    border-collapse:collapse;
+    thead {
+        tr {
+            background-color: $pure-menu;
+            th {
+                font-weight: 500 !important;
+                padding: $padding;
+            }
+        }
+    
+    }
+    tbody {
+        tr {
+            cursor: pointer;
+            font-size: 12.5px !important;
+            border-top: 1px solid #f0f0f0;
+            color: $dark;
+            td {
+                padding: $padding;
+                span {
+                    max-width: 95%;
+                    display: inline-block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    vertical-align: top;
+                    white-space: nowrap;
+                }
+            }
+        }
+        tr:last-child {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        tr:hover {
+            background-color: $submit-lightest-most;
+            border-bottom: 1px solid $submit-lighten;
+            border-top: 1px solid $submit-lighten;
+            color: #2e2e2e;
+        }
+        width: 100%;
+    }
+}
+
+.row-hover-wrapper {
+    position: relative;
+}
+
+.sort-button {
+    cursor: pointer;
+    padding-right: 20px;
+}
+.sort-arrow-neutral, .sort-arrow-asc, .sort-arrow-desc {
+    position: absolute;
+    transition: all .3s ease;
+    transform: translate(2px, 2px);
+    font-size: 15px;
+    font-weight: 500;
+}
+.sort-arrow-neutral {
+    color: $pure-lighten;
+}
+.sort-button:hover > .sort-arrow-neutral {
+    color: $pure-darken;
+}
+.sort-arrow-asc {
+    color: $primary;
+}
+.sort-arrow-desc {
+    color: $primary;
+    transform: rotate(180deg) translate(-2px,-1px);
+}
+
+.loading-socket {
+    height: 50px;
+    width: 100%;
+    display: table;
+}
+.loading-mid {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 16px;
+    font-size: 14px;
+    color: $dark;
+}
+.loading-base {
+    margin-top: 3px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    height: 8px;
+    border-radius: 20px;
+    width: 200px;
+    background-color: $pure;
+}
+.loading-core {
+    height: 20px;
+    width: 100px;
+    background-color: $pure-line;
+    animation: moving .9s ease infinite;
+}
+@keyframes moving {
+    from {
+        transform: translate(-100px, 0px)
+    }
+    to {
+        transform: translate(200px, 0px)
+    }
+}
+
+.try-again-msg {
+    float: left;
+    margin-top: 4px;
+}
+.try-again-button {
+    float: left;
+    padding-left: 14px;
+}

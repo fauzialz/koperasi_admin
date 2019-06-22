@@ -25,7 +25,7 @@ class Select extends React.Component {
                         {label}
                     </div> : null
                 }
-                <select name={name} value={selected || ''} onChange={onChange} onFocus={this.onFocusHandler} onBlur={this.onBlurHandler}>
+                <select className={label ? "select-label": null} name={name} value={selected || ''} onChange={onChange} onFocus={this.onFocusHandler} onBlur={this.onBlurHandler}>
                     {options.map(e => {
                         return (
                             <React.Fragment key={e.value}>

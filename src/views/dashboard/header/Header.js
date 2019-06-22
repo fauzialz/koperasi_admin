@@ -5,8 +5,11 @@ import HelperCookie from '../../../helper/HelperCookie';
 import ConfigLocal from '../../../config/ConfigLocal';
 import { withRouter } from 'react-router-dom'
 import ButtonBurger from '../../../components/button_burger';
+import { AppContext } from '../../../global';
 
 class Header extends React.Component {
+    static contextType = AppContext
+
     signOut = () => {
         HelperCookie.delete(ConfigLocal.TOKEN)
         HelperCookie.delete(ConfigLocal.USERNAME)
@@ -14,32 +17,40 @@ class Header extends React.Component {
         this.props.history.push('/')
     }
 
+    onBurgerButtonClick = () => {
+        this.context.setNavbarOpen(!this.context.navbarOpen)
+    }
+
     render() {
         return (
-            <React.Fragment>
-                <div className="grid-header">
-                    {/* DRAWER BUTTON */}
-                    <div className="header-drawer">
-                        <div className="header-wrapper">
-                            {/* ICON */}
-                            <div className={ this.props.open ?
-                                "drawer-active" :
-                                "drawer"
-                            }>
-                                <div className="drawer-icon">
-                                    <ButtonBurger onClick={this.props.onClick} active={this.props.open} />
+            <AppContext.Consumer>
+            { (context) => (
+                <React.Fragment>
+                    <div className="grid-header">
+                        {/* DRAWER BUTTON */}
+                        <div className="header-drawer">
+                            <div className="header-wrapper">
+                                {/* ICON */}
+                                <div className={ context.navbarOpen ?
+                                    "drawer-active" :
+                                    "drawer"
+                                }>
+                                    <div className="drawer-icon">
+                                        <ButtonBurger onClick={this.onBurgerButtonClick} active={context.navbarOpen} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {/* RIGHT MENU */}
-                    <div className="header-menu">
-                        <div className="header-wrapper">
-                            <Button onClick={this.signOut} label="Sign Out" depressed/>
+                        {/* RIGHT MENU */}
+                        <div className="header-menu">
+                            <div className="header-wrapper">
+                                <Button onClick={this.signOut} label="Sign Out" depressed/>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </React.Fragment>
+                </React.Fragment>
+            )}
+            </AppContext.Consumer>
         )
     }
 }

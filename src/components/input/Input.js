@@ -55,12 +55,10 @@ class Input extends React.Component {
     // *handle label on input focus
     onFocusHandler = () => {
         this.setState({label: 'input-label-focus', focus: true})
-        this.textInput.current.focus();
     }
     // *handle label on input blur
     onBlurHandler = () => {
         this.setState({label: 'input-label', focus: false})
-        this.textInput.current.blur();
     }
     
     //lifecycle to detect props update
@@ -94,7 +92,7 @@ class Input extends React.Component {
                                 this.props.name === 'Code' ?
                                     true : false
                             }
-                        className={this.props.passVisibility? "input-visibility": ''}
+                        className={this.props.passVisibility && this.props.label? "input-visibility input-when-label": this.props.passVisibility? "input-visibility": this.props.label? "input-when-label" : null}
                         type={this.props.password || this.props.passVisibility ? this.state.type : "text"}
                         name={this.props.name}
                         placeholder={this.props.label ? '':

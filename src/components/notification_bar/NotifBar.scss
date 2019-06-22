@@ -2,22 +2,6 @@
 @import '../../styles/sizes';
 @import '../../styles/shadows';
 
-@media (max-width: 815px) {
-    .notifbar {
-        border-radius: 0px !important;
-        margin: $header auto 0px auto !important;
-    }
-    .notifbar-button {
-        padding-left: 93% !important;
-    }
-    .notifbar-loading-wrapper {
-        width: 100% !important;
-    }
-    .notifbar-loading {
-        background-color: $primary-darkhover !important;
-        opacity: 1 !important;
-    }
-}
 
 .notifbar-base {
     position: fixed;
@@ -91,7 +75,7 @@
 .errornotif-loading {
     background-image: linear-gradient(
         to right, $error-darken, $error-lighten
-    );
+        );
 }
 
 .notifbar-loading-negatif {
@@ -102,4 +86,24 @@
     border-radius: 3px;
     position: absolute;
     z-index: 19;
+}
+
+@media( max-width : 485px ){
+    .notifbar-base{  
+        z-index: 9999;
+    }
+    .notifbar {
+        border-radius: 0px !important;
+        margin: 0px auto 0px auto !important;
+    }
+    .notifbar-button {
+        padding-left: 93% !important;
+    }
+    .notifbar-loading-wrapper {
+        width: 100% !important;
+    }
+    .notifbar-loading {
+        background-color: $primary-darkhover !important;
+        opacity: 1 !important;
+    }
 }

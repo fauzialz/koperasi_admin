@@ -2,6 +2,14 @@
 @import '../../styles/shadows';
 @import '../../styles/text';
 
+@media (max-width: 875px) {
+    #button-see {
+        color: $submit !important;
+    }
+    #button-see:hover {
+        color: black !important;
+    }
+}
 
 .row-hover-base {
     margin-top: 0px;
@@ -61,6 +69,6 @@
     @extend %noselect;
 }
 .action-button-icon:hover {
-    color: black;
+    color: $submit-darken;
     transition: all .4s ease;
 }
