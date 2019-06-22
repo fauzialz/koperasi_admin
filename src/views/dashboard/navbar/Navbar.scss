@@ -71,17 +71,24 @@
     width: 100%;
     z-index: 9997;
     height: calc(100% + 100px);
-    background-color: rgba(0, 0, 0, 0.251);
     position: absolute;
+    transition: all .5s ease;
+}
+.navbar-black-screen {
+    visibility: visible;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.203);
 }
 .navbar-black-off {
     visibility: hidden !important;
+    opacity: 0;
+    background-color: transparent;
 }
 
 @media( max-width : 480px ){
     .navbar-base {
         background-color: $primary;
-        border-right: 1px solid $primary;
+        border-right: 0px solid transparent;
         padding-top: $header - 0px;
     }
     .edit-tile {
@@ -92,7 +99,12 @@
         top: 0px;
         z-index: 9998;
     }
-    .navbar-black-screen {
+    .open-navbar {
+        -webkit-box-shadow: 10px -4px 7px -6px rgba(0,0,0,0.183);
+        -moz-box-shadow: 10px -4px 7px -6px rgba(0,0,0,0.183);
+        box-shadow: 10px -4px 7px -6px rgba(0, 0, 0, 0.183);
+    }
+    .navbar-black-screen, .navbar-black-off {
         z-index: 9998;
     }
 }

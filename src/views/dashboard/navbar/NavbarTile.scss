@@ -113,12 +113,26 @@ $name-padding : 50px;
 }
 
 @media( max-width : 480px ){
+    .navbar-tile {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 5px;
+        width: calc(100% + 1px);
+        border-radius: 0px;
+    }
     .navbar-tile:hover, .navbar-tile-active {
-        background-color: $primary-darkhover;
-        color: black !important;
+        background-color: $submit-darken;
+        color: white !important;
+        margin-left: 0px;
+        margin-right: 0px;
+        width: calc(100% + 1px);
+        border-radius: 0px;
+        padding-left: 5px;
     }
     .navbar-iconfont-active {
-        color: black !important;
-        
+        color: white !important;
+    }
+    .navbar-arrow-base, .navbar-arrow-base:hover {
+        background-color: $primary-darkhover;
     }
 }
