@@ -10,25 +10,32 @@
     width: 100%;
     display: table;
     background-color: rgba(0, 0, 0, 0.198);
+    transition: all .5s ease;
 }
 
 .modal-open {
     visibility: visible;
     opacity: 1;
-    --webkit-transform: scale(1);
-    transform: scale(1);
     
 }
 .modal-close {
     visibility: hidden;
     opacity: 0;
-    --webkit-transform: scale(1.1);
-    transform: scale(1.1);
 }
 
 .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
+    --webkit-transform: scale(1);
+    transform: scale(1);
+    transition: all .3s ease;
+}
+.modal-wrapper-close{
+    display: table-cell;
+    vertical-align: middle;
+    --webkit-transform: scale(.9);
+    transform: scale(.9);
+    transition: all .3s ease;
 }
 
 .modal-container {
@@ -39,7 +46,7 @@
     padding-right: 0px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33); 
-    transition: all .3s ease;
+    transition: all .1s ease;
     will-change: height;
 }
 

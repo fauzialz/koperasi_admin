@@ -39,6 +39,12 @@
 @media (max-width: 485px) {
     .Login-base {
         background-color: $pure-lighten;
+        display: table;
+    }
+    .Login-center {
+        display: table-cell;
+        vertical-align: middle;
+        transform: translateY(-120px)
     }
     .Login-title {
         margin-top: 50%;
