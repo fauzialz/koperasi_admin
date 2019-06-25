@@ -31,8 +31,7 @@ class Input extends React.Component {
             type: "password",
             icon: 'visibility_off',
             seen: false,
-            label: 'input-label',
-            focus: true
+            label: 'input-label'
         } 
         this.textInput = React.createRef()
    }
@@ -53,22 +52,18 @@ class Input extends React.Component {
         }
     }
     // *handle label on input focus
-    onFocusHandler = () => {
-        this.setState({label: 'input-label-focus', focus: true})
-    }
+    onFocusHandler = () => this.setState({label: 'input-label-focus'})
+
     // *handle label on input blur
-    onBlurHandler = () => {
-        this.setState({label: 'input-label', focus: false})
-    }
+    onBlurHandler = () => this.setState({label: 'input-label'})
     
     //lifecycle to detect props update
     // ! This method used to colaborate with modal open/close
     componentDidUpdate(oldProps) {
-        if(this.props.focusEvery !== oldProps.focusEvery) {
-            this.setState({focus: true})
-        }
-        if(this.props.autoFocus && this.state.focus){
-            this.textInput.current.focus();
+        if(this.props.focusEvery !== oldProps.focusEvery && this.props.autoFocus) {
+            setTimeout(() => {
+                this.textInput.current.focus();
+            }, 150);
         }
     }
 
