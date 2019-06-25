@@ -31,6 +31,12 @@
     padding-top: $header;
     width: 100%;
 }
+@media(min-width: 1400px) {
+    .content-base {
+        width: 1290px;
+        margin: auto;
+    }
+}
 .content-square {
     height: -webkit-calc(100vh - #{$header});
     height:    -moz-calc(100vh - #{$header});

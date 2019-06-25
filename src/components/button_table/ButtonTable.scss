@@ -65,10 +65,10 @@
 .action-button-icon {
     overflow: visible !important;
     font-size: 23px;
-    color: $secondary;
+    color: $dark;
     @extend %noselect;
 }
 .action-button-icon:hover {
-    color: $submit-darken;
+    color: $submit;
     transition: all .4s ease;
 }

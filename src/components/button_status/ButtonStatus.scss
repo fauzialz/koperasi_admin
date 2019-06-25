@@ -22,8 +22,7 @@
     outline: none;
 }
 .btnStat-grid-off:focus, .btnStat-grid-on:focus {
-    border: 1px solid $submit;
-    box-shadow: 0 0 0 2pt $submit-lighten;
+    box-shadow: 0 0 0 2pt $submit;
 }
 .btnStat-grid-off {
     width: 180px;
