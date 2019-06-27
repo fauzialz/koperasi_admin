@@ -208,6 +208,9 @@ class ContentBase extends React.Component {
                                     columnsCount={tableColumns}
                                     addFunction={this.openAddModalHandler}
                                     showLine={showHeader}
+                                    pagination={this.state.pagination}
+                                    paginationArray={this.state.paginationArray}
+                                    getTableData={this.getTableData}
                                 />
 
                                 <ContentTable

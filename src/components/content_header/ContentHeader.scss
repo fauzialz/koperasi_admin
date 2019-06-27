@@ -213,3 +213,134 @@
 #Telephone {
     width: 16.4%;
 }
+
+.pagination-wrapper {
+    /* float: left; */
+}
+button.arrow-active {
+    float: left;
+    border-radius: 50% !important;
+    margin-top: 5px;
+    height: 36px;
+    width: 36px;
+    border: 1px solid transparent;
+    overflow: hidden;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+    color: $dark-lighten;
+    outline: none;
+}
+button.arrow-active:hover {
+    color: black;
+}
+button.arrow-active::before {
+    content: '';
+    background-color: #00000011;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid  rgba(0, 0, 0, 0.197);
+    transform-origin: center;
+    transform: translate(50%, -50%) scale(0,0);
+    transition: transform 0.1s ease-out;
+}
+button.arrow-active:hover::before, button.arrow-active:focus::before {
+    transform: translate(50%, -50%) scale(1,1);
+}
+button.arrow-active:focus::before {
+    width: 31px;
+    height: 31px;
+    border: 1px solid  rgba(0, 0, 0, 0.197);
+}
+.pagination-arrow {
+    font-size: 22px;
+    transform: translate(-0.5px, 1px)
+}
+
+button.page-button {
+    cursor: pointer;
+    float: left;
+    margin-top: 5px;
+    height: 36px;
+    width: 62px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    font-size: 12px;
+    color: $dark;
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+    outline: none;
+}
+button.page-button:hover {
+    color: black;
+}
+button.page-button::before {
+    content: '';
+    background-color: #00000011;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    height: 36px;
+    width: 62px;
+    border-radius: 8px;
+    transform-origin: center;
+    transform: translate(50%, -50%) scale(0,0);
+    transition: transform 0.1s ease-in-out;
+}
+button.page-button:hover::before {
+    transform: translate(50%, -50%) scale(1,1);
+}
+
+.page-socket {
+    float: left;
+    position: relative;
+}
+.page-show , .page-hide{
+    visibility: visible;
+    opacity: 1;
+    position: absolute;
+    background-color: white;
+    @extend %better-shadow;
+    width: 60px;
+    top: 100%;
+    right: 50%;
+    transform: translate(50%, -8%);
+    font-size: 14px;
+    text-align: center;
+    border-radius: 0px 0px 8px 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    div {
+        cursor: pointer;
+        color: $dark;
+        padding-top: 1px;
+        padding-bottom: 2px;
+    }
+    div:hover{
+        background-color: #0000001d;
+        color: black;
+    }
+    .marked-page {
+        background-color: #0000001d;
+        padding: {
+            top: 0px;
+            bottom: 1px;
+            left: 7px;
+            right: 7px;
+        }
+        border-radius: 50px;
+    }
+}
+.page-hide {
+    visibility: hidden;
+    opacity: 0;
+}
+button.onHover {
+    background-color: #00000011;
+    color: black;
+}
