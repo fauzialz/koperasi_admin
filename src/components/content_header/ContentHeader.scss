@@ -150,7 +150,7 @@
 }
 .content-add-button {
     grid-column: chh3 /chh4;
-    padding-top: 5px;
+    padding-top: 4px;
     position: absolute;
     right: 0;
     button {
@@ -178,11 +178,9 @@
     bottom: 0;
     width: calc(100% + 20px);
     height: 40px;
-    z-index: 0;
+    z-index: -1;
     position: absolute;
-    /* border: 1px solid #555555; */
     transform: translate(-10px, 42px);
-    /* border-radius: 8px 8px 0 0; */
     overflow: hidden;
 }
 .table-header-mask-off {
@@ -215,12 +213,14 @@
 }
 
 .pagination-wrapper {
-    /* float: left; */
+    position: absolute;
+    right: 0;
+    transform: translateX(-82px);
 }
 button.arrow-active {
     float: left;
     border-radius: 50% !important;
-    margin-top: 5px;
+    margin-top: 3px;
     height: 36px;
     width: 36px;
     border: 1px solid transparent;
@@ -256,16 +256,23 @@ button.arrow-active:focus::before {
     height: 31px;
     border: 1px solid  rgba(0, 0, 0, 0.197);
 }
+button.arrow-active:disabled {
+    color: #0000006f;
+    cursor: auto;
+}
+button.arrow-active:disabled::before {
+    transform: translate(50%, -50%) scale(0,0);
+}
 .pagination-arrow {
-    font-size: 22px;
+    font-size: 21px;
     transform: translate(-0.5px, 1px)
 }
 
 button.page-button {
     cursor: pointer;
     float: left;
-    margin-top: 5px;
-    height: 36px;
+    margin-top: 4px;
+    height: 33px;
     width: 62px;
     background-color: transparent;
     border: 1px solid transparent;
@@ -273,7 +280,7 @@ button.page-button {
     color: $dark;
     overflow: hidden;
     position: relative;
-    border-radius: 8px;
+    border-radius: 4px;
     outline: none;
 }
 button.page-button:hover {
@@ -287,10 +294,10 @@ button.page-button::before {
     right: 50%;
     height: 36px;
     width: 62px;
-    border-radius: 8px;
+    border-radius: 4px;
     transform-origin: center;
     transform: translate(50%, -50%) scale(0,0);
-    transition: transform 0.1s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 button.page-button:hover::before {
     transform: translate(50%, -50%) scale(1,1);
@@ -309,17 +316,17 @@ button.page-button:hover::before {
     width: 60px;
     top: 100%;
     right: 50%;
-    transform: translate(50%, -8%);
+    transform: translate(50%, 0);
     font-size: 14px;
     text-align: center;
-    border-radius: 0px 0px 8px 8px;
+    border-radius: 4px;
     padding-top: 5px;
     padding-bottom: 5px;
     div {
         cursor: pointer;
         color: $dark;
-        padding-top: 1px;
-        padding-bottom: 2px;
+        padding-top: 2px;
+        padding-bottom: 3px;
     }
     div:hover{
         background-color: #0000001d;

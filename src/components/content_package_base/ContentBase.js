@@ -21,6 +21,7 @@ class ContentBase extends React.Component {
             tableLoading : false,
             tableRows : 0,
             tableColumns : 0,
+            thisPageRows : 0,
             openAddModal : false,
             openInfoModal : false,
             openEditModal : false,
@@ -29,6 +30,14 @@ class ContentBase extends React.Component {
             paginationArray : [],
             fetchMessage: ''
         }
+    }
+
+    getPageRows = (nowPage, tableRows, pageSize = 10) => {
+        let temp
+        if (tableRows%(pageSize*(nowPage+1)) !== 1) {
+            temp = tableRows - (pageSize*(nowPage))
+        }else temp = pageSize
+        this.setState({ thisPageRows : temp })
     }
 
     getRowsAndColumns = (objList, rowsCount = 0) => {
@@ -118,12 +127,13 @@ class ContentBase extends React.Component {
         })
     }
 
-    getTableData = (loading = true, pageIndex = 0, pageSize = 10) => {
+    getTableData = (loading = true, pageIndex = 0, pageSize = 12) => {
         if(loading) { this.setState({ tableLoading : true }) }
         HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}`, (res) => {
             let keys = HelperObject.getObjKeys(res.data[0])
             this.getRowsAndColumns(res.data,res.pagination.TotalCount)
             this.getPaginationArray(res.pagination.TotalPages)
+            this.getPageRows(res.pagination.PageIndex, res.pagination.TotalCount, pageSize)
             this.setState({
                 tableData : res.data,
                 tableLoading : false,
@@ -194,6 +204,7 @@ class ContentBase extends React.Component {
                     data={rowData}
                     reload={this.getTableData}
                     currentPage={this.state.pagination.PageIndex}
+                    pageRows={this.state.thisPageRows}
                 />
 
                 <div className="content-base" onScroll={() => this.onScrollHandler()}>
@@ -225,50 +236,6 @@ class ContentBase extends React.Component {
                                     editButton={this.openEditModalHandler}
                                     deleteButton={this.openDeleteModalHandler}
                                 />
-
-                                {this.state.paginationArray.length === 0?null:
-
-                                <div className="pagination-base">
-                                    
-                                    <div className="pagination-button-socket-left">
-                                        <button className={this.state.pagination.HasPreviousPage ?"pagination-button-left": "pagination-button-disable"}
-                                            onClick={() => this.getTableData(false,this.state.pagination.PageIndex-1)}
-                                            disabled={!this.state.pagination.HasPreviousPage} type="button"
-                                        >
-                                            <span className={ConfigLocal.MISC.MaterialIcon+' pagination-icon'} aria-hidden="true">
-                                                keyboard_arrow_left
-                                            </span>
-                                        </button>
-                                    </div>
-
-                                    <div className="pagination-button-number-socket">
-                                    {this.state.paginationArray.map( e => {
-                                        return (
-                                                <button key={e} className={e-1 === this.state.pagination.PageIndex? "pagination-active" :"pagination-button-number"}
-                                                    onClick={
-                                                        e-1 === this.state.pagination.PageIndex? null:
-                                                        () => this.getTableData(false,e-1)
-                                                    }
-                                                    type="button"
-                                                >
-                                                    {e}
-                                                </button>
-                                        )
-                                    })}
-                                    </div>
-                                    
-                                    <div className="pagination-button-socket-left pagination-right">
-                                        <button className={this.state.pagination.HasNextPage ? "pagination-button-left pagination-right": "pagination-button-disable-right"}
-                                            onClick={() => this.getTableData(false,this.state.pagination.PageIndex+1)}
-                                            disabled={!this.state.pagination.HasNextPage}
-                                            type="button"
-                                        >
-                                            <span className={ConfigLocal.MISC.MaterialIcon+' pagination-icon'} aria-hidden="true">
-                                                keyboard_arrow_right
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>}
 
                             </div>
                         </div>

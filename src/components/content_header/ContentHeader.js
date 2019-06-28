@@ -5,7 +5,8 @@ import './ContentHeader.scss'
 
 class ContentHeader extends React.Component {
     state = {
-        showpages : false
+        showpages : false,
+        dropdownMargin: 5
     }
 
     render(){
@@ -54,6 +55,7 @@ class ContentHeader extends React.Component {
                     </div>
 
                     {/* PAGINATION */}
+                    {isNaN(this.props.pagination.PageIndex) || this.props.pagination.TotalPages === 1? null:
                     <div className="pagination-wrapper">
                         <button className="arrow-active"
                             onClick={() => this.props.getTableData(false, this.props.pagination.PageIndex-1)}
@@ -63,23 +65,32 @@ class ContentHeader extends React.Component {
                                 keyboard_arrow_left
                             </span>
                         </button>
-
+                        
                         <div className="page-socket">
                             <button className={this.state.showpages? "page-button onHover" : "page-button"} 
                                 onClick={() => {this.setState({showpages : !this.state.showpages})}}
-                                onMouseEnter={() => {this.setState({showpages : true})}}
+                                onMouseOver={() => {this.setState({showpages : true})}}
                                 onMouseLeave={() => {this.setState({showpages : false})}}
                             >
-                                Page {this.props.pagination.PageIndex + 1}
+                                {this.state.showpages? (this.props.pagination.PageIndex + 1)+' of '+ this.props.pagination.TotalPages: 'Page '+(this.props.pagination.PageIndex + 1)}
                             </button>
                             <div className={this.state.showpages?"page-show" : "page-hide"}
                                 onMouseEnter={() => {this.setState({showpages : true})}}
                                 onMouseLeave={() => {this.setState({showpages : false})}}
                             >   
                                 {this.props.paginationArray.map(e => {
-                                    return ((this.props.pagination.PageIndex + 1) === e?
-                                        <div key={e}><span className="marked-page">{e}</span></div> :
-                                        <div key={e} onClick={() => this.props.getTableData(false, e-1)}>{e}</div>)
+                                    if( (this.props.pagination.PageIndex + 1) === e ) {
+                                        return <div key={e}><span className="marked-page">{e}</span></div>
+                                    }else if( e < ((this.props.pagination.PageIndex + 1) - this.state.dropdownMargin)) {
+                                        return null
+                                    }else if( e === ((this.props.pagination.PageIndex + 1) - this.state.dropdownMargin)) {
+                                        return <div key={e} onClick={() => this.props.getTableData(false, 0)}>{e === 1 ? e : 'First'}</div>
+                                    }else if( e === ((this.props.pagination.PageIndex + 1) + this.state.dropdownMargin)) {
+                                        return <div key={e} onClick={() => this.props.getTableData(false, this.props.pagination.TotalPages-1)}>{e=== this.props.pagination.TotalPages? e : 'Last'}</div>
+                                    }else if( e > ((this.props.pagination.PageIndex + 1) + this.state.dropdownMargin)) {
+                                        return null
+                                    }
+                                    return <div key={e} onClick={() => this.props.getTableData(false, e-1)}>{e}</div>
                                 })}
                             </div>
                         </div>
@@ -92,7 +103,7 @@ class ContentHeader extends React.Component {
                                 keyboard_arrow_right
                             </span>
                         </button>
-                    </div>
+                    </div>}
 
                     {/* ADD BUTTON */}
                     { this.props.rowsCount > 0 ? 
