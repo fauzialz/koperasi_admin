@@ -28,7 +28,8 @@ class ContentBase extends React.Component {
             openDeleteModal : false,
             pagination : {},
             paginationArray : [],
-            fetchMessage: ''
+            fetchMessage: '',
+            pageSize: 12
         }
     }
 
@@ -127,8 +128,9 @@ class ContentBase extends React.Component {
         })
     }
 
-    getTableData = (loading = true, pageIndex = 0, pageSize = 12) => {
+    getTableData = (loading = true, pageIndex = 0, pageSize = this.state.pageSize, loadingMini = false) => {
         if(loading) { this.setState({ tableLoading : true }) }
+        if(loadingMini) { this.context.loadingMiniSwitch()}
         HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}`, (res) => {
             let keys = HelperObject.getObjKeys(res.data[0])
             this.getRowsAndColumns(res.data,res.pagination.TotalCount)
@@ -141,6 +143,7 @@ class ContentBase extends React.Component {
                 pagination : res.pagination,
                 fetchMessage: res.message
             })
+            if(loadingMini) { this.context.loadingMiniSwitch()}
         })
     }
 
@@ -222,6 +225,7 @@ class ContentBase extends React.Component {
                                     pagination={this.state.pagination}
                                     paginationArray={this.state.paginationArray}
                                     getTableData={this.getTableData}
+                                    pageSize={this.state.pageSize}
                                 />
 
                                 <ContentTable

@@ -58,7 +58,7 @@ class ContentHeader extends React.Component {
                     {isNaN(this.props.pagination.PageIndex) || this.props.pagination.TotalPages === 1? null:
                     <div className="pagination-wrapper">
                         <button className="arrow-active"
-                            onClick={() => this.props.getTableData(false, this.props.pagination.PageIndex-1)}
+                            onClick={() => this.props.getTableData(false, this.props.pagination.PageIndex-1, this.props.pageSize, true)}
                             disabled={!this.props.pagination.HasPreviousPage}
                         >
                             <span className={ConfigLocal.MISC.MaterialIcon+' pagination-arrow'} aria-hidden="true">
@@ -84,19 +84,19 @@ class ContentHeader extends React.Component {
                                     }else if( e < ((this.props.pagination.PageIndex + 1) - this.state.dropdownMargin)) {
                                         return null
                                     }else if( e === ((this.props.pagination.PageIndex + 1) - this.state.dropdownMargin)) {
-                                        return <div key={e} onClick={() => this.props.getTableData(false, 0)}>{e === 1 ? e : 'First'}</div>
+                                        return <div key={e} onClick={() => this.props.getTableData(false, 0, this.props.pageSize, true)}>{e === 1 ? e : 'First'}</div>
                                     }else if( e === ((this.props.pagination.PageIndex + 1) + this.state.dropdownMargin)) {
-                                        return <div key={e} onClick={() => this.props.getTableData(false, this.props.pagination.TotalPages-1)}>{e=== this.props.pagination.TotalPages? e : 'Last'}</div>
+                                        return <div key={e} onClick={() => this.props.getTableData(false, this.props.pagination.TotalPages-1, this.props.pageSize, true)}>{e=== this.props.pagination.TotalPages? e : 'Last'}</div>
                                     }else if( e > ((this.props.pagination.PageIndex + 1) + this.state.dropdownMargin)) {
                                         return null
                                     }
-                                    return <div key={e} onClick={() => this.props.getTableData(false, e-1)}>{e}</div>
+                                    return <div key={e} onClick={() => this.props.getTableData(false, e-1, this.props.pageSize, true)}>{e}</div>
                                 })}
                             </div>
                         </div>
 
                         <button className="arrow-active" 
-                            onClick={() => this.props.getTableData(false, this.props.pagination.PageIndex+1)}
+                            onClick={() => this.props.getTableData(false, this.props.pagination.PageIndex+1, this.props.pageSize, true)}
                             disabled={!this.props.pagination.HasNextPage}
                         >
                             <span className={ConfigLocal.MISC.MaterialIcon+' pagination-arrow'} aria-hidden="true">

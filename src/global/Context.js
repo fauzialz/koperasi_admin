@@ -1,68 +1,8 @@
 //https://stackoverflow.com/questions/36299174/setinterval-in-a-react-app
-import React/* , { useState } */ from 'react'
+import React from 'react'
 
 const AppContext = React.createContext();
 
-/* const ProviderScope = (props) => {
-    const [ notifBar, setNotifBar ] = useState({
-        notif : {
-            msg : '',
-            status : ''
-        },
-        count : 0,
-        interval : ''
-    })
-    var localCount = 0;
-    // const { setNotif, deleteNotif, data } = NotifBarController()
-
-    const timer = () => {
-        localCount++
-        if (localCount <= 10) {
-            setNotifBar(notifBar => ({...notifBar, count : localCount}))
-            console.log(localCount)
-        }else{
-            deleteNotif()
-        }
-    }
-
-    const deleteNotif = () => {
-        const temp = {
-            msg : '',
-            state : ''
-        }
-        debugger
-        setNotifBar({...notifBar, notif : temp, count : 0})
-        localCount = 0
-        debugger
-        clearInterval(notifBar.interval)
-    }
-
-    const setNotif = (msg, status) => {
-        const temp = {
-            msg : msg,
-            status : status
-        }
-        let interval = setInterval(() => {
-            timer(0)
-        }, 500)
-        debugger
-        setNotifBar({...notifBar, notif : temp, count : 0, interval: interval})
-        
-        debugger
-    }
-
-    return (
-        <AppContext.Provider value={{
-            notif : notifBar.notif,
-            seconds: notifBar.count,
-            setNotif: setNotif,
-            closeNotif : deleteNotif
-        }}>
-            {props.children}
-        </AppContext.Provider>
-    )
-}
- */
 class ProviderScope extends React.Component {
 
     constructor(props) {
@@ -77,6 +17,7 @@ class ProviderScope extends React.Component {
             count : 0,
             interval : '',
             loading: false,
+            loadingMini: false,
         }
     }
 
@@ -116,15 +57,10 @@ class ProviderScope extends React.Component {
         }, 500)
         this.setState({interval:interval})
     }
-    setPhoneMode = (status) => {
-        this.setState({phoneMode : status})
-    }
-    setNavbarOpen = (status) => {
-        this.setState({navbarOpen : status})
-    }
-    loadingSwitch = () => {
-        this.setState({loading : !this.state.loading})
-    }
+    setPhoneMode        = (status) => this.setState({phoneMode : status})
+    setNavbarOpen       = (status) => this.setState({navbarOpen : status})
+    loadingSwitch       = () =>       this.setState({loading : !this.state.loading})
+    loadingMiniSwitch   = () =>       this.setState({loadingMini : !this.state.loadingMini})
 
     render() {
         return (
@@ -139,6 +75,8 @@ class ProviderScope extends React.Component {
                 seconds: this.state.count,
                 loading: this.state.loading,
                 loadingSwitch: this.loadingSwitch,
+                loadingMini: this.state.loadingMini,
+                loadingMiniSwitch: this.loadingMiniSwitch,
             }}>
                 {this.props.children}
             </AppContext.Provider>
