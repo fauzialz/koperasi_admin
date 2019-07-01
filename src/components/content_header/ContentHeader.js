@@ -28,6 +28,9 @@ class ContentHeader extends React.Component {
                         </div>
 
                         {/* CONTENT STATUS */}
+                        {/* this.props.rowsCount > 0 && this.props.columsCount > 0 > ?
+                            <div className=
+                        : null */}
                         {this.props.rowsCount > 0 && this.props.columnsCount > 0 ?
                             <div className="content-data-status">
                                 <div className="data-status-rows">

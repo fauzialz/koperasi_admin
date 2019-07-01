@@ -89,14 +89,13 @@
     font-weight: 650;
     max-width: 200px;
     float: left;
-    display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: top;
     white-space: nowrap;
     margin-left: 10px;
     margin-right: 18px;
-    margin-top: -1px;
+    margin-top: 1px;
 }
 .content-data-status {
     margin-top: 6px;
@@ -114,7 +113,6 @@
 .data-status-attributes {
     padding-left: 13px;
     float: left;
-    display: inline-block
 }
 .data-status-icon {
     padding-top: 2px;
