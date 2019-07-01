@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '../button';
 import ConfigLocal from '../../config/ConfigLocal';
 import './ContentHeader.scss'
+import Pagination from '../pagination/Pagination';
 
 class ContentHeader extends React.Component {
     state = {
@@ -55,55 +56,7 @@ class ContentHeader extends React.Component {
                     </div>
 
                     {/* PAGINATION */}
-                    {isNaN(this.props.pagination.PageIndex) || this.props.pagination.TotalPages === 1? null:
-                    <div className="pagination-wrapper">
-                        <button className="arrow-active"
-                            onClick={() => this.props.getTableData(false, this.props.pagination.PageIndex-1, this.props.pageSize, true)}
-                            disabled={!this.props.pagination.HasPreviousPage}
-                        >
-                            <span className={ConfigLocal.MISC.MaterialIcon+' pagination-arrow'} aria-hidden="true">
-                                keyboard_arrow_left
-                            </span>
-                        </button>
-                        
-                        <div className="page-socket">
-                            <button className={this.state.showpages? "page-button onHover" : "page-button"} 
-                                onClick={() => {this.setState({showpages : !this.state.showpages})}}
-                                onMouseOver={() => {this.setState({showpages : true})}}
-                                onMouseLeave={() => {this.setState({showpages : false})}}
-                            >
-                                {this.state.showpages? (this.props.pagination.PageIndex + 1)+' of '+ this.props.pagination.TotalPages: 'Page '+(this.props.pagination.PageIndex + 1)}
-                            </button>
-                            <div className={this.state.showpages?"page-show" : "page-hide"}
-                                onMouseEnter={() => {this.setState({showpages : true})}}
-                                onMouseLeave={() => {this.setState({showpages : false})}}
-                            >   
-                                {this.props.paginationArray.map(e => {
-                                    if( (this.props.pagination.PageIndex + 1) === e ) {
-                                        return <div key={e}><span className="marked-page">{e}</span></div>
-                                    }else if( e < ((this.props.pagination.PageIndex + 1) - this.state.dropdownMargin)) {
-                                        return null
-                                    }else if( e === ((this.props.pagination.PageIndex + 1) - this.state.dropdownMargin)) {
-                                        return <div key={e} onClick={() => this.props.getTableData(false, 0, this.props.pageSize, true)}>{e === 1 ? e : 'First'}</div>
-                                    }else if( e === ((this.props.pagination.PageIndex + 1) + this.state.dropdownMargin)) {
-                                        return <div key={e} onClick={() => this.props.getTableData(false, this.props.pagination.TotalPages-1, this.props.pageSize, true)}>{e=== this.props.pagination.TotalPages? e : 'Last'}</div>
-                                    }else if( e > ((this.props.pagination.PageIndex + 1) + this.state.dropdownMargin)) {
-                                        return null
-                                    }
-                                    return <div key={e} onClick={() => this.props.getTableData(false, e-1, this.props.pageSize, true)}>{e}</div>
-                                })}
-                            </div>
-                        </div>
-
-                        <button className="arrow-active" 
-                            onClick={() => this.props.getTableData(false, this.props.pagination.PageIndex+1, this.props.pageSize, true)}
-                            disabled={!this.props.pagination.HasNextPage}
-                        >
-                            <span className={ConfigLocal.MISC.MaterialIcon+' pagination-arrow'} aria-hidden="true">
-                                keyboard_arrow_right
-                            </span>
-                        </button>
-                    </div>}
+                    <Pagination pagination={this.props.pagination} getTableData={this.props.getTableData} />
 
                     {/* ADD BUTTON */}
                     { this.props.rowsCount > 0 ? 
