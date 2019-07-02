@@ -18,6 +18,7 @@ class ProviderScope extends React.Component {
             interval : '',
             loading: false,
             loadingMini: false,
+            pageSize: 12,
         }
     }
 
@@ -61,6 +62,7 @@ class ProviderScope extends React.Component {
     setNavbarOpen       = (status) => this.setState({navbarOpen : status})
     loadingSwitch       = () =>       this.setState({loading : !this.state.loading})
     loadingMiniSwitch   = () =>       this.setState({loadingMini : !this.state.loadingMini})
+    setPageSize         = (size)   => this.setState({pageSize : size})
 
     render() {
         return (
@@ -77,6 +79,8 @@ class ProviderScope extends React.Component {
                 loadingSwitch: this.loadingSwitch,
                 loadingMini: this.state.loadingMini,
                 loadingMiniSwitch: this.loadingMiniSwitch,
+                pageSize: this.state.pageSize,
+                setPageSize: this.setPageSize,
             }}>
                 {this.props.children}
             </AppContext.Provider>

@@ -128,7 +128,7 @@ class ContentBase extends React.Component {
         })
     }
 
-    getTableData = (loading = true, pageIndex = 0, pageSize = this.state.pageSize, loadingMini = false) => {
+    getTableData = (loading = true, pageIndex = 0, pageSize = this.context.pageSize, loadingMini = false) => {  
         if(loading) { this.setState({ tableLoading : true }) }
         if(loadingMini) { this.context.loadingMiniSwitch()}
         HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}`, (res) => {
@@ -148,7 +148,8 @@ class ContentBase extends React.Component {
     }
 
     componentDidMount() {
-        this.getTableData()
+        this.context.setPageSize(this.state.pageSize)
+        this.getTableData(true,0,this.state.pageSize)
     }
 
     render() {
@@ -225,7 +226,7 @@ class ContentBase extends React.Component {
                                     pagination={this.state.pagination}
                                     paginationArray={this.state.paginationArray}
                                     getTableData={this.getTableData}
-                                    pageSize={this.state.pageSize}
+                                    /* pageSize={this.state.pageSize} */
                                 />
 
                                 <ContentTable
