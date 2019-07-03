@@ -101,16 +101,34 @@ const Pagination = (props) => {
                             onMouseLeave={() => {setDropdown(false)}}
                         >   
                             {paginationArray.map(e => {
-                                if( (props.pagination.PageIndex + 1) === e ) {
-                                    return <div key={e}><span className="marked-page">{e}</span></div>
-                                }else if( e < ((props.pagination.PageIndex + 1) - dropdownMargin)) {
-                                    return null
-                                }else if( e === ((props.pagination.PageIndex + 1) - dropdownMargin)) {
-                                    return <div key={e} onClick={() => props.getTableData(false, 0, context.pageSize, true)}>{e === 1 ? e : 'First'}</div>
-                                }else if( e === ((props.pagination.PageIndex + 1) + dropdownMargin)) {
-                                    return <div key={e} onClick={() => props.getTableData(false, props.pagination.TotalPages-1, context.pageSize, true)}>{e=== props.pagination.TotalPages? e : 'Last'}</div>
-                                }else if( e > ((props.pagination.PageIndex + 1) + dropdownMargin)) {
-                                    return null
+                                if( (props.pagination.PageIndex + 1) <= dropdownMargin) {
+                                    if( (props.pagination.PageIndex + 1) === e ) {
+                                        return <div key={e}><span className="marked-page">{e}</span></div>
+                                    }else if( e === ((props.pagination.PageIndex + 1) + dropdownMargin + (dropdownMargin - props.pagination.PageIndex))) {
+                                        return <div key={e} onClick={() => props.getTableData(false, props.pagination.TotalPages-1, context.pageSize, true)}>{e=== props.pagination.TotalPages? e : 'Last'}</div>
+                                    }else if( e > ((props.pagination.PageIndex + 1) + dropdownMargin + (dropdownMargin - props.pagination.PageIndex))) {
+                                        return null
+                                    }
+                                }else if ((props.pagination.PageIndex +1) >= (props.pagination.TotalPages - dropdownMargin)){
+                                    if( (props.pagination.PageIndex + 1) === e ) {
+                                        return <div key={e}><span className="marked-page">{e}</span></div>
+                                    }else if( e === ((props.pagination.PageIndex + 1) - (dropdownMargin + (((props.pagination.PageIndex + 1) + dropdownMargin) - props.pagination.TotalPages)))) {
+                                        return <div key={e} onClick={() => props.getTableData(false, 0, context.pageSize, true)}>{e === 1 ? e : 'First'}</div>
+                                    }else if( e < ((props.pagination.PageIndex + 1) - (dropdownMargin + (((props.pagination.PageIndex + 1) + dropdownMargin) - props.pagination.TotalPages)))) {
+                                        return null
+                                    }
+                                }else{
+                                    if( (props.pagination.PageIndex + 1) === e ) {
+                                        return <div key={e}><span className="marked-page">{e}</span></div>
+                                    }else if( e < ((props.pagination.PageIndex + 1) - dropdownMargin)) {
+                                        return null
+                                    }else if( e === ((props.pagination.PageIndex + 1) - dropdownMargin)) {
+                                        return <div key={e} onClick={() => props.getTableData(false, 0, context.pageSize, true)}>{e === 1 ? e : 'First'}</div>
+                                    }else if( e === ((props.pagination.PageIndex + 1) + dropdownMargin)) {
+                                        return <div key={e} onClick={() => props.getTableData(false, props.pagination.TotalPages-1, context.pageSize, true)}>{e=== props.pagination.TotalPages? e : 'Last'}</div>
+                                    }else if( e > ((props.pagination.PageIndex + 1) + dropdownMargin)) {
+                                        return null
+                                    }
                                 }
                                 return <div key={e} onClick={() => props.getTableData(false, e-1, context.pageSize, true)}>{e}</div>
                             })}
