@@ -7,51 +7,40 @@ import { AxiosOption, HeadersAppCode, HeadersToken, callbackBuild } from '../mod
 export default {
     /**
      * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
-     * @param {requestCallback} cb - Callback function that handle the response. common form : (res) => {...}
-     * @callback requestCallback 
-     * @param {Object} res - res contain status {boolean}, data {Object}, and message {string}
      */
-    get: (url, cb) => {
+    get: async (url) => {
         if(HelperCookie.get(local.TOKEN) === null) {
-           cb ( callbackBuild() )
-           return
+           return callbackBuild() 
         }
-        let setting = { headers : new HeadersToken() }
-        axios.get(url, setting)
-        .then( res => {
+        try {
+            let res = await axios.get(url, { headers : new HeadersToken() })
             if( res.headers.etag ) {
                 res.data.Result['Etag'] = res.headers.etag
             }
-            cb ( callbackBuild(res) )
-        })
-        .catch(err => {
+            return callbackBuild(res)
+        } catch (err) {
             console.log(err)
             let errResponse = err.response || err.message
-            cb ( callbackBuild(errResponse))
-        })
+            return callbackBuild(errResponse)
+        }
     },
 
      /**
      * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
      * @param {Object} data - Some data to post.
-     * @param {requestCallback} cb - Callback function that handle the response. common form : (res) => {...}
-     * @callback requestCallback 
-     * @param {Object} res - res contain status {boolean}, data {Object}, and message {string}
      */
-    post: (url, data, cb) => {
+    post: async (url, data) => {
         if(HelperCookie.get(local.TOKEN) === null) {
-            cb ( callbackBuild() )
-            return
+            return callbackBuild()
         }
-        let setting = { headers : new HeadersToken() }
-        axios.post(url, data, setting)
-        .then( res => {
-            cb ( callbackBuild(res) )
-        })
-        .catch( err => {
-            let errResponse = err.response
-            cb ( callbackBuild(errResponse))
-        })
+        try {
+            let res = await axios.post(url, data, { headers : new HeadersToken() })
+            return callbackBuild(res)
+        } catch (err) {
+            console.log(err)
+            let errResponse = err.response || err.message
+            return  callbackBuild(errResponse)
+        }
     },
 
     /**
@@ -59,52 +48,43 @@ export default {
      * @param {Number} id - Row data Id.
      * @param {String} Etag - Etag string for row data. Get it when find by id.
      * @param {Object} data - Edited data.
-     * @param {requestCallback} cb - Callback function that handle the response. common form : (res) => {...}
-     * @callback requestCallback 
-     * @param {Object} res - res contain status {boolean}, data {Object}, and message {string}
      */
-    put: (url, id, Etag, data, cb) => {
+    put: async (url, id, Etag, data) => {
         if(HelperCookie.get(local.TOKEN) === null || !data || !url || !Etag | !id) {
-            cb ( callbackBuild() )
-            return
+            return callbackBuild()
         }
-        url += '/' +id
-        let setting = { headers : new HeadersToken() }
-        setting.headers['If-Match'] = Etag
-        axios.put(url, data, setting)
-        .then( res => {
-            cb ( callbackBuild(res) )
-        })
-        .catch( err => {
-            let errResponse = err.response
-            cb ( callbackBuild(errResponse))
-        })
+        try {
+            let setting = { headers : new HeadersToken() }
+            setting.headers['If-Match'] = Etag
+            let res = await axios.put(`${url}/${id}`, data, setting)  
+            return callbackBuild(res)
+        } catch (err) {
+            console.log(err)
+            let errResponse = err.response || err.message
+            return  callbackBuild(errResponse)
+        }
     },
 
     /**
      * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
      * @param {Number} id - Row data Id.
      * @param {String} Etag - Etag string for row data. Get it when find by id.
-     * @param {requestCallback} cb - Callback function that handle the response. common form : (res) => {...}
-     * @callback requestCallback 
-     * @param {Object} res - res contain status {boolean}, data {Object}, and message {string}
      */
-    delete: (url, id, Etag, cb) => {
+    delete: async (url, id, Etag) => {
         if(HelperCookie.get(local.TOKEN) === null || !id || !url || !Etag) {
-            cb ( callbackBuild() )
-            return
+            return callbackBuild()
         }
-        url += '/' + id
-        let setting = { headers : new HeadersToken() }
-        setting.headers['If-Match'] = Etag
-        axios.delete(url, setting)
-        .then( res => {
-            cb ( callbackBuild(res) )
-        })
-        .catch( err => {
-            let errResponse = err.response
-            cb ( callbackBuild(errResponse))
-        })
+        try {
+            let setting = { headers : new HeadersToken() }
+            setting.headers['If-Match'] = Etag
+            let res = await axios.delete(`${url}/${id}`, setting)
+            debugger
+            return callbackBuild(res)
+        } catch (err) {
+            console.log(err)
+            let errResponse = err.response || err.message
+            return  callbackBuild(errResponse)
+        }
     },
 
     /**

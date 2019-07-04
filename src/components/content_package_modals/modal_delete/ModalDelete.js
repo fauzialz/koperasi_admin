@@ -7,22 +7,17 @@ import './ModalDelete.scss'
 
 const ModalDelete = (props) => {
     const context = useContext(AppContext)
-    const onYes = () => {
+    const onYes = async () => {
         context.loadingSwitch()
-        HelperHttp.delete(props.url, props.data.Id, props.data.Etag, (res) => {
-            if(res.status === 200 && res.success) {
-                context.setNotif(
-                    'Successfully delete ' + props.data.Name + ' from ' + props.tableName +'.', ConfigLocal.NOTIF.Success
-                )
-            }else{
-                context.setNotif(
-                    res.message, ConfigLocal.NOTIF.Error
-                )
-            }
-            context.loadingSwitch()
-            props.close()
-            props.reload(false,props.pageRows === 1 && props.currentPage!== 0? props.currentPage-1 : props.currentPage)
-        })
+        let res = await HelperHttp.delete(props.url, props.data.Id, props.data.Etag)
+        context.loadingSwitch()
+        if(res.status === 200 && res.success) {
+            context.setNotif( 'Successfully delete ' + props.data.Name + ' from ' + props.tableName +'.', ConfigLocal.NOTIF.Success )
+        }else{
+            context.setNotif( res.message, ConfigLocal.NOTIF.Error )
+        }
+        props.close()
+        props.reload(false,props.pageRows === 1 && props.currentPage!== 0? props.currentPage-1 : props.currentPage)
     }
 
     return (

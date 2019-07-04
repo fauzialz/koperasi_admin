@@ -10,25 +10,20 @@ class ModalAdd extends React.Component {
         child : React.createRef()
     }
 
-    onSubmit = (data) => {
+    onSubmit = async (data) => {
         window.event.preventDefault()
         this.context.loadingSwitch()
-
-        HelperHttp.post(this.props.url, data, (res) => {
-            this.context.loadingSwitch()
-            if(res.status === 200 && res.success) {
-                this.props.reload(false,this.props.currentPage)
-                this.context.setNotif(
-                    `New ${this.props.tableName} data added.`, ConfigLocal.NOTIF.Success
-                )
-            }else{
-                this.context.setNotif(
-                    res.message, ConfigLocal.NOTIF.Error
-                )
-            }
-            this.state.child.current.clearInput()
-            this.props.close()
-        })
+        let res = await HelperHttp.post(this.props.url, data )
+        debugger
+        this.context.loadingSwitch()
+        if(res.status === 200 && res.success) {
+            this.props.reload(false,this.props.currentPage)
+            this.context.setNotif( `New ${this.props.tableName} data added.`, ConfigLocal.NOTIF.Success )
+        }else{
+            this.context.setNotif( res.message, ConfigLocal.NOTIF.Error )
+        }
+        this.state.child.current.clearInput()
+        this.props.close()
     }
 
     render() {
