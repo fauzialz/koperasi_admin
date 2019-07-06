@@ -18,7 +18,7 @@ class NavbarEditAuth extends React.Component {
         this.setState({password:e.target.value})
     }
 
-    onSubmit = (event) => {
+    onSubmit = async (event) => {
         event.preventDefault();
         this.context.loadingSwitch()
         this.context.closeNotif()
@@ -26,17 +26,16 @@ class NavbarEditAuth extends React.Component {
             username : HelperCookie.get(ConfigLocal.USERNAME),
             password : this.state.password
         }
-        HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, formdata,
-        (success, response) => {
-            this.context.loadingSwitch()
-            if(success){
-                this.props.editSession()
-                this.context.setNotif('Password correct. You can edit navigation menu.',ConfigLocal.NOTIF.Success)
-            }else{
-                this.context.setNotif('Password incorrect. Access denied!',ConfigLocal.NOTIF.Error)
-            }
-            this.onClose()
-        })
+        let res = await HelperHttp.post(ConfigApi.ROUTE.SIGN_IN, formdata)
+        this.context.loadingSwitch()
+        if(res.success){
+            this.props.editSession()
+            this.context.setNotif('Password correct. You can edit navigation menu.',ConfigLocal.NOTIF.Success)
+        }else{
+            console.log(res)
+            this.context.setNotif('Password incorrect. Access denied!',ConfigLocal.NOTIF.Error)
+        }
+        this.onClose()
     }
 
     onClose = () => {

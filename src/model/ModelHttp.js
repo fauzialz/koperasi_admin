@@ -39,8 +39,9 @@ class HeadersToken {
 /**
  * @param {number} status - API response HTTP Status Code.
  * @param {boolean} success - Indicate bussines success or not. (false if null)
- * @param {Object} data - API response data. ('No data' if null)
+ * @param {JSON} data - API response data. ('No data' if null)
  * @param {string} message - API response massage. ('No message' if null)
+ * @param {JSON} pagination - API response massage. ('No message' if null)
  * Create proper format for callback.
  * */
 var callbackFormat = (status, success = false, data = [], message = 'No message.', pagination = {}) => {

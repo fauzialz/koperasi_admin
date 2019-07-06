@@ -34,7 +34,7 @@ export default {
             return callbackBuild()
         }
         try {
-            let res = await axios.post(url, data, { headers : new HeadersToken() })
+            let res = await axios.post(url, data, { headers : url === config.ROUTE.SIGN_IN? new HeadersAppCode() : new HeadersToken() })
             return callbackBuild(res)
         } catch (err) {
             console.log(err)

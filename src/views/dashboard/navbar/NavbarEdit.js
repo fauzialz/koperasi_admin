@@ -52,24 +52,19 @@ class NavbarEdit extends React.Component {
         )
     }
 
-    onDelete = () => {
+    onDelete = async () => {
         this.context.loadingSwitch()
         this.context.closeNotif()
-        HelperHttp.request(ConfigApi.ROUTE.MENU, ConfigApi.METHODS.DEL,this.state.data,
-            (success, response) => {
-                this.context.loadingSwitch()
-                if(success) {
-                    setTimeout(() => {
-                        this.context.setNotif(
-                            'Data deleted',
-                            ConfigLocal.NOTIF.Success
-                        )
-                        this.props.hotReload()
-                    }, 500);
-                }
-                this.clearInput()
-                this.props.onClose()
-            })
+        let res = await HelperHttp.delete(ConfigApi.ROUTE.MENU, this.state.data.Id, this.state.data.Etag)
+        this.context.loadingSwitch()
+        if(res.success){
+            setTimeout(() => {
+                this.context.setNotif( 'Data deleted', ConfigLocal.NOTIF.Success )
+                this.props.hotReload()
+            }, 500);
+        }else console.log(res)
+        this.clearInput()
+        this.props.onClose()
     }
 
     textChange = e => {
