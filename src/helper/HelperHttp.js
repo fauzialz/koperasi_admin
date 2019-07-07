@@ -2,7 +2,7 @@ import axios from 'axios'
 import config from '../config/ConfigApi'
 import local from '../config/ConfigLocal'
 import HelperCookie from './HelperCookie';
-import { AxiosOption, HeadersAppCode, HeadersToken, callbackBuild } from '../model/ModelHttp';
+import { HeadersAppCode, HeadersToken, callbackBuild } from '../model/ModelHttp';
 
 export default {
     /**
@@ -78,53 +78,11 @@ export default {
             let setting = { headers : new HeadersToken() }
             setting.headers['If-Match'] = Etag
             let res = await axios.delete(`${url}/${id}`, setting)
-            debugger
             return callbackBuild(res)
         } catch (err) {
             console.log(err)
             let errResponse = err.response || err.message
             return  callbackBuild(errResponse)
         }
-    },
-
-    /**
-     * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
-     * @param {string} method - HTTP Request method. Get listed methods in ConfigApi.METHOD.
-     * @param {Object} json - Data in a form of Object to be sent to API.
-     * @param {requestCallback} cb - Callback function that handle the response. common form : (success, response) => {...}
-     * @callback requestCallback 
-     * @param {boolean} success - Handle success response.
-     * @param {Object} response - Handle response body data.
-     */
-    request: (url, method, json, cb) => {
-        let option = new AxiosOption( url, method, json)
-        if (url === config.ROUTE.SIGN_IN){
-            option.headers = new HeadersAppCode()
-        }else{
-            // if not Sign in, do this
-            option.headers = new HeadersToken()
-            if (method === config.METHODS.PUT || method === config.METHODS.DEL) {
-                option.url += '/' + json.Id
-                option.headers['If-Match'] = json.Etag
-            }
-            delete option.data.Id
-            delete option.data.Etag
-            delete option.data.Code
-            delete option.data.Order
-        }
-        axios(option)
-        .then(res => {
-            if(method === config.METHODS.GET && res.headers.etag) {
-                res.data.Result['Etag'] = res.headers.etag
-            }
-            cb(res.data.IsSuccess, res.data)
-        })
-        .catch(err => {
-            if(err.response === undefined){  
-                cb(false, { Message: 'Lost connection with server.' })
-            }else{
-                cb(false, err.response.data)
-            }
-        })
-    },
+    }
 }

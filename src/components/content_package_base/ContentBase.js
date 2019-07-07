@@ -76,7 +76,6 @@ class ContentBase extends React.Component {
     openEditModalHandler = async (id) => {
         this.context.loadingSwitch()
         let res = await HelperHttp.get(`${this.props.config.Url}/${id}`)
-        debugger
         this.context.loadingSwitch()
         if(res.data.Etag) {
             this.setState({ openEditModal: true, rowData: res.data })

@@ -2,20 +2,6 @@ import ConfigApi from "../config/ConfigApi";
 import HelperCookie from "../helper/HelperCookie";
 import ConfigLocal from "../config/ConfigLocal";
 
-class AxiosOption {
-    /**
-     * @param {string} url - API url. Get listed url in ConfigApi.ROUTE.
-     * @param {string} method - HTTP Request Method.
-     * @param {Object} json - Object data to send to API.
-     * */
-    constructor(url, method, json) {
-        this.url =  url
-        this.method = method
-        this.headers = {}
-        this.data = json
-    }
-}
-
 class HeadersAppCode {
     /**
      * Return { Content-Type : "content type", ApplicationCode : "application code" }
@@ -71,7 +57,6 @@ var callbackBuild = (res) => {
 } 
 
 export {
-    AxiosOption,
     HeadersAppCode,
     HeadersToken,
     callbackFormat,
