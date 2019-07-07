@@ -44,106 +44,74 @@ class ContentBase extends React.Component {
     getRowsAndColumns = (objList, rowsCount = 0) => {
         if ( !objList.length ) {
             this.setState({tableRows: 0})
-            return;
+            return
         }
         let rows = rowsCount !== 0 ? rowsCount : objList.length
         let columns = Object.keys(objList[0]).length
-        this.setState({
-            tableRows : rows,
-            tableColumns : columns
-        })
+        this.setState({ tableRows : rows,  tableColumns : columns })
     } 
     getPaginationArray = (length) => {
         let arr = []
         for( let i = 0; i < length; i++) {
             arr.push(i+1)
         }
-        this.setState({paginationArray:arr})
+        this.setState({ paginationArray:arr })
     }
 
     onScrollHandler = () => {
         let topState = this.refTable.current.getBoundingClientRect().top
         if (topState < this.refTable.current.offsetTop) {
-            this.setState({showHeader : true})
+            this.setState({ showHeader : true })
         }else{
-            this.setState({showHeader: false})
+            this.setState({ showHeader: false })
         }
     }
 
-    closeModalsHandler = () => {
-        this.setState({
-            openAddModal: false,
-            openInfoModal: false,
-            openEditModal: false,
-            openDeleteModal: false
-        })
-    }
+    closeModalsHandler = () => this.setState({ openAddModal: false, openInfoModal: false, openEditModal: false, openDeleteModal: false })
 
-    openAddModalHandler = () => {
-        this.setState({
-            openAddModal: true
-        })
-    }
+    openAddModalHandler = () => this.setState({ openAddModal: true })
 
-    openInfoModalHandler = (rowData) => {
-        this.setState({
-            openInfoModal: true,
-            rowData: rowData
-        })
-    }
+    openInfoModalHandler = (rowData) => this.setState({ openInfoModal: true, rowData: rowData })
 
-    openEditModalHandler = (id) => {
+    openEditModalHandler = async (id) => {
         this.context.loadingSwitch()
-        HelperHttp.get(`${this.props.config.Url}/${id}`, (res) => {
-            this.context.loadingSwitch()
-            if(res.data.Etag) {
-                this.setState({
-                    openEditModal: true,
-                    rowData: res.data
-                })
-            }else{
-                console.log(res)
-                this.context.setNotif(
-                    res.message, ConfigLocal.NOTIF.Error
-                )
-            }
-        })
-    }
-
-    openDeleteModalHandler = (id) => {
+        let res = await HelperHttp.get(`${this.props.config.Url}/${id}`)
         this.context.loadingSwitch()
-        HelperHttp.get(`${this.props.config.Url}/${id}`, (res) => {
-            this.context.loadingSwitch()
-            if(res.data.Etag) {
-                this.setState({
-                    rowData: res.data,
-                    openDeleteModal: true
-                })
-            }else{
-                console.log(res)
-                this.context.setNotif(
-                    res.message, ConfigLocal.NOTIF.Error
-                )
-            }
-        })
+        if(res.data.Etag) {
+            this.setState({ openEditModal: true, rowData: res.data })
+        } else {
+            console.log(res)
+            this.context.setNotif( res.message, ConfigLocal.NOTIF.Error )
+        }
     }
 
-    getTableData = (loading = true, pageIndex = 0, pageSize = this.context.pageSize, loadingMini = false) => {  
+    openDeleteModalHandler = async (id) => {
+        this.context.loadingSwitch()
+        let res = await HelperHttp.get(`${this.props.config.Url}/${id}`)
+        this.context.loadingSwitch()
+        if(res.data.Etag) {
+            this.setState({ rowData: res.data, openDeleteModal: true })
+        }else{
+            console.log(res)
+            this.context.setNotif( res.message, ConfigLocal.NOTIF.Error )
+        }
+    }
+
+    getTableData = async (loading = true, pageIndex = 0, pageSize = this.context.pageSize, loadingMini = false) => {  
         if(loading) { this.setState({ tableLoading : true }) }
         if(loadingMini) { this.context.loadingMiniSwitch()}
-        HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}`, (res) => {
-            let keys = HelperObject.getObjKeys(res.data[0])
-            this.getRowsAndColumns(res.data,res.pagination.TotalCount)
-            this.getPaginationArray(res.pagination.TotalPages)
-            this.getPageRows(res.pagination.PageIndex, res.pagination.TotalCount, pageSize)
-            this.setState({
-                tableData : res.data,
-                tableLoading : false,
-                tableDataKey : keys,
-                pagination : res.pagination,
-                fetchMessage: res.message
-            })
-            if(loadingMini) { this.context.loadingMiniSwitch()}
+        let res = await HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}`)
+        if(loadingMini) { this.context.loadingMiniSwitch()}
+        let keys = HelperObject.getObjKeys(res.data[0])
+        this.getRowsAndColumns(res.data,res.pagination.TotalCount)
+        this.getPaginationArray(res.pagination.TotalPages)
+        this.getPageRows(res.pagination.PageIndex, res.pagination.TotalCount, pageSize)
+        this.setState({
+            tableData : res.data,
+            tableLoading : false,
+            tableDataKey : keys,
+            pagination : res.pagination,
+            fetchMessage: res.message
         })
     }
 
@@ -153,23 +121,8 @@ class ContentBase extends React.Component {
     }
 
     render() {
-        const {
-            showHeader,
-            tableData,
-            tableDataKey,
-            rowData,
-            tableLoading,
-            tableRows,
-            tableColumns,
-            openAddModal,
-            openInfoModal, 
-            openEditModal, 
-            openDeleteModal,
-            fetchMessage
-        } = this.state
-        const {
-            config
-        } = this.props
+        const { showHeader, tableData, tableDataKey, rowData, tableLoading, tableRows, tableColumns, openAddModal, openInfoModal,  openEditModal,  openDeleteModal, fetchMessage } = this.state
+        const { config } = this.props
         return (
             <React.Fragment>
 
@@ -226,7 +179,6 @@ class ContentBase extends React.Component {
                                     pagination={this.state.pagination}
                                     paginationArray={this.state.paginationArray}
                                     getTableData={this.getTableData}
-                                    /* pageSize={this.state.pageSize} */
                                 />
 
                                 <ContentTable

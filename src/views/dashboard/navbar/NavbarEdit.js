@@ -23,53 +23,48 @@ class NavbarEdit extends React.Component {
         }
     }
 
-    onSubmit = (e) => {
-        e.preventDefault()
-        this.context.loadingSwitch()
-        this.context.closeNotif()
-        HelperHttp.request(ConfigApi.ROUTE.MENU, this.props.add ? ConfigApi.METHODS.POST : ConfigApi.METHODS.PUT, this.state.data,
-            (success, response) => {
-                this.context.loadingSwitch()
-                if(success){
-                    this.props.hotReload()
-                    setTimeout(() => {
-                        this.context.setNotif(
-                            this.props.add? 'Data added.': 'Data edited.',
-                            ConfigLocal.NOTIF.Success
-                        )
-                    }, 500);
-                }else{
-                    setTimeout(() => {
-                        this.context.setNotif(
-                            response.Message,
-                            ConfigLocal.NOTIF.Error
-                        )
-                    }, 800)
-                }
-                this.clearInput()
-                this.props.onClose()
-            }    
-        )
+    postSubmit = async () => {
+        let res = await  HelperHttp.post(ConfigApi.ROUTE.MENU, this.state.data)
+        return res
+    }
+    putSubmit = async () => {
+        let res = await HelperHttp.put(ConfigApi.ROUTE.MENU,  this.state.data.Id, this.state.data.Etag, this.state.data)
+        return res
     }
 
-    onDelete = () => {
-        this.context.loadingSwitch()
+    onSubmit = async (e) => {
+        e.preventDefault()
         this.context.closeNotif()
-        HelperHttp.request(ConfigApi.ROUTE.MENU, ConfigApi.METHODS.DEL,this.state.data,
-            (success, response) => {
-                this.context.loadingSwitch()
-                if(success) {
-                    setTimeout(() => {
-                        this.context.setNotif(
-                            'Data deleted',
-                            ConfigLocal.NOTIF.Success
-                        )
-                        this.props.hotReload()
-                    }, 500);
-                }
-                this.clearInput()
-                this.props.onClose()
-            })
+        this.context.loadingSwitch()
+        let res = this.props.add ? await this.postSubmit() : await this.putSubmit()
+        this.context.loadingSwitch()
+        if(res.success) {
+            this.props.hotReload()
+            setTimeout(() => {
+                this.context.setNotif( this.props.add? 'Data added.': 'Data edited.', ConfigLocal.NOTIF.Success )
+            }, 500);
+        } else {
+            setTimeout(() => {
+                this.context.setNotif( res.message, ConfigLocal.NOTIF.Error )
+            }, 800)
+        }
+        this.clearInput()
+        this.props.onClose()
+    }
+
+    onDelete = async () => {
+        this.context.closeNotif()
+        this.context.loadingSwitch()
+        let res = await HelperHttp.delete(ConfigApi.ROUTE.MENU, this.state.data.Id, this.state.data.Etag)
+        this.context.loadingSwitch()
+        if(res.success){
+            setTimeout(() => {
+                this.context.setNotif( 'Data deleted', ConfigLocal.NOTIF.Success )
+                this.props.hotReload()
+            }, 500);
+        }else console.log(res)
+        this.clearInput()
+        this.props.onClose()
     }
 
     textChange = e => {

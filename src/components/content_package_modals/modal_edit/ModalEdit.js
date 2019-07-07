@@ -7,26 +7,19 @@ import ModalForm from '../../modal_form';
 
 const ModalEdit = (props) => {
     const context = React.useContext(AppContext)
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         window.event.preventDefault()
         context.loadingSwitch()
-        
-        HelperHttp.put(props.url, data.Id, data.Etag, ModelComponents[props.tableName](data), (res) => {
-            context.loadingSwitch()
-            if(res.status === 200 && res.success) {
-                context.setNotif(
-                    `${props.tableName} data successfully edited.`, ConfigLocal.NOTIF.Success
-                )
-            }else{
-                context.setNotif(
-                    res.message, ConfigLocal.NOTIF.Error
-                )
-            }
-            props.close()
-            props.reload(false,props.currentPage)
-        })
+        let res = await HelperHttp.put(props.url, data.Id, data.Etag, ModelComponents[props.tableName](data))
+        context.loadingSwitch()
+        if(res.status === 200 && res.success) {
+            context.setNotif( `${props.tableName} data successfully edited.`, ConfigLocal.NOTIF.Success )
+        }else{
+            context.setNotif( res.message, ConfigLocal.NOTIF.Error )
+        }
+        props.close()
+        props.reload(false,props.currentPage)
     }
-    
     return (
         <ModalForm
             title={`Edit ${props.tableName} Data`}
