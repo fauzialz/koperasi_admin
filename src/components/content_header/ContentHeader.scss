@@ -61,7 +61,7 @@
     position: relative;
     width: 100%;
     display: grid;
-    grid-template-columns: [chh1] 370px [chh2] auto [chh3] 75px [chh4];
+    grid-template-columns: [chh1] 400px [chh2] auto [chh3] 75px [chh4];
 }
 .content-info {
     grid-column: chh1 / chh2;
@@ -208,4 +208,47 @@
 }
 #Telephone {
     width: 16.4%;
+}
+
+.searchingbar-base {
+    float: left;
+    margin-top: .5px;
+    position: relative;
+}
+.searchingbar-input {
+    border-radius: 5px;
+    max-width: 390px;
+    min-width: 0px;
+    height: 40px;
+    margin: 0px;
+    background-color: $pure-chrome;
+    padding-left: 44px;
+    border: 1px solid transparent;
+}
+.searchingbar-input::placeholder {
+    font-style: normal;
+    font-size: 14px;
+}
+.searchingbar-input:focus {
+    background-color: $pure-lighten;
+    border: 1px solid transparent;
+    box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+}
+.searchingbar-icon {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    color: $dark;
+    font-size: 23px;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    margin-top: 2px;
+    margin-left: 6px;
+    padding-top: 6px;
+    padding-left: 6px;
+    background-color: transparent;
+}
+.searchingbar-icon:hover {
+    background-color: #00000011;
 }

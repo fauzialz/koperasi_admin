@@ -97,10 +97,10 @@ class ContentBase extends React.Component {
         }
     }
 
-    getTableData = async (loading = true, pageIndex = 0, pageSize = this.context.pageSize, loadingMini = false) => {  
+    getTableData = async (loading = true, pageIndex = 0, pageSize = this.context.pageSize, loadingMini = false, search = '') => {  
         if(loading) { this.setState({ tableLoading : true }) }
         if(loadingMini) { this.context.loadingMiniSwitch()}
-        let res = await HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}`)
+        let res = await HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}&search=${search}`)
         if(loadingMini) { this.context.loadingMiniSwitch()}
         let keys = HelperObject.getObjKeys(res.data[0])
         this.getRowsAndColumns(res.data,res.pagination.TotalCount)

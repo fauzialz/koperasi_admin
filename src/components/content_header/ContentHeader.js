@@ -3,16 +3,28 @@ import Button from '../button';
 import ConfigLocal from '../../config/ConfigLocal';
 import './ContentHeader.scss'
 import Pagination from '../pagination/Pagination';
+import { AppContext } from '../../global';
 
 class ContentHeader extends React.Component {
+    static contextType = AppContext
     state = {
         showpages : false,
-        dropdownMargin: 5
+        dropdownMargin: 5,
+        searching : ''
+    }
+
+    searchingbarInputHandler = e => {
+        this.setState({searching : e.target.value})
+    }
+
+    onSubmitSearchingBar = e => {
+        e.preventDefault()
+        this.props.getTableData(false,this.props.pagination.PageIndex,this.context.PageSize,true,this.state.searching)
     }
 
     render(){
+        const searchingbar = ConfigLocal.MISC.MaterialIcon + ' searchingbar-icon'
         const icon1 = ConfigLocal.MISC.MaterialIcon + ' title-icon'
-        const icon2 = ConfigLocal.MISC.MaterialIcon + ' data-status-icon'
         const icon3 = ConfigLocal.MISC.MaterialIcon + ' add-button-icon'
         return (
             <div className={this.props.showLine? "header-sticky header-line": "header-sticky"}>
@@ -26,37 +38,14 @@ class ContentHeader extends React.Component {
                         <div className="content-title">
                             {this.props.title}
                         </div>
-
-                        {/* CONTENT STATUS */}
-                        {/* this.props.rowsCount > 0 && this.props.columsCount > 0 > ?
-                            <div className=
-                        : null */}
-                        {this.props.rowsCount > 0 && this.props.columnsCount > 0 ?
-                            <div className="content-data-status">
-                                <div className="data-status-rows">
-                                    <span className={icon2} aria-hidden="true">
-                                        view_agenda
-                                    </span>
-                                    {this.props.rowsCount > 0 ?
-                                        <span className="data-status-number">{this.props.rowsCount}</span>:
-                                        <span className="data-status-loading" />
-                                    }
-                                    <span className="data-status-text">Rows</span>
-                                </div>
-                                <div className="data-status-attributes">
-                                    <span className={icon2} aria-hidden="true">
-                                        description
-                                    </span>
-                                    {this.props.columnsCount > 0 ?
-                                        <span className="data-status-number">{this.props.columnsCount}</span>:
-                                        <span className="data-status-loading" />
-                                    }
-                                    <span className="data-status-text">Attributes</span>
-                                </div>
-                            </div>: null
-                        }
-
                     </div>
+
+                    <form className="searchingbar-base" onSubmit={this.onSubmitSearchingBar}>
+                         <input value={this.state.searching} onChange={this.searchingbarInputHandler} className="searchingbar-input" placeholder={`Search ${this.props.title}`} />
+                         <span className={searchingbar} aria-hidden="true">
+                            search
+                        </span>
+                    </form>
 
                     {/* PAGINATION */}
                     <Pagination pagination={this.props.pagination} getTableData={this.props.getTableData} />
