@@ -97,27 +97,44 @@ class ContentBase extends React.Component {
         }
     }
 
-    getTableData = async (loading = true, pageIndex = 0, pageSize = this.context.pageSize, loadingMini = false, search = '') => {  
-        if(loading) { this.setState({ tableLoading : true }) }
-        if(loadingMini) { this.context.loadingMiniSwitch()}
-        let res = await HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}&search=${search}`)
-        if(loadingMini) { this.context.loadingMiniSwitch()}
-        let keys = HelperObject.getObjKeys(res.data[0])
-        this.getRowsAndColumns(res.data,res.pagination.TotalCount)
-        this.getPaginationArray(res.pagination.TotalPages)
-        this.getPageRows(res.pagination.PageIndex, res.pagination.TotalCount, pageSize)
-        this.setState({
-            tableData : res.data,
-            tableLoading : false,
-            tableDataKey : keys,
-            pagination : res.pagination,
-            fetchMessage: res.message
-        })
+    afterFetch = (res) => {
+        try {
+            let keys = HelperObject.getObjKeys(res.data[0])
+            this.getRowsAndColumns(res.data,res.pagination.TotalCount)
+            this.getPaginationArray(res.pagination.TotalPages)
+            this.getPageRows(res.pagination.PageIndex, res.pagination.TotalCount, res.pagination.PageSize)
+            this.setState({ tableData : res.data, tableDataKey : keys, pagination : res.pagination, fetchMessage : res.message })   
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    reqApi = (pageIndex = 0, pageSize = this.context.pageSize, search = '') => HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}&search=${search}`)
+
+    fetchDataInit = async () => {
+        this.setState({ tableLoading : true })
+        let res = await this.reqApi()
+        this.afterFetch(res)
+        this.setState({ tableLoading : false })
+    }
+
+    fetchDataPagination = async (pageIndex, pageSize) => {
+        this.context.loadingMiniSwitch()
+        let res = await this.reqApi(pageIndex, pageSize)
+        this.afterFetch(res)
+        this.context.loadingMiniSwitch()
+    }
+
+    fetchDataSearch = async (search) => {
+        this.context.loadingMiniSwitch()
+        let res = await this.reqApi(0, 150, search) //todo: 150 is the max row boundery to prevent pagination bugs when search. Must fix it later!
+        this.afterFetch(res)
+        this.context.loadingMiniSwitch()
     }
 
     componentDidMount() {
         this.context.setPageSize(this.state.pageSize)
-        this.getTableData(true,0,this.state.pageSize)
+        this.fetchDataInit()
     }
 
     render() {
@@ -132,7 +149,7 @@ class ContentBase extends React.Component {
                     open={openAddModal}
                     close={this.closeModalsHandler}
                     names={config.Input}
-                    reload={this.getTableData}
+                    reload={this.fetchDataPagination}
                     currentPage={this.state.pagination.PageIndex}
                 />
                 <ModalInfo
@@ -150,7 +167,7 @@ class ContentBase extends React.Component {
                     close={this.closeModalsHandler}
                     names={config.Input}
                     data={rowData}
-                    reload={this.getTableData}
+                    reload={this.fetchDataPagination}
                     currentPage={this.state.pagination.PageIndex}
                 />
                 <ModalDelete 
@@ -159,7 +176,7 @@ class ContentBase extends React.Component {
                     open={openDeleteModal}
                     close={this.closeModalsHandler}
                     data={rowData}
-                    reload={this.getTableData}
+                    reload={this.fetchDataPagination}
                     currentPage={this.state.pagination.PageIndex}
                     pageRows={this.state.thisPageRows}
                 />
@@ -178,12 +195,13 @@ class ContentBase extends React.Component {
                                     showLine={showHeader}
                                     pagination={this.state.pagination}
                                     paginationArray={this.state.paginationArray}
-                                    getTableData={this.getTableData}
+                                    fetchPage={this.fetchDataPagination}
+                                    fetchSearch={this.fetchDataSearch}
                                 />
 
                                 <ContentTable
                                     loading={tableLoading}
-                                    tryAgain={this.getTableData}
+                                    tryAgain={this.fetchDataInit}
                                     addNew={this.openAddModalHandler}
                                     names={config.Input}
                                     data={tableData}

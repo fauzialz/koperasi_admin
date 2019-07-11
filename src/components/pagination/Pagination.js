@@ -10,6 +10,7 @@ const Pagination = (props) => {
     const [dropdown, setDropdown] = useState(false)
     const [oldrow, setOldrow] = useState(context.pageSize)
     const [focus, setFocus] = useState(false)
+    const [hover, setHover] = useState(false)
     const [change, setChange] = useState(false)
     const paginationArray = HelperArray.seqArray(props.pagination.TotalPages,1)
     const dropdownMargin = 5
@@ -46,7 +47,7 @@ const Pagination = (props) => {
         let pageSize = context.pageSize
         if(!isNaN(pageSize) && pageSize <= props.pagination.TotalCount && pageSize !== oldrow && pageSize !== '') {
             setOldrow(pageSize)
-            props.getTableData(false,0,pageSize,true)
+            props.fetchPage(0, pageSize)
             inputRef.current.blur()
         }else{
             context.setPageSize(oldrow)
@@ -60,7 +61,10 @@ const Pagination = (props) => {
 
                 {/* PAGE SIZE CHANGER */}
                 {!props.pagination.TotalPages? null :
-                <div className="show-row-base">
+                <div className="show-row-base"
+                    onMouseOver={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                >
                     <form className="show-row-input-wrapper" 
                         onSubmit={onSubmit}
                     >
@@ -73,14 +77,14 @@ const Pagination = (props) => {
                             </span>
                         </button>
                     </form>
-                    <div className="show-row-text">{focus? `of ${props.pagination.TotalCount} Rows` : `Rows/Page`}</div> 
+                    <div className="show-row-text">{hover || focus? `of ${props.pagination.TotalCount} Rows` : `Rows/Page`}</div> 
                 </div>}
 
                 {/* PAGE NAVIGATOR */}
                 {isNaN(props.pagination.PageIndex) || props.pagination.TotalPages === 1? null:
                 <React.Fragment>
                     <button className="arrow-active"
-                        onClick={() => props.getTableData(false, props.pagination.PageIndex-1, context.pageSize, true)}
+                        onClick={() => props.fetchPage(props.pagination.PageIndex-1, context.pageSize)}
                         disabled={!props.pagination.HasPreviousPage}
                     >
                         <span className={ConfigLocal.MISC.MaterialIcon+' pagination-arrow'} aria-hidden="true">
@@ -105,7 +109,7 @@ const Pagination = (props) => {
                                     if( (props.pagination.PageIndex + 1) === e ) {
                                         return <div key={e}><span className="marked-page">{e}</span></div>
                                     }else if( e === ((props.pagination.PageIndex + 1) + dropdownMargin + (dropdownMargin - props.pagination.PageIndex))) {
-                                        return <div key={e} onClick={() => props.getTableData(false, props.pagination.TotalPages-1, context.pageSize, true)}>{e=== props.pagination.TotalPages? e : 'Last'}</div>
+                                        return <div key={e} onClick={() => props.fetchPage(props.pagination.TotalPages-1, context.pageSize)}>{e=== props.pagination.TotalPages? e : 'Last'}</div>
                                     }else if( e > ((props.pagination.PageIndex + 1) + dropdownMargin + (dropdownMargin - props.pagination.PageIndex))) {
                                         return null
                                     }
@@ -113,7 +117,7 @@ const Pagination = (props) => {
                                     if( (props.pagination.PageIndex + 1) === e ) {
                                         return <div key={e}><span className="marked-page">{e}</span></div>
                                     }else if( e === ((props.pagination.PageIndex + 1) - (dropdownMargin + (((props.pagination.PageIndex + 1) + dropdownMargin) - props.pagination.TotalPages)))) {
-                                        return <div key={e} onClick={() => props.getTableData(false, 0, context.pageSize, true)}>{e === 1 ? e : 'First'}</div>
+                                        return <div key={e} onClick={() => props.fetchPage(0, context.pageSize)}>{e === 1 ? e : 'First'}</div>
                                     }else if( e < ((props.pagination.PageIndex + 1) - (dropdownMargin + (((props.pagination.PageIndex + 1) + dropdownMargin) - props.pagination.TotalPages)))) {
                                         return null
                                     }
@@ -123,20 +127,20 @@ const Pagination = (props) => {
                                     }else if( e < ((props.pagination.PageIndex + 1) - dropdownMargin)) {
                                         return null
                                     }else if( e === ((props.pagination.PageIndex + 1) - dropdownMargin)) {
-                                        return <div key={e} onClick={() => props.getTableData(false, 0, context.pageSize, true)}>{e === 1 ? e : 'First'}</div>
+                                        return <div key={e} onClick={() => props.fetchPage(0, context.pageSize)}>{e === 1 ? e : 'First'}</div>
                                     }else if( e === ((props.pagination.PageIndex + 1) + dropdownMargin)) {
-                                        return <div key={e} onClick={() => props.getTableData(false, props.pagination.TotalPages-1, context.pageSize, true)}>{e=== props.pagination.TotalPages? e : 'Last'}</div>
+                                        return <div key={e} onClick={() => props.fetchPage(props.pagination.TotalPages-1, context.pageSize)}>{e=== props.pagination.TotalPages? e : 'Last'}</div>
                                     }else if( e > ((props.pagination.PageIndex + 1) + dropdownMargin)) {
                                         return null
                                     }
                                 }
-                                return <div key={e} onClick={() => props.getTableData(false, e-1, context.pageSize, true)}>{e}</div>
+                                return <div key={e} onClick={() => props.fetchPage(e-1, context.pageSize)}>{e}</div>
                             })}
                         </div>
                     </div>
 
                     <button className="arrow-active" 
-                        onClick={() => props.getTableData(false, props.pagination.PageIndex+1, context.pageSize, true)}
+                        onClick={() => props.fetchPage(props.pagination.PageIndex+1, context.pageSize)}
                         disabled={!props.pagination.HasNextPage}
                     >
                         <span className={ConfigLocal.MISC.MaterialIcon+' pagination-arrow'} aria-hidden="true">

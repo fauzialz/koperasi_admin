@@ -17,7 +17,7 @@ const ModalDelete = (props) => {
             context.setNotif( res.message, ConfigLocal.NOTIF.Error )
         }
         props.close()
-        props.reload(false,props.pageRows === 1 && props.currentPage!== 0? props.currentPage-1 : props.currentPage)
+        props.reload(props.pageRows === 1 && props.currentPage!== 0? props.currentPage-1 : props.currentPage)
     }
 
     return (

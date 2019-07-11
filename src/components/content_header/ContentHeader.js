@@ -19,7 +19,7 @@ class ContentHeader extends React.Component {
 
     onSubmitSearchingBar = e => {
         e.preventDefault()
-        this.props.getTableData(false,this.props.pagination.PageIndex,this.context.PageSize,true,this.state.searching)
+        this.props.fetchSearch(this.state.searching)
     }
 
     render(){
@@ -40,6 +40,7 @@ class ContentHeader extends React.Component {
                         </div>
                     </div>
 
+                    {/* SEARCHING */}
                     <form className="searchingbar-base" onSubmit={this.onSubmitSearchingBar}>
                          <input value={this.state.searching} onChange={this.searchingbarInputHandler} className="searchingbar-input" placeholder={`Search ${this.props.title}`} />
                          <span className={searchingbar} aria-hidden="true">
@@ -48,7 +49,7 @@ class ContentHeader extends React.Component {
                     </form>
 
                     {/* PAGINATION */}
-                    <Pagination pagination={this.props.pagination} getTableData={this.props.getTableData} />
+                    <Pagination pagination={this.props.pagination} fetchPage={this.props.fetchPage} />
 
                     {/* ADD BUTTON */}
                     { this.props.rowsCount > 0 ? 

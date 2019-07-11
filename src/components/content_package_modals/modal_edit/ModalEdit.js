@@ -18,7 +18,7 @@ const ModalEdit = (props) => {
             context.setNotif( res.message, ConfigLocal.NOTIF.Error )
         }
         props.close()
-        props.reload(false,props.currentPage)
+        props.reload(props.currentPage)
     }
     return (
         <ModalForm
