@@ -234,6 +234,7 @@
 .searchingbar-input:focus {
     background-color: $pure-lighten;
     border: 1px solid transparent;
+    border-radius: 5px 5px 0px 0px;
     box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
 }
 .searchingbar-icon {
@@ -262,3 +263,41 @@
     /* width: 660px; */
 }
 
+.searchingbar-socket {
+    position: relative;
+}
+
+.search-sugest-show, .search-sugest-hide {
+    position: absolute;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: calc(100% - 10px);
+    border-radius: 0px 0px 5px 5px;
+    background-color: $pure-lighten;   
+    box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+    transition: all .3s ease;
+}
+.search-sugest-show {
+    visibility: visible;
+    opacity: 1;
+}
+.search-sugest-hide {
+    visibility: hidden;
+    opacity: 0;
+}
+.local-sugest-list {
+    cursor: pointer;
+    width: 100%;
+    background-color: transparent;
+    font-size: 15px;
+    height: 34px;
+    padding-bottom: 4px;    
+    border: none;
+    border-left: 2px solid transparent;
+    text-align: left;
+    padding-left: 44px;
+}
+.local-sugest-list:hover {
+    border-left: 2px solid $submit;
+    background-color: #00000011;
+}

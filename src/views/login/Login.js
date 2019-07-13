@@ -37,7 +37,6 @@ class Login extends React.Component {
         let res = await HelperHttp.post(ConfigApi.ROUTE.SIGN_IN, this.state.formdata)
         this.context.loadingSwitch()
         if(res.success) {
-            debugger
             HelperCookie.set(ConfigLocal.TOKEN, res.data.Token, res.data.Expires)
             HelperCookie.set(ConfigLocal.USERNAME, res.data.Username,  res.data.Expires)
             HelperCookie.set(ConfigLocal.NAVBAR, true)

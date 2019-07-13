@@ -125,10 +125,29 @@ class ContentBase extends React.Component {
         this.context.loadingMiniSwitch()
     }
 
+    saveSearchLocal = (search) => {
+        try {
+            let temp = []
+            let local = JSON.parse(localStorage.getItem(`search${this.props.config.Name}`))
+            if(local != null && local.length > 0){
+                temp = local
+            }
+            if(temp.indexOf(search) === -1){
+                temp.push(search) 
+            }
+            localStorage.setItem(`search${this.props.config.Name}`, JSON.stringify(temp))
+        } catch (error) {
+            throw error
+        }
+    }
+
     fetchDataSearch = async (search) => {
         this.context.loadingMiniSwitch()
         let res = await this.reqApi(0, 150, search) //todo: 150 is the max row boundery to prevent pagination bugs when search. Must fix it later!
         this.afterFetch(res)
+        if(res.data.length > 0) {
+            this.saveSearchLocal(search)
+        }
         this.context.loadingMiniSwitch()
     }
 

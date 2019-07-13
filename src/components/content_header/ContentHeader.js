@@ -10,16 +10,37 @@ class ContentHeader extends React.Component {
     state = {
         showpages : false,
         dropdownMargin: 5,
-        searching : ''
+        searching : '',
+        searchSugest : false,
+        searchLocalPure : [],
+        searchLocal: []
+    }
+
+    searchOnFocus = () => {
+        this.setState({searchSugest : true})
+        let local = JSON.parse(localStorage.getItem(`search${this.props.title}`))
+        if(local != null && local.length > 0) {
+            this.setState({searchLocalPure: local, searchLocal: local})
+        }
+    }
+    searchOnBlur = () => {
+        this.setState({searchSugest : false})
     }
 
     searchingbarInputHandler = e => {
         this.setState({searching : e.target.value})
+        let search = this.state.searchLocalPure
+        search = search.filter( string => string.includes(e.target.value))
+        this.setState({searchLocal : search})
     }
 
     onSubmitSearchingBar = e => {
         e.preventDefault()
         this.props.fetchSearch(this.state.searching)
+    }
+    onClickSugest = (string) => {
+        this.setState({searching : string})
+        this.props.fetchSearch(string)
     }
 
     render(){
@@ -48,10 +69,25 @@ class ContentHeader extends React.Component {
                         {/* SEARCHING */}
                         {isNaN(this.props.pagination.PageIndex)? null :
                         <form className="searchingbar-base" onSubmit={this.onSubmitSearchingBar}>
-                            <input value={this.state.searching} onChange={this.searchingbarInputHandler} className="searchingbar-input" placeholder={`Search ${this.props.title}`} />
-                            <span className={searchingbar} aria-hidden="true">
-                                search
-                            </span>
+                            <div className="searchingbar-socket">
+                                <input value={this.state.searching} onChange={this.searchingbarInputHandler} className="searchingbar-input" placeholder={`Search ${this.props.title}`} 
+                                    onFocus={this.searchOnFocus}
+                                    onBlur={this.searchOnBlur}
+                                />
+                                <span className={searchingbar} aria-hidden="true">
+                                    search
+                                </span>
+                                <div className={this.state.searchSugest? "search-sugest-show": "search-sugest-hide"}>
+                                    {this.state.searchLocal.map( (e,n) => {
+                                        return (
+                                            <button type="button" className="local-sugest-list" key={n} onClick={() => this.onClickSugest(e)} 
+                                                onFocus={() => this.setState({searchSugest : true})}
+                                                onBlur={() => this.setState({searchSugest : false})}
+                                            >{e}</button>
+                                        )
+                                    })}
+                                </div>
+                            </div>
                         </form>}
                         
                     </div>

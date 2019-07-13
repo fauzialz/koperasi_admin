@@ -5,7 +5,6 @@ import './Pagination.scss'
 import { AppContext } from '../../global';
 
 const Pagination = (props) => {
-    debugger
     const context = useContext(AppContext)
     const inputRef = useRef(null)
     const [dropdown, setDropdown] = useState(false)
