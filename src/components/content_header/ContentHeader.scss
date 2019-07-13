@@ -212,8 +212,10 @@
 
 .searchingbar-base {
     float: left;
-    margin-top: .5px;
+    /* margin-top: .5px; */
+    margin-right: 0px;
     position: relative;
+    width: 400px;
 }
 .searchingbar-input {
     border-radius: 5px;
@@ -252,3 +254,11 @@
 .searchingbar-icon:hover {
     background-color: #00000011;
 }
+
+.util-wrapper {
+    position: absolute;
+    right: 0;
+    transform: translateX(-82px);
+    /* width: 660px; */
+}
+

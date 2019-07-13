@@ -40,16 +40,21 @@ class ContentHeader extends React.Component {
                         </div>
                     </div>
 
-                    {/* SEARCHING */}
-                    <form className="searchingbar-base" onSubmit={this.onSubmitSearchingBar}>
-                         <input value={this.state.searching} onChange={this.searchingbarInputHandler} className="searchingbar-input" placeholder={`Search ${this.props.title}`} />
-                         <span className={searchingbar} aria-hidden="true">
-                            search
-                        </span>
-                    </form>
+                    <div className="util-wrapper" >
 
-                    {/* PAGINATION */}
-                    <Pagination pagination={this.props.pagination} fetchPage={this.props.fetchPage} />
+                        {/* PAGINATION */}
+                        <Pagination pagination={this.props.pagination} fetchPage={this.props.fetchPage} />
+
+                        {/* SEARCHING */}
+                        {isNaN(this.props.pagination.PageIndex)? null :
+                        <form className="searchingbar-base" onSubmit={this.onSubmitSearchingBar}>
+                            <input value={this.state.searching} onChange={this.searchingbarInputHandler} className="searchingbar-input" placeholder={`Search ${this.props.title}`} />
+                            <span className={searchingbar} aria-hidden="true">
+                                search
+                            </span>
+                        </form>}
+                        
+                    </div>
 
                     {/* ADD BUTTON */}
                     { this.props.rowsCount > 0 ? 
