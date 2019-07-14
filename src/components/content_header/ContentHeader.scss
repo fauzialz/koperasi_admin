@@ -269,7 +269,6 @@
 
 .search-sugest-show, .search-sugest-hide {
     position: absolute;
-    padding-top: 5px;
     padding-bottom: 5px;
     width: calc(100% - 10px);
     border-radius: 0px 0px 5px 5px;
@@ -286,18 +285,53 @@
     opacity: 0;
 }
 .local-sugest-list {
-    cursor: pointer;
+    position: relative;
     width: 100%;
+    padding-left: 1px;
+}
+
+.local-sugest-button {
+    cursor: pointer;
+    width: calc(100% - 3px);
     background-color: transparent;
     font-size: 15px;
-    height: 34px;
+    height: 36px;
     padding-bottom: 4px;    
     border: none;
     border-left: 2px solid transparent;
     text-align: left;
     padding-left: 44px;
 }
-.local-sugest-list:hover {
+.local-sugest-icon {
+    position: absolute;
+    top: 0;
+    color: $dark-lighten;
+    font-size: 21px;
+    padding-top: 6px;
+    padding-left: 6px;
+    transform: translate(-40px, 0px);
+}
+.local-sugest-del {
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: $dark-lighten;
+    font-size: 14px;
+    padding-top: 6px;
+    padding-left: 6px;
+    transform: translate(-13px, 5px);
+}
+.local-sugest-del:hover {
+    color: $error;
+}
+.local-sugest-list:hover > .local-sugest-del {
+    visibility: visible;
+    opacity: 1;
+}
+.local-sugest-list:hover > .local-sugest-button {
     border-left: 2px solid $submit;
     background-color: #00000011;
 }
