@@ -146,7 +146,6 @@ class ContentBase extends React.Component {
         let res = await this.reqApi(0, 150, search) //todo: 150 is the max row boundery to prevent pagination bugs when search. Must fix it later!
         this.afterFetch(res)
         if(res.data.length > 0) {
-            debugger
             this.saveSearchLocal(search)
         }
         this.context.loadingMiniSwitch()

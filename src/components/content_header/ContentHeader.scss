@@ -210,6 +210,17 @@
     width: 16.4%;
 }
 
+.util-wrapper {
+    position: absolute;
+    right: 0;
+    transform: translateX(-82px);
+    /* width: 660px; */
+}
+
+
+
+
+
 .searchingbar-base {
     float: left;
     /* margin-top: .5px; */
@@ -256,12 +267,7 @@
     background-color: #00000011;
 }
 
-.util-wrapper {
-    position: absolute;
-    right: 0;
-    transform: translateX(-82px);
-    /* width: 660px; */
-}
+
 
 .searchingbar-socket {
     position: relative;
