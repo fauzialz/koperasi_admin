@@ -93,7 +93,7 @@
 .local-sugest-text {
     transform: translate(0px, 5px);
 }
-.local-sugest-icon {
+.local-sugest-icon, .api-sugest-icon {
     position: absolute;
     top: 0;
     color: $dark-lighten;
@@ -101,6 +101,9 @@
     padding-top: 6px;
     padding-left: 6px;
     transform: translate(-40px, 1px);
+}
+.api-sugest-icon {
+    color: $error;
 }
 .local-sugest-del {
     cursor: pointer;

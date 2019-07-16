@@ -30,7 +30,7 @@ class ContentHeader extends React.Component {
                         <Pagination pagination={this.props.pagination} fetchPage={this.props.fetchPage} />
 
                         {/* SEARCHING */}
-                        <SearchBar pagination={this.props.pagination} title={this.props.title} fetchInit={this.props.fetchInit} fetchSearch={this.props.fetchSearch} />
+                        <SearchBar pagination={this.props.pagination} title={this.props.title} fetchInit={this.props.fetchInit} fetchSearch={this.props.fetchSearch} url={this.props.url}/>
                         
                     </div>
 

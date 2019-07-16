@@ -208,6 +208,7 @@ class ContentBase extends React.Component {
                                 <ContentHeader
                                     title={config.Name}
                                     icon={config.Icon}
+                                    url={config.Url}
                                     rowsCount={tableRows}
                                     columnsCount={tableColumns}
                                     addFunction={this.openAddModalHandler}
