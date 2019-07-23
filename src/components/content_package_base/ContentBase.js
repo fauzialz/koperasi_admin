@@ -99,7 +99,6 @@ class ContentBase extends React.Component {
     }
 
     afterFetch = (res) => {
-        debugger
         try {
             let keys = HelperObject.getObjKeys(res.data[0])
             this.getRowsAndColumns(res.data,res.pagination.TotalCount)

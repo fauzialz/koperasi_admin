@@ -19,12 +19,13 @@ class SearchBar extends React.Component {
         let sugestLocal = JSON.parse(localStorage.getItem(`search${this.props.title}`))
         if(sugestLocal && sugestLocal.length > 0) {
             this.setState({sugestLocalDirect : sugestLocal, sugestLocalModif : sugestLocal})
-        }
-        if(e.target.value.length > 0 && sugestLocal.length > 0) {
             let sugestTemp = JSON.parse(JSON.stringify(sugestLocal))
             sugestTemp = sugestTemp.filter( string => string.includes(e.target.value))
-            this.setState({sugestLocalModif : sugestTemp, showSugest : true})
-        }else this.setState({showSugest : false})
+            this.setState({sugestLocalModif : sugestTemp })
+            if( sugestTemp.length > 0 && e.target.value.length > 0) {
+                this.setState({showSugest : true})
+            }else this.setState({showSugest : false})
+        }
     }
 
     onBlurInput = () => {
