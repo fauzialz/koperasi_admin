@@ -60,7 +60,7 @@ class Modal extends React.Component {
         return (
             <React.Fragment>
                 <div className={!open? "modal-close": extraWidth? "modal-open extra-width-open": "modal-open"} onClick={onBtnR}>
-                    <div className="modal-wrapper">
+                    <div className={!open? "modal-wrapper-close" : "modal-wrapper"}>
                         <MiddleComponent 
                             children={children} onBtnL={onBtnL} 
                             onBtnR={onBtnR} btnL={btnL} btnR={btnR}

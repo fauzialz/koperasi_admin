@@ -1,8 +1,8 @@
 import React from 'react'
-import './Loading.scss'
+import './LoadingBig.scss'
 
-class Loading extends React.Component {
-    /* ACCESS:
+class LoadingBig extends React.Component {
+/* ACCESS:
         { this.state.youerState && <Loading />} <= this is common syntax
         yourState (you can change the name) will provide boolean value.
         Change the state for on/off the loading screen.
@@ -29,4 +29,4 @@ class Loading extends React.Component {
     }
 }
 
-export default Loading
+export default LoadingBig

@@ -1,0 +1,131 @@
+@import '../../styles/palette';
+@import '../../styles/shadows';
+
+.searchbar-base {
+    float: left;
+    /* margin-top: .5px; */
+    margin-right: 0px;
+    position: relative;
+    width: 400px;
+}
+.searchbar-socket {
+    position: relative;
+}
+.searchbar-input, .searchbar-input-showSugest {
+    border-radius: 5px;
+    max-width: 390px;
+    min-width: 0px;
+    height: 40px;
+    margin: 0px;
+    background-color: $pure-chrome;
+    padding-left: 48px;
+    font-size: 15px;
+    border: 1px solid transparent;
+}
+.searchbar-input::placeholder {
+    font-style: normal;
+    font-size: 15px;
+}
+.searchbar-input:focus, .searchbar-input-showSugest, .searchbar-input-showSugest:focus {
+    background-color: $pure-lighten;
+    border: 1px solid transparent;
+    /* border-radius: 5px 5px 0px 0px; */
+    border-radius: 5px;
+    box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+}
+.searchbar-input-showSugest,.searchbar-input-showSugest:focus {
+    border-radius: 5px 5px 0px 0px;
+}
+.searchbar-icon {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    color: $dark;
+    font-size: 23px;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    margin-top: 2px;
+    margin-left: 8px;
+    padding-top: 6px;
+    padding-left: 6px;
+    background-color: transparent;
+}
+.searchbar-icon:hover {
+    background-color: #00000011;
+}
+.search-sugest-show, .search-sugest-hide {
+    position: absolute;
+    padding-bottom: 5px;
+    width: calc(100% - 10px);
+    border-radius: 0px 0px 5px 5px;
+    background-color: $pure-lighten;   
+    box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+    transition: all .3s ease;
+}
+.search-sugest-show {
+    visibility: visible;
+    opacity: 1;
+}
+.search-sugest-hide {
+    visibility: hidden;
+    opacity: 0;
+}
+.local-sugest-list {
+    position: relative;
+    width: calc(100% - 4px);
+    margin-left: 1px;
+}
+.local-sugest-list:first-child {
+    border-top: 1px solid $pure-line;
+}
+
+.local-sugest-tile, .local-sugest-tile-mark {
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 15px;
+    height: 36px;
+    border: none;
+    border-left: 2px solid transparent;
+    text-align: left;
+    padding-left: 44px;
+}
+.local-sugest-text {
+    transform: translate(0px, 5px);
+}
+.local-sugest-icon, .api-sugest-icon {
+    position: absolute;
+    top: 0;
+    color: $dark-lighten;
+    font-size: 21px;
+    padding-top: 6px;
+    padding-left: 6px;
+    transform: translate(-40px, 1px);
+}
+.api-sugest-icon {
+    color: $error;
+}
+.local-sugest-del {
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: $dark-lighten;
+    font-size: 14px;
+    padding-top: 6px;
+    padding-left: 6px;
+    transform: translate(-13px, 5px);
+}
+.local-sugest-del:hover {
+    color: $error;
+}
+.local-sugest-list:hover > .local-sugest-del {
+    visibility: visible;
+    opacity: 1;
+}
+.local-sugest-list:hover > .local-sugest-tile, .local-sugest-tile-mark {
+    border-left: 2px solid $submit;
+    background-color: #00000011;
+}

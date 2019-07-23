@@ -21,141 +21,149 @@ class ContentBase extends React.Component {
             tableLoading : false,
             tableRows : 0,
             tableColumns : 0,
+            thisPageRows : 0,
             openAddModal : false,
             openInfoModal : false,
             openEditModal : false,
             openDeleteModal : false,
             pagination : {},
             paginationArray : [],
-            fetchMessage: ''
+            fetchMessage: '',
+            fetchStatus: 400,
+            pageSize: 12
         }
+    }
+
+    getPageRows = (nowPage, tableRows, pageSize = 10) => {
+        let temp
+        if (tableRows%(pageSize*(nowPage+1)) !== 1) {
+            temp = tableRows - (pageSize*(nowPage))
+        }else temp = pageSize
+        this.setState({ thisPageRows : temp })
     }
 
     getRowsAndColumns = (objList, rowsCount = 0) => {
         if ( !objList.length ) {
             this.setState({tableRows: 0})
-            return;
+            return
         }
         let rows = rowsCount !== 0 ? rowsCount : objList.length
         let columns = Object.keys(objList[0]).length
-        this.setState({
-            tableRows : rows,
-            tableColumns : columns
-        })
+        this.setState({ tableRows : rows,  tableColumns : columns })
     } 
     getPaginationArray = (length) => {
         let arr = []
         for( let i = 0; i < length; i++) {
             arr.push(i+1)
         }
-        this.setState({paginationArray:arr})
+        this.setState({ paginationArray:arr })
     }
 
     onScrollHandler = () => {
         let topState = this.refTable.current.getBoundingClientRect().top
         if (topState < this.refTable.current.offsetTop) {
-            this.setState({showHeader : true})
+            this.setState({ showHeader : true })
         }else{
-            this.setState({showHeader: false})
+            this.setState({ showHeader: false })
         }
     }
 
-    closeModalsHandler = () => {
-        this.setState({
-            openAddModal: false,
-            openInfoModal: false,
-            openEditModal: false,
-            openDeleteModal: false
-        })
-    }
+    closeModalsHandler = () => this.setState({ openAddModal: false, openInfoModal: false, openEditModal: false, openDeleteModal: false })
 
-    openAddModalHandler = () => {
-        this.setState({
-            openAddModal: true
-        })
-    }
+    openAddModalHandler = () => this.setState({ openAddModal: true })
 
-    openInfoModalHandler = (rowData) => {
-        this.setState({
-            openInfoModal: true,
-            rowData: rowData
-        })
-    }
+    openInfoModalHandler = (rowData) => this.setState({ openInfoModal: true, rowData: rowData })
 
-    openEditModalHandler = (id) => {
+    openEditModalHandler = async (id) => {
         this.context.loadingSwitch()
-        HelperHttp.get(`${this.props.config.Url}/${id}`, (res) => {
-            this.context.loadingSwitch()
-            if(res.data.Etag) {
-                this.setState({
-                    openEditModal: true,
-                    rowData: res.data
-                })
-            }else{
-                console.log(res)
-                this.context.setNotif(
-                    res.message, ConfigLocal.NOTIF.Error
-                )
-            }
-        })
-    }
-
-    openDeleteModalHandler = (id) => {
+        let res = await HelperHttp.get(`${this.props.config.Url}/${id}`)
         this.context.loadingSwitch()
-        HelperHttp.get(`${this.props.config.Url}/${id}`, (res) => {
-            this.context.loadingSwitch()
-            if(res.data.Etag) {
-                this.setState({
-                    rowData: res.data,
-                    openDeleteModal: true
-                })
-            }else{
-                console.log(res)
-                this.context.setNotif(
-                    res.message, ConfigLocal.NOTIF.Error
-                )
-            }
-        })
+        if(res.data.Etag) {
+            this.setState({ openEditModal: true, rowData: res.data })
+        } else {
+            console.log(res)
+            this.context.setNotif( res.message, ConfigLocal.NOTIF.Error )
+        }
     }
 
-    getTableData = (loading = true, pageIndex = 0, pageSize = 10) => {
-        if(loading) { this.setState({ tableLoading : true }) }
-        HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}`, (res) => {
+    openDeleteModalHandler = async (id) => {
+        this.context.loadingSwitch()
+        let res = await HelperHttp.get(`${this.props.config.Url}/${id}`)
+        this.context.loadingSwitch()
+        if(res.data.Etag) {
+            this.setState({ rowData: res.data, openDeleteModal: true })
+        }else{
+            console.log(res)
+            this.context.setNotif( res.message, ConfigLocal.NOTIF.Error )
+        }
+    }
+
+    afterFetch = (res) => {
+        try {
             let keys = HelperObject.getObjKeys(res.data[0])
             this.getRowsAndColumns(res.data,res.pagination.TotalCount)
             this.getPaginationArray(res.pagination.TotalPages)
-            this.setState({
-                tableData : res.data,
-                tableLoading : false,
-                tableDataKey : keys,
-                pagination : res.pagination,
-                fetchMessage: res.message
-            })
-        })
+            this.getPageRows(res.pagination.PageIndex, res.pagination.TotalCount, res.pagination.PageSize)
+            this.setState({ tableData : res.data, tableDataKey : keys, pagination : res.pagination, fetchMessage : res.message, fetchStatus : res.status })   
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    reqApi = (pageIndex = 0, pageSize = this.context.pageSize, search = '') => HelperHttp.get(`${this.props.config.Url}?pageIndex=${pageIndex}&pageSize=${pageSize}&search=${search}`)
+
+    fetchDataInit = async () => {
+        this.setState({ tableLoading : true })
+        let res = await this.reqApi()
+        this.afterFetch(res)
+        this.setState({ tableLoading : false })
+    }
+
+    fetchDataPagination = async (pageIndex, pageSize) => {
+        this.context.loadingMiniSwitch()
+        let res = await this.reqApi(pageIndex, pageSize)
+        this.afterFetch(res)
+        this.context.loadingMiniSwitch()
+    }
+
+    fetchDataSearch = async (search) => {
+        this.context.loadingMiniSwitch()
+        let res = await this.reqApi(0, 150, search) //todo: 150 is the max row boundery to prevent pagination bugs when search. Must fix it later!
+        if(res.data.length === 0) {
+            res.message = `No such data for '${search}'. Please try another keyword.`
+            res.status = 700
+        }
+        this.afterFetch(res)
+        if(res.data.length > 0) {
+            this.saveSearchLocal(search)
+        }
+        this.context.loadingMiniSwitch()
+    }
+
+    saveSearchLocal = (search) => {
+        try {
+            let temp = []
+            let local = JSON.parse(localStorage.getItem(`search${this.props.config.Name}`))
+            if(local != null && local.length > 0){
+                temp = local
+            }
+            if(temp.indexOf(search) === -1){
+                temp.push(search) 
+            }
+            localStorage.setItem(`search${this.props.config.Name}`, JSON.stringify(temp))
+        } catch (error) {
+            throw error
+        }
     }
 
     componentDidMount() {
-        this.getTableData()
+        this.context.setPageSize(this.state.pageSize)
+        this.fetchDataInit()
     }
 
     render() {
-        const {
-            showHeader,
-            tableData,
-            tableDataKey,
-            rowData,
-            tableLoading,
-            tableRows,
-            tableColumns,
-            openAddModal,
-            openInfoModal, 
-            openEditModal, 
-            openDeleteModal,
-            fetchMessage
-        } = this.state
-        const {
-            config
-        } = this.props
+        const { showHeader, tableData, tableDataKey, rowData, tableLoading, tableRows, tableColumns, openAddModal, openInfoModal,  openEditModal,  openDeleteModal, fetchMessage, fetchStatus } = this.state
+        const { config } = this.props
         return (
             <React.Fragment>
 
@@ -165,7 +173,7 @@ class ContentBase extends React.Component {
                     open={openAddModal}
                     close={this.closeModalsHandler}
                     names={config.Input}
-                    reload={this.getTableData}
+                    reload={this.fetchDataPagination}
                     currentPage={this.state.pagination.PageIndex}
                 />
                 <ModalInfo
@@ -183,7 +191,7 @@ class ContentBase extends React.Component {
                     close={this.closeModalsHandler}
                     names={config.Input}
                     data={rowData}
-                    reload={this.getTableData}
+                    reload={this.fetchDataPagination}
                     currentPage={this.state.pagination.PageIndex}
                 />
                 <ModalDelete 
@@ -192,8 +200,9 @@ class ContentBase extends React.Component {
                     open={openDeleteModal}
                     close={this.closeModalsHandler}
                     data={rowData}
-                    reload={this.getTableData}
+                    reload={this.fetchDataPagination}
                     currentPage={this.state.pagination.PageIndex}
+                    pageRows={this.state.thisPageRows}
                 />
 
                 <div className="content-base" onScroll={() => this.onScrollHandler()}>
@@ -204,68 +213,32 @@ class ContentBase extends React.Component {
                                 <ContentHeader
                                     title={config.Name}
                                     icon={config.Icon}
+                                    url={config.Url}
                                     rowsCount={tableRows}
                                     columnsCount={tableColumns}
                                     addFunction={this.openAddModalHandler}
                                     showLine={showHeader}
+                                    pagination={this.state.pagination}
+                                    paginationArray={this.state.paginationArray}
+                                    fetchInit={this.fetchDataInit}
+                                    fetchPage={this.fetchDataPagination}
+                                    fetchSearch={this.fetchDataSearch}
+                                    status={this.state.fetchStatus}
                                 />
 
                                 <ContentTable
                                     loading={tableLoading}
-                                    tryAgain={this.getTableData}
+                                    tryAgain={this.fetchDataInit}
                                     addNew={this.openAddModalHandler}
                                     names={config.Input}
                                     data={tableData}
                                     message={fetchMessage}
+                                    status={fetchStatus}
                                     parent={config.Name}
                                     infoButton={this.openInfoModalHandler}
                                     editButton={this.openEditModalHandler}
                                     deleteButton={this.openDeleteModalHandler}
                                 />
-
-                                {this.state.paginationArray.length === 0?null:
-
-                                <div className="pagination-base">
-                                    
-                                    <div className="pagination-button-socket-left">
-                                        <button className={this.state.pagination.HasPreviousPage ?"pagination-button-left": "pagination-button-disable"}
-                                            onClick={() => this.getTableData(false,this.state.pagination.PageIndex-1)}
-                                            disabled={!this.state.pagination.HasPreviousPage} type="button"
-                                        >
-                                            <span className={ConfigLocal.MISC.MaterialIcon+' pagination-icon'} aria-hidden="true">
-                                                keyboard_arrow_left
-                                            </span>
-                                        </button>
-                                    </div>
-
-                                    <div className="pagination-button-number-socket">
-                                    {this.state.paginationArray.map( e => {
-                                        return (
-                                                <button key={e} className={e-1 === this.state.pagination.PageIndex? "pagination-active" :"pagination-button-number"}
-                                                    onClick={
-                                                        e-1 === this.state.pagination.PageIndex? null:
-                                                        () => this.getTableData(false,e-1)
-                                                    }
-                                                    type="button"
-                                                >
-                                                    {e}
-                                                </button>
-                                        )
-                                    })}
-                                    </div>
-                                    
-                                    <div className="pagination-button-socket-left pagination-right">
-                                        <button className={this.state.pagination.HasNextPage ? "pagination-button-left pagination-right": "pagination-button-disable-right"}
-                                            onClick={() => this.getTableData(false,this.state.pagination.PageIndex+1)}
-                                            disabled={!this.state.pagination.HasNextPage}
-                                            type="button"
-                                        >
-                                            <span className={ConfigLocal.MISC.MaterialIcon+' pagination-icon'} aria-hidden="true">
-                                                keyboard_arrow_right
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>}
 
                             </div>
                         </div>

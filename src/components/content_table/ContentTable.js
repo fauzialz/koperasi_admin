@@ -25,9 +25,10 @@ const TryAgain = (props) => {
                 <div className="try-again-msg">
                     {props.message}
                 </div>
+                {props.status === 700 ? null :
                 <div className="try-again-button">
                     <Button onClick={props.onClick} blue label={props.message === 'Network Error'? "Try Again": "Add New"} rounded/>
-                </div>
+                </div>}
             </div>
         </div>
     )
@@ -127,7 +128,7 @@ class ContentTable extends React.Component {
     }
 
     render() {
-        const { names, infoButton, editButton, deleteButton, loading, parent, loadingText, tryAgain, message, addNew } = this.props
+        const { names, infoButton, editButton, deleteButton, loading, parent, loadingText, tryAgain, message, status, addNew } = this.props
         const { sortStatus } = this.state
         const neutral = ConfigLocal.MISC.MaterialIcon + ' sort-arrow-neutral'
         const asc = ConfigLocal.MISC.MaterialIcon + ' sort-arrow-asc'
@@ -137,8 +138,11 @@ class ContentTable extends React.Component {
                 <div className="row-hover-wrapper">
 
                 {
-                    loading ? <Loading loadingText={loadingText} /> :
-                    this.state.data.length === 0 && message ? <TryAgain message={message || ''} onClick={message === 'Network Error'? tryAgain: addNew } />:
+                    loading ? 
+                    
+                    <Loading loadingText={loadingText} /> : this.state.data.length === 0 && message ? 
+                    
+                    <TryAgain message={message || ''} status={status} onClick={message === 'Network Error' || status === 700 ? tryAgain: addNew } />:
 
                     <table className="table-content">
                         <thead>

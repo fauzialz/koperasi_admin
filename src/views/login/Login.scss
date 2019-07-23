@@ -2,7 +2,7 @@
 @import '../../styles/palette';
 
 .Login-base {
-    background-color: $pure;
+    background-color: #FAFAFA;
     width: 100%;
     height: 100%;
     /* overflow: hidden; */
@@ -34,11 +34,17 @@
     padding-top: 20px;
     padding-bottom: 20px;
     transition: all 0.5s ease;
-    @extend %shadow;
+    @extend %better-shadow;
 }
 @media (max-width: 485px) {
     .Login-base {
         background-color: $pure-lighten;
+        display: table;
+    }
+    .Login-center {
+        display: table-cell;
+        vertical-align: middle;
+        transform: translateY(-120px)
     }
     .Login-title {
         margin-top: 50%;
@@ -107,5 +113,11 @@
     margin: {
         top: 0px;
         bottom: 10px;
+    }
+    button::before {
+        transition: transform 0.3s ease-in-out;
+    }
+    button:hover::before {
+        transform: translate3d(50%, -50%, 0) scale3d(40, 40, 40) !important; 
     }
 }

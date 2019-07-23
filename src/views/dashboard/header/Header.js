@@ -28,7 +28,7 @@ class Header extends React.Component {
                 <React.Fragment>
                     <div className="grid-header">
                         {/* DRAWER BUTTON */}
-                        <div className="header-drawer">
+                        <div className="header-drawer" onClick={this.onBurgerButtonClick}>
                             <div className="header-wrapper">
                                 {/* ICON */}
                                 <div className={ context.navbarOpen ?
@@ -36,7 +36,7 @@ class Header extends React.Component {
                                     "drawer"
                                 }>
                                     <div className="drawer-icon">
-                                        <ButtonBurger onClick={this.onBurgerButtonClick} active={context.navbarOpen} />
+                                        <ButtonBurger active={context.navbarOpen} />
                                     </div>
                                 </div>
                             </div>
