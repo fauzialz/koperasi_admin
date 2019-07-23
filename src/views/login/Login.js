@@ -31,29 +31,23 @@ class Login extends React.Component {
         })
     }
 
-    onSubmit = () => {
+    onSubmit = async () => {
         window.event.preventDefault()
         this.context.loadingSwitch()
-        HelperHttp.request(ConfigApi.ROUTE.SIGN_IN, ConfigApi.METHODS.POST, this.state.formdata,
-        (succes, response) => {
-            this.context.loadingSwitch()
-            this.setState({
-                msg: response.Message
-            })
-            if(succes){
-                HelperCookie.set(ConfigLocal.TOKEN, response.Result.Token, response.Result.Expires)
-                HelperCookie.set(ConfigLocal.USERNAME, response.Result.Username,  response.Result.Expires)
-                HelperCookie.set(ConfigLocal.NAVBAR, true)
-                this.props.history.push('/dashboard')
-            }else{
-                this.setState({
-                    errStyle : 'error'
-                })
-                setTimeout(() => {
-                    this.setState({errStyle: "afterError"})
-                }, 1000);
-            }
-        })
+        let res = await HelperHttp.post(ConfigApi.ROUTE.SIGN_IN, this.state.formdata)
+        this.context.loadingSwitch()
+        if(res.success) {
+            HelperCookie.set(ConfigLocal.TOKEN, res.data.Token, res.data.Expires)
+            HelperCookie.set(ConfigLocal.USERNAME, res.data.Username,  res.data.Expires)
+            HelperCookie.set(ConfigLocal.NAVBAR, true)
+            this.props.history.push('/dashboard')
+        } else {
+            console.log(res)
+            this.setState({ msg: res.message, errStyle : 'error' })
+            setTimeout(() => {
+                this.setState({errStyle: "afterError"})
+            }, 1000);
+        }
     }
 
     componentDidMount(){

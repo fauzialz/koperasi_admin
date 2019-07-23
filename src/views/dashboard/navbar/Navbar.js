@@ -193,51 +193,40 @@ class Navbar extends React.Component {
     }
 
     /*  Fetch navList data from API and update it in localStorage. */
-    getNavigationList = () => {
+    getNavigationList = async () => {
         this.setState({navbarLoading:true})
-        HelperHttp.request(ConfigApi.ROUTE.GET_MENU, ConfigApi.METHODS.GET, {},
-            (success, response) => {
-                this.setState({navbarLoading:false})
-                if(success){
-                    let list = response.Result
-                    if(this.state.editSession) {
-                        let listEdited = JSON.parse(JSON.stringify(list)) //This method use to deep copy list of object.
-                        listEdited = this.clickedAllHandler(listEdited)
-                        listEdited = this.activeTileHandler(this.state.historyId, listEdited, true)
-                        list = JSON.parse(JSON.stringify(listEdited))
-                        this.setState({
-                            navList : listEdited
-                        })
-                    }else{
-                        this.setState({
-                            navList : list
-                        })
-                    }
-                    list = HelperObject.pushObjBulk(list,'Active',false)
-                    list = HelperObject.pushObjBulk(list,'Clicked',false)
-                    localStorage.setItem(ConfigLocal.LOCSTORE.Navbar,JSON.stringify(list))
-                    HelperCookie.set(ConfigLocal.NAVBAR, true)
-                }
+        let res = await HelperHttp.get(ConfigApi.ROUTE.GET_MENU)
+        this.setState({navbarLoading:false})
+        if(res.success) {
+            let list = res.data
+            if(this.state.editSession) {
+                let listEdited = JSON.parse(JSON.stringify(list)) // use this method to deep copy.
+                listEdited = this.clickedAllHandler(listEdited)
+                listEdited = this.activeTileHandler(this.state.historyId, listEdited, true)
+                list = JSON.parse(JSON.stringify(listEdited))
+                this.setState({ navList : listEdited })
+            } else {
+                this.setState({ navList : list })
             }
-        )
+            list = HelperObject.pushObjBulk(list,'Active',false)
+            list = HelperObject.pushObjBulk(list,'Clicked',false)
+            localStorage.setItem(ConfigLocal.LOCSTORE.Navbar,JSON.stringify(list))
+            HelperCookie.set(ConfigLocal.NAVBAR, true)
+        } else {
+            console.log(res)
+        }
     }
 
     /*  Open modal for edit tile. Fetch navObj data
         from id to get eTag, then open modal. */
-    openTileEdit = (id) => {
+    openTileEdit = async (id) => {
         this.context.loadingSwitch()
         let route = ConfigApi.ROUTE.MENU + '/' +id
-        HelperHttp.request(route, ConfigApi.METHODS.GET, {}, 
-            (success, response) => {
-                this.context.loadingSwitch()
-                if(success) {
-                    this.setState({
-                        navObj: response.Result,
-                        openEditModal: true
-                    })
-                }
-            }
-        )
+        let res = await HelperHttp.get(route)
+        this.context.loadingSwitch()
+        if(res.success) {
+            this.setState({ navObj: res.data, openEditModal: true })
+        }
     }
 
     openAddModal = () => {
