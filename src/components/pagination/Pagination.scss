@@ -9,6 +9,15 @@ $pageSize : 55px;
     transform: translateX(-82px);
 }
 
+.pagenav-skeleton {
+    float: right;
+    height: 40px;
+    border-radius: 5px;
+    width: 133px;
+    margin-right: 0px;
+    background-color: $pure-chrome; 
+    font-size: 12px;
+}
 .pagenav-base {
     float: right;
 }
@@ -23,12 +32,21 @@ $pageSize : 55px;
     padding-left: 24px;
     padding-top: 11px;
     margin-right: 13px;
-    transition: all .5s ease;
+    transition: background-color .5s ease;
 }
 .pagenav-on-none:hover {
     background-color: $pure-chrome;
 }
 
+.show-row-skeleton {
+    float: right;
+    width: 100px;
+    margin-left: 1px;
+    margin-right: 11.5px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: $pure;
+}
 .show-row-base {
     float: right;
     margin-top: 3px;

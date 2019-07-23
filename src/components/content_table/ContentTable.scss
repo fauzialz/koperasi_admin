@@ -109,12 +109,12 @@ $padding : 10px 16px;
     height: 8px;
     border-radius: 20px;
     width: 200px;
-    background-color: $pure;
+    background-color: $submit-lightest;
 }
 .loading-core {
     height: 20px;
     width: 100px;
-    background-color: $pure-line;
+    background-color: $submit;
     animation: moving .9s ease infinite;
 }
 @keyframes moving {

@@ -47,7 +47,8 @@ class ContentHeader extends React.Component {
                                     </span>
                                 </React.Fragment>
                             } blue depressed /> 
-                        </div>: null
+                        </div>:
+                        <div className="content-add-skeleton"></div>
                     }
                 </div>
 

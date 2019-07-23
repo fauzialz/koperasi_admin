@@ -114,7 +114,7 @@ class SearchBar extends React.Component {
         const sugestLocalDel = ConfigLocal.MISC.MaterialIcon + ' local-sugest-del'
         return (
             <React.Fragment>
-                {isNaN(this.props.pagination.PageIndex)? null : 
+                {/* isNaN(this.props.pagination.PageIndex)? null : */ 
                 <form className="searchbar-base" onSubmit={this.onSubmitForm}>
                     <div className="searchbar-socket">
                         <input value={this.state.query} onChange={this.onChangeInput} 

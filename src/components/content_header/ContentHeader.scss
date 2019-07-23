@@ -146,15 +146,27 @@
     font-weight: 400;
     float: left;
 }
+
+.content-add-skeleton {
+    height: 38px;
+    width: 68px;
+    border-radius: 5px;
+    background-color: transparent;
+    position: absolute;
+    border: 1px solid transparent;
+    right: 0;
+}
 .content-add-button {
+    border-radius: 5px;
     grid-column: chh3 /chh4;
-    padding-top: 4px;
+    padding-top: 0px;
     position: absolute;
     right: 0;
+    transition: background-color .5s ease;
     button {
         min-width: 0px !important;
         border: 1px solid $pure-line;
-        height: 33px !important;
+        height: 40px !important;
     }
 }
 .add-button-icon {

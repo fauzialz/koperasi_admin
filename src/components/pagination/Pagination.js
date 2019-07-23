@@ -62,7 +62,8 @@ const Pagination = (props) => {
             {/* <div className="pagination-wrapper"> */}
 
                 {/* PAGE NAVIGATOR */}
-                {isNaN(props.pagination.PageIndex)? null :  props.pagination.TotalPages === 1? 
+                {isNaN(props.pagination.PageIndex)? 
+                <div className="pagenav-skeleton"></div> :  props.pagination.TotalPages === 1? 
                 <div className="pagenav-on-none">Singular Page</div>:
                 <div className="pagenav-base">
                     <button className="arrow-active"
@@ -133,7 +134,8 @@ const Pagination = (props) => {
                 </div >}
                 
                 {/* PAGE SIZE CHANGER */}
-                {!props.pagination.TotalPages? null :
+                {!props.pagination.TotalPages? 
+                <div className="show-row-skeleton"></div> :
                 <div className="show-row-base"
                     onMouseOver={() => setHover(true)}
                     onMouseLeave={() => setHover(false)}

@@ -29,6 +29,7 @@ class ContentBase extends React.Component {
             pagination : {},
             paginationArray : [],
             fetchMessage: '',
+            fetchStatus: 400,
             pageSize: 12
         }
     }
@@ -98,12 +99,13 @@ class ContentBase extends React.Component {
     }
 
     afterFetch = (res) => {
+        debugger
         try {
             let keys = HelperObject.getObjKeys(res.data[0])
             this.getRowsAndColumns(res.data,res.pagination.TotalCount)
             this.getPaginationArray(res.pagination.TotalPages)
             this.getPageRows(res.pagination.PageIndex, res.pagination.TotalCount, res.pagination.PageSize)
-            this.setState({ tableData : res.data, tableDataKey : keys, pagination : res.pagination, fetchMessage : res.message })   
+            this.setState({ tableData : res.data, tableDataKey : keys, pagination : res.pagination, fetchMessage : res.message, fetchStatus : res.status })   
         } catch (err) {
             console.log(err)
         }
@@ -125,6 +127,20 @@ class ContentBase extends React.Component {
         this.context.loadingMiniSwitch()
     }
 
+    fetchDataSearch = async (search) => {
+        this.context.loadingMiniSwitch()
+        let res = await this.reqApi(0, 150, search) //todo: 150 is the max row boundery to prevent pagination bugs when search. Must fix it later!
+        if(res.data.length === 0) {
+            res.message = `No such data for '${search}'. Please try another keyword.`
+            res.status = 700
+        }
+        this.afterFetch(res)
+        if(res.data.length > 0) {
+            this.saveSearchLocal(search)
+        }
+        this.context.loadingMiniSwitch()
+    }
+
     saveSearchLocal = (search) => {
         try {
             let temp = []
@@ -141,23 +157,13 @@ class ContentBase extends React.Component {
         }
     }
 
-    fetchDataSearch = async (search) => {
-        this.context.loadingMiniSwitch()
-        let res = await this.reqApi(0, 150, search) //todo: 150 is the max row boundery to prevent pagination bugs when search. Must fix it later!
-        this.afterFetch(res)
-        if(res.data.length > 0) {
-            this.saveSearchLocal(search)
-        }
-        this.context.loadingMiniSwitch()
-    }
-
     componentDidMount() {
         this.context.setPageSize(this.state.pageSize)
         this.fetchDataInit()
     }
 
     render() {
-        const { showHeader, tableData, tableDataKey, rowData, tableLoading, tableRows, tableColumns, openAddModal, openInfoModal,  openEditModal,  openDeleteModal, fetchMessage } = this.state
+        const { showHeader, tableData, tableDataKey, rowData, tableLoading, tableRows, tableColumns, openAddModal, openInfoModal,  openEditModal,  openDeleteModal, fetchMessage, fetchStatus } = this.state
         const { config } = this.props
         return (
             <React.Fragment>
@@ -218,6 +224,7 @@ class ContentBase extends React.Component {
                                     fetchInit={this.fetchDataInit}
                                     fetchPage={this.fetchDataPagination}
                                     fetchSearch={this.fetchDataSearch}
+                                    status={this.state.fetchStatus}
                                 />
 
                                 <ContentTable
@@ -227,6 +234,7 @@ class ContentBase extends React.Component {
                                     names={config.Input}
                                     data={tableData}
                                     message={fetchMessage}
+                                    status={fetchStatus}
                                     parent={config.Name}
                                     infoButton={this.openInfoModalHandler}
                                     editButton={this.openEditModalHandler}
